@@ -35,12 +35,12 @@ public class SwaggerConfig {
         ApiInfo apiInfo = new ApiInfo(
                 "AcademiaWebApi",
                 "Web api para ajudar academias no gerenciamento de treinos de alunos.",
-                "1.0",
-                "Terms of Service",
+                "0.01",
+                "",
                 new Contact("PI_3S", "",
                         "sigma.2018@outlook.com"),
-                "Apache License Version 2.0",
-                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
+                "",
+                "", new ArrayList<VendorExtension>()
         );
 
         return apiInfo;
