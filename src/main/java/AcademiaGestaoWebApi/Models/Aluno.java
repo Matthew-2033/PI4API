@@ -11,11 +11,11 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  */
 public class Aluno {
 
-    private int iD;
+    private int id;
 
     private String nome;
 
-    private Calendar dataNascimento;
+    private String dataNascimento;
 
     private SexoEnum sexo;
 
@@ -27,12 +27,12 @@ public class Aluno {
 
     private List<Avaliacao> historicoDeAvaliacao;
 
-    public int getID() {
-        return this.iD;
+    public int getId() {
+        return this.id;
     }
 
-    public void setID(int iD) {
-        this.iD = iD;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -43,11 +43,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Calendar getDataNascimento() {
+    public String getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
