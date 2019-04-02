@@ -1,15 +1,18 @@
 package AcademiaGestaoWebApi.Repository;
 
 import AcademiaGestaoWebApi.Config.ConnectionConfig;
-import AcademiaGestaoWebApi.Enums.SexoEnum;
 import AcademiaGestaoWebApi.Models.Aluno;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import DataLib.AutoMapper.*;
 
 /**
  *
@@ -24,47 +27,31 @@ public class AlunoRepository  {
         
     }
     
-    public List<Aluno> select() {
+    public List<Aluno> select() throws InstantiationException, IllegalAccessException, NoSuchFieldException,
+            SecurityException, IllegalArgumentException {
         
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        CallableStatement stmt = null;
+        ResultSet data = null;
         
         List<Aluno> alunos = new ArrayList<>();
         
         try{
             
-            String query = "SELECT "
-                            + "avaliado_id AS ID,"
-                            + "nome AS NOME,"
-                            + "data_nascimento AS DATA_NASC,"
-                            + "sexo AS SEXO,"
-                            + "email AS EMAIL,"
-                            + "CPF AS CPF,"
-                            + "ativo AS ATIVO "
-                        + "FROM Avaliado";
+            String query = "{CALL SP_S_Avaliado(?)}";
             
-            stmt = con.prepareStatement(query);
-            rs = stmt.executeQuery();
+            stmt = con.prepareCall(query);
             
-            while (rs.next()){
-                
-                Aluno aluno = new Aluno();
-                
-				aluno.setId(rs.getInt("ID"));
-                aluno.setNome(rs.getString("NOME"));                
-                aluno.setDataNascimento(rs.getString("DATA_NASC"));
-                aluno.setSexo(SexoEnum.MASCULINO);
-                aluno.setEmail(rs.getString("EMAIL"));
-                aluno.setCpf(rs.getString("CPF"));
-                aluno.setAtivo(rs.getBoolean("ATIVO"));                
-                
-                alunos.add(aluno);
-            }   
+            stmt.setNull(1, Types.INTEGER, null); 
+            data = stmt.executeQuery();
+            
+            AutoMapper<Aluno> autoMapper = new AutoMapper<Aluno>(new Aluno());
+
+            alunos = autoMapper.map(data); 
                   
         }catch(SQLException error){
             error.printStackTrace();
         } finally{
-            ConnectionConfig.closeConnection(con, stmt, rs);
+            ConnectionConfig.closeConnection(con, stmt, data);
         }
         
         return alunos;
@@ -90,7 +77,7 @@ public class AlunoRepository  {
             
             //Params
             stmt.setString(1, aluno.getNome());
-            stmt.setString(2, aluno.getDataNascimento());            
+            stmt.setDate(2, Date.valueOf(aluno.getDataNascimento()));            
             stmt.setInt(3, aluno.getSexo().getInt());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());

@@ -1,6 +1,6 @@
 package AcademiaGestaoWebApi.Models;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import AcademiaGestaoWebApi.Enums.SexoEnum;
@@ -9,13 +9,13 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  *
  * @author Gabriel
  */
-public class Aluno {
+public class Aluno{
 
     private int id;
 
     private String nome;
 
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     private SexoEnum sexo;
 
@@ -43,11 +43,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -55,8 +55,22 @@ public class Aluno {
         return this.sexo;
     }
 
-    public void setSexo(SexoEnum sexo) {
+    public void setSexoEnum(SexoEnum sexo) {
         this.sexo = sexo;
+    }
+
+    public void setSexoEnum(int sexo) {
+        switch (sexo) {
+            case 1:
+                this.sexo = SexoEnum.MASCULINO;
+                break;        
+            case 2:
+                this.sexo = SexoEnum.FEMININO;
+                break;
+            case 3:
+                this.sexo = SexoEnum.NAODECLARADO;
+                break;
+        }
     }
 
     public String getEmail() {
