@@ -19,17 +19,24 @@ import DataLib.AutoMapper.*;
  * @author Matheus
  */
 public class AlunoRepository  {
-    
-    private Connection con = null;
 
-    public AlunoRepository() {
-        con = ConnectionConfig.getConnection();
+    PreparedStatement stmt = null;
         
+    public List<Aluno> select() throws Exception {
+        Connection connection = ConnectionConfig.getConnection();
+        try {
+            List<Aluno> alunos = select(connection);
+            ConnectionConfig.closeConnection(connection, stmt);
+            return alunos;
+        } catch (Exception ex) {
+            ConnectionConfig.closeConnection(connection, stmt);
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
     }
     
-    public List<Aluno> select() throws InstantiationException, IllegalAccessException, NoSuchFieldException,
-            SecurityException, IllegalArgumentException {
-        
+    public List<Aluno> select(Connection connection) throws Exception {        
+
         CallableStatement stmt = null;
         ResultSet data = null;
         
@@ -39,7 +46,7 @@ public class AlunoRepository  {
             
             String query = "{CALL SP_S_Avaliado(?)}";
             
-            stmt = con.prepareCall(query);
+            stmt = connection.prepareCall(query);
             
             stmt.setNull(1, Types.INTEGER, null); 
             data = stmt.executeQuery();
@@ -47,21 +54,31 @@ public class AlunoRepository  {
             AutoMapper<Aluno> autoMapper = new AutoMapper<Aluno>(new Aluno());
 
             alunos = autoMapper.map(data); 
-                  
-        }catch(SQLException error){
-            error.printStackTrace();
-        } finally{
-            ConnectionConfig.closeConnection(con, stmt, data);
+         
+            return alunos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }                 
+    }
+
+    public boolean update(Aluno aluno) throws Exception {
+        Connection connection = ConnectionConfig.getConnection();
+
+        try {
+            boolean update = update(aluno, connection);
+            ConnectionConfig.closeConnection(connection, stmt);
+            return update;
+        } catch (Exception ex) {
+
+            connection.rollback();
+            ConnectionConfig.closeConnection(connection, stmt);
+            ex.printStackTrace();            
+            throw new Exception(ex);
         }
-        
-        return alunos;
     }
      
-    public boolean update(Aluno aluno){
-
-        con = ConnectionConfig.getConnection();
-        PreparedStatement stmt = null;
-        
+    public boolean update(Aluno aluno, Connection connection) throws Exception {        
         try{
 
             String query = "UPDATE Avaliado SET "
@@ -71,9 +88,9 @@ public class AlunoRepository  {
                         + "email = ?,"
                         + "CPF = ?,"
                         + "ativo = ? " 
-                    + " WHERE avaliado_id = ?";
+                    + " WHERE avaliado_id = ?;";
             
-            stmt = con.prepareStatement(query);
+            stmt = connection.prepareStatement(query);
             
             //Params
             stmt.setString(1, aluno.getNome());
@@ -81,22 +98,39 @@ public class AlunoRepository  {
             stmt.setInt(3, aluno.getSexo().getInt());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
-            stmt.setInt(6, aluno.getId());
-            stmt.setBoolean(7, aluno.getAtivo());
+            stmt.setBoolean(6, aluno.getAtivo());
+            stmt.setInt(7, aluno.getId());
 
             stmt.executeUpdate();         
-            return true;
 
+            return true;
         }catch(Exception error){
             error.printStackTrace();
-            return false;
-
-        }finally{
-            ConnectionConfig.closeConnection(con, stmt);
+            throw new Exception(error);
         }
     } 
+
+    public boolean delete(Aluno aluno) throws Exception {
+        Connection connection = ConnectionConfig.getConnection();
+        try {
+            Boolean delete = delete(aluno, connection);
+            ConnectionConfig.closeConnection(connection, stmt);
+            return delete;
+        } catch (Exception ex) {
+            connection.rollback();
+            ConnectionConfig.closeConnection(connection, stmt);
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
+    }
     
-    public boolean delete(Aluno aluno){
+    public boolean delete(Aluno aluno, Connection connection) throws Exception {
+        
+        boolean temConexao = true;
+        if(connection == null){
+            connection = ConnectionConfig.getConnection();
+            temConexao = false;
+        }
         
         PreparedStatement stmt = null;
         
@@ -104,17 +138,20 @@ public class AlunoRepository  {
             
             String query = "DELETE FROM Avaliado WHERE avaliado_id = ?"; 
             
-            stmt = con.prepareStatement(query);
+            stmt = connection.prepareStatement(query);
             stmt.setInt(1, aluno.getId());
             stmt.execute();
             
             return true;
 
         }catch(SQLException error){
+            if(!temConexao){
+                connection.rollback();
+                ConnectionConfig.closeConnection(connection, stmt);
+            }
+
             error.printStackTrace();
-            return false;
-        }finally{
-            ConnectionConfig.closeConnection(con, stmt);
+            throw new Exception(error);
         }
     }
 }
