@@ -25,7 +25,6 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("AcademiaGestaoWebApi"))
-                .paths(regex("/api.*"))
                 .build()
                 .apiInfo(metaInfo());
     }
