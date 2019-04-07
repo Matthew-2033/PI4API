@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConnectionConfig {
 
-    public static String driver;
-
     private static String url;
 
     private static String username;
@@ -26,11 +24,10 @@ public class ConnectionConfig {
 
     public static Connection getConnection() {
         try {
-            Class.forName(driver);
             return DriverManager.getConnection(url, username, password);
 
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new RuntimeException("Erro ao estabeler conexão", ex);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao estabeler conexão: " + ex);
         }
     }
 
@@ -41,7 +38,7 @@ public class ConnectionConfig {
                 con.close();
 
             } catch (SQLException ex) {
-                System.err.println("Erro ao fechar conexão" + ex);
+                System.err.println("Erro ao fechar conexão: " + ex);
             }
         }
     }
@@ -56,7 +53,7 @@ public class ConnectionConfig {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro ao fechar conexão" + ex);
+            System.err.println("Erro ao fechar conexão: " + ex);
         }
     }
 
@@ -69,13 +66,8 @@ public class ConnectionConfig {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro ao fechar conexão" + ex);
+            System.err.println("Erro ao fechar conexão: " + ex);
         }
-    }
-
-    @Value("${app.driver}")
-    public void setDriver(String driver) {
-        this.driver = driver;
     }
 
     @Value("${spring.datasource.url}")
