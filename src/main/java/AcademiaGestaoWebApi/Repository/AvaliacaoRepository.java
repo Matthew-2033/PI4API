@@ -10,10 +10,7 @@ import java.util.List;
 import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Avaliacao;
 
-/**
- * @author Matheus
- */
-public class AvaliacaoRepository {
+public class AvaliacaoRepository extends Repository {
 
     private Connection con = null;
 
@@ -21,7 +18,7 @@ public class AvaliacaoRepository {
         con = ConnectionConfig.getConnection();
     }
 
-    public List<Avaliacao> select(int avaliadoId){
+    public List<Avaliacao> select(int avaliadoId, int a){
         
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -162,5 +159,26 @@ public class AvaliacaoRepository {
 
         
     }
+
+    @Override
+    public List select(int id, Connection connection) throws Exception {
+        return null;
+    }
+
+    @Override
+    public int insert(Object object, Connection connection) throws Exception {
+        return 0;
+    }
+
+    @Override
+    public boolean update(Object object, Connection connection) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id, Connection connection) throws Exception {
+        return false;
+    }
+
 
 }

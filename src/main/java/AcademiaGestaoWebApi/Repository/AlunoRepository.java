@@ -15,28 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import DataLib.AutoMapper.*;
 
-/**
- *
- * @author Matheus
- */
-public class AlunoRepository  {
+public class AlunoRepository extends Repository<Aluno> {
 
-    PreparedStatement stmt = null;
-        
-    public List<Aluno> select() throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
-        try {
-            List<Aluno> alunos = select(connection);
-            ConnectionConfig.closeConnection(connection, stmt);
-            return alunos;
-        } catch (Exception ex) {
-            ConnectionConfig.closeConnection(connection, stmt);
-            ex.printStackTrace();
-            throw new Exception(ex);
-        }
-    }
-    
-    public List<Aluno> select(Connection connection) throws Exception {        
+    @Override
+    public List<Aluno> select(int id, Connection connection) throws Exception {
 
         CallableStatement stmt = null;
         ResultSet data = null;
@@ -49,7 +31,15 @@ public class AlunoRepository  {
             
             stmt = connection.prepareCall(query);
             
-            stmt.setNull(1, Types.INTEGER, null); 
+            switch (id) {
+                case 0:
+                    stmt.setNull(1, Types.INTEGER, null); 
+                    break;    
+                default:
+                    stmt.setInt(1, id);
+                    break;
+            }
+           
             data = stmt.executeQuery();
             
             AutoMapper<Aluno> autoMapper = new AutoMapper<Aluno>(new Aluno());
@@ -63,24 +53,7 @@ public class AlunoRepository  {
         }                 
     }
 
-    public int insert(Aluno aluno) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
-        connection.setAutoCommit(false);
-
-        try {
-            int idNovoAluno = insert(aluno, connection);
-            connection.commit();
-            ConnectionConfig.closeConnection(connection, stmt);
-            return idNovoAluno;
-        } catch (Exception ex) {
-
-            connection.rollback();
-            ConnectionConfig.closeConnection(connection, stmt);
-            ex.printStackTrace();            
-            throw new Exception(ex);
-        }
-    }
-
+    @Override
     public int insert(Aluno aluno, Connection connection) throws Exception {        
         try{
 
@@ -121,25 +94,8 @@ public class AlunoRepository  {
             throw new Exception(error);
         }
     } 
-
-    public boolean update(Aluno aluno) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
-        connection.setAutoCommit(false);
-
-        try {
-            boolean update = update(aluno, connection);
-            connection.commit();
-            ConnectionConfig.closeConnection(connection, stmt);
-            return update;
-        } catch (Exception ex) {
-
-            connection.rollback();
-            ConnectionConfig.closeConnection(connection, stmt);
-            ex.printStackTrace();            
-            throw new Exception(ex);
-        }
-    }
      
+    @Override
     public boolean update(Aluno aluno, Connection connection) throws Exception {        
         try{
 
@@ -161,6 +117,7 @@ public class AlunoRepository  {
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());
+            stmt.setInt(7, aluno.getId());
 
             stmt.executeUpdate();   
 
@@ -170,23 +127,8 @@ public class AlunoRepository  {
             throw new Exception(error);
         }
     } 
-
-    public boolean delete(int idAluno) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
-        connection.setAutoCommit(false);
-        try {
-            Boolean delete = delete(idAluno, connection);
-            connection.commit();
-            ConnectionConfig.closeConnection(connection, stmt);
-            return delete;
-        } catch (Exception ex) {
-            connection.rollback();
-            ConnectionConfig.closeConnection(connection, stmt);
-            ex.printStackTrace();
-            throw new Exception(ex);
-        }
-    }
     
+    @Override
     public boolean delete(int idAluno, Connection connection) throws Exception {
         
         boolean temConexao = true;
