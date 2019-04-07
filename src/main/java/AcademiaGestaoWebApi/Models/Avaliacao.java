@@ -1,5 +1,7 @@
 package AcademiaGestaoWebApi.Models;
 
+import java.util.List;
+
 /**
  *
  * @author Gabriel
@@ -11,6 +13,20 @@ public class Avaliacao {
     private double massa;
     
     private double estatura;
+
+    private double imc;
+
+    private double pccg;
+
+    private double pesoAtual;
+
+    private double pesoIdeal;
+    
+    private double pesoEmExcesso;
+    
+    private double massaMagra;
+    
+    private double massaDeGordura;
 
     private double peitoral;
 
@@ -24,7 +40,7 @@ public class Avaliacao {
 
     private double supraIliaca;
 
-    private double abdominal;
+    private double abdominalDobra;
 
     private double coxa;
 
@@ -40,6 +56,8 @@ public class Avaliacao {
 
     private double antebracoEsquerdo;
 
+    private double abdominalPerimetro;
+
     private double cintura;
 
     private double quadril;
@@ -52,19 +70,7 @@ public class Avaliacao {
 
     private double pernaEsquerda;
 
-    private double imc;
-
-    private double pccg;
-
-    private double pesoAtual;
-
-    private double massaDeGordura;
-
-    private double massaMagra;
-
-    private double pesoIdeal;
-
-    private double QuantidadeDePesoEmExcesso;
+    private List<IndiceDeGordura> indiceDeGordura;
 
     public int getID() {
         return this.iD;
@@ -88,6 +94,62 @@ public class Avaliacao {
 
     public void setEstatura(double estatura) {
         this.estatura = estatura;
+    }
+
+    public double getImc() {
+        return this.imc;
+    }
+
+    public void setImc(double imc) {
+        this.imc = imc;
+    }
+
+    public double getPccg() {
+        return this.pccg;
+    }
+
+    public void setPccg(double pccg) {
+        this.pccg = pccg;
+    }
+
+    public double getPesoAtual() {
+        return this.pesoAtual;
+    }
+
+    public void setPesoAtual(double pesoAtual) {
+        this.pesoAtual = pesoAtual;
+    }
+
+    public double getPesoIdeal() {
+        return this.pesoIdeal;
+    }
+
+    public void setPesoIdeal(double pesoIdeal) {
+        this.pesoIdeal = pesoIdeal;
+    }
+
+    public double getPesoEmExcesso() {
+        return this.pesoEmExcesso;
+    }
+
+    public void setPesoEmExcesso(double pesoEmExcesso) {
+        this.pesoEmExcesso = pesoEmExcesso;
+    }
+
+    public double getMassaMagra() {
+        return this.massaMagra;
+    }
+
+    public void setMassaMagra(double massaMagra) {
+        this.massaMagra = massaMagra;
+    }
+
+    public double getMassaDeGordura() {
+        return this.massaDeGordura;
+    }
+
+    public void setMassaDeGordura(double massaDeGordura) {
+        this.massaDeGordura = massaDeGordura;
     }
 
     public double getPeitoral() {
@@ -138,12 +200,12 @@ public class Avaliacao {
         this.supraIliaca = supraIliaca;
     }
 
-    public double getAbdominal() {
-        return this.abdominal;
+    public double getAbdominalDobra() {
+        return this.abdominalDobra;
     }
 
-    public void setAbdominal(double abdominal) {
-        this.abdominal = abdominal;
+    public void setAbdominalDobra(double abdominalDobra) {
+        this.abdominalDobra = abdominalDobra;
     }
 
     public double getCoxa() {
@@ -202,6 +264,14 @@ public class Avaliacao {
         this.antebracoEsquerdo = antebracoEsquerdo;
     }
 
+    public double getAbdominalPerimetro() {
+        return this.abdominalPerimetro;
+    }
+
+    public void setAbdominalPerimetro(double abdominalPerimetro) {
+        this.abdominalPerimetro = abdominalPerimetro;
+    }
+
     public double getCintura() {
         return this.cintura;
     }
@@ -245,64 +315,16 @@ public class Avaliacao {
     public double getPernaEsquerda() {
         return this.pernaEsquerda;
     }
-    
+
     public void setPernaEsquerda(double pernaEsquerda) {
         this.pernaEsquerda = pernaEsquerda;
     }
 
-    public double getImc() {
-        return this.imc;
+    public List<IndiceDeGordura> getIndiceDeGordura() {
+        return this.indiceDeGordura;
     }
 
-    public void setImc(double imc) {
-        this.imc = imc;
-    }
-
-    public double getPccg() {
-        return this.pccg;
-    }
-
-    public void setPccg(double pccg) {
-        this.pccg = pccg;
-    }
-
-    public double getPesoAtual() {
-        return this.pesoAtual;
-    }
-
-    public void setPesoAtual(double pesoAtual) {
-        this.pesoAtual = pesoAtual;
-    }
-
-    public double getMassaDeGordura() {
-        return this.massaDeGordura;
-    }
-
-    public void setMassaDeGordura(double massaDeGordura) {
-        this.massaDeGordura = massaDeGordura;
-    }
-
-    public double getMassaMagra() {
-        return this.massaMagra;
-    }
-
-    public void setMassaMagra(double massaMagra) {
-        this.massaMagra = massaMagra;
-    }
-
-    public double getPesoIdeal() {
-        return this.pesoIdeal;
-    }
-
-    public void setPesoIdeal(double pesoIdeal) {
-        this.pesoIdeal = pesoIdeal;
-    }
-
-    public double getQuantidadeDePesoEmExcesso() {
-        return this.QuantidadeDePesoEmExcesso;
-    }
-
-    public void setQuantidadeDePesoEmExcesso(double QuantidadeDePesoEmExcesso) {
-        this.QuantidadeDePesoEmExcesso = QuantidadeDePesoEmExcesso;
+    public void setIndiceDeGordura(List<IndiceDeGordura> indiceDeGordura) {
+        this.indiceDeGordura = indiceDeGordura;
     }
 }

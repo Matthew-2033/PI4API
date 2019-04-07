@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import AcademiaGestaoWebApi.Manager.AlunoManager;
 import AcademiaGestaoWebApi.Models.Aluno;
-import AcademiaGestaoWebApi.ResponseModels.ApiRetorno;
+import AcademiaGestaoWebApi.Models.ResponseModels.ApiRetorno;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -28,12 +28,12 @@ public class AlunoController{
 
     @ApiOperation(value = "Retorna um ou mais alunos")
     @GetMapping()
-    public ApiRetorno<List<Aluno>> getAluno() {
+    public ApiRetorno<List<Aluno>> getAluno(String id) {
         AlunoManager alunoManager = new AlunoManager();
-        ApiRetorno<List<Aluno>> response = new ApiRetorno<List<Aluno>>();
+        ApiRetorno<List<Aluno>> response = new ApiRetorno<List<Aluno>>();                 
 
-        try {
-            List<Aluno> alunos = alunoManager.selectAlunos();    
+        try {                     
+            List<Aluno> alunos = alunoManager.selectAlunos(id);    
 
             response.setData(alunos);
             response.setSucess(true);

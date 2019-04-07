@@ -67,9 +67,6 @@ public class Aluno{
             case 2:
                 this.sexo = SexoEnum.FEMININO;
                 break;
-            case 3:
-                this.sexo = SexoEnum.NAODECLARADO;
-                break;
         }
     }
 

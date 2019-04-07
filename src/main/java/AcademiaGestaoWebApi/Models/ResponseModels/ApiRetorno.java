@@ -1,4 +1,4 @@
-package AcademiaGestaoWebApi.ResponseModels;
+package AcademiaGestaoWebApi.Models.ResponseModels;
 
 import java.util.List;
 
