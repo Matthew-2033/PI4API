@@ -50,6 +50,8 @@ public class Avaliacao {
 
     private double pernaDireita;
 
+    private double pernaEsquerda;
+
     private double imc;
 
     private double pccg;
@@ -238,6 +240,14 @@ public class Avaliacao {
 
     public void setPernaDireita(double pernaDireita) {
         this.pernaDireita = pernaDireita;
+    }
+
+    public double getPernaEsquerda() {
+        return this.pernaEsquerda;
+    }
+    
+    public void setPernaEsquerda(double pernaEsquerda) {
+        this.pernaEsquerda = pernaEsquerda;
     }
 
     public double getImc() {

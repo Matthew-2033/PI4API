@@ -24,7 +24,7 @@ public class ConnectionConfig {
 
     private static String password;
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             Class.forName(driver);
             return DriverManager.getConnection(url, username, password);

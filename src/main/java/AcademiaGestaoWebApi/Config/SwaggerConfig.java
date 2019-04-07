@@ -25,7 +25,6 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("AcademiaGestaoWebApi"))
-                .paths(regex("/api.*"))
                 .build()
                 .apiInfo(metaInfo());
     }
@@ -35,7 +34,7 @@ public class SwaggerConfig {
         ApiInfo apiInfo = new ApiInfo(
                 "AcademiaWebApi",
                 "Web api para ajudar academias no gerenciamento de treinos de alunos.",
-                "0.001",
+                "0.01",
                 "",
                 new Contact("PI_3S", "",
                         "sigma.2018@outlook.com"),

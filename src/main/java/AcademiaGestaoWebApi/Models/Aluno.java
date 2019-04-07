@@ -1,6 +1,6 @@
 package AcademiaGestaoWebApi.Models;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import AcademiaGestaoWebApi.Enums.SexoEnum;
@@ -9,13 +9,13 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  *
  * @author Gabriel
  */
-public class Aluno {
+public class Aluno{
 
-    private int iD;
+    private int id;
 
     private String nome;
 
-    private Calendar dataNascimento;
+    private LocalDate dataNascimento;
 
     private SexoEnum sexo;
 
@@ -27,12 +27,12 @@ public class Aluno {
 
     private List<Avaliacao> historicoDeAvaliacao;
 
-    public int getID() {
-        return this.iD;
+    public int getId() {
+        return this.id;
     }
 
-    public void setID(int iD) {
-        this.iD = iD;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -43,11 +43,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Calendar getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -55,8 +55,22 @@ public class Aluno {
         return this.sexo;
     }
 
-    public void setSexo(SexoEnum sexo) {
+    public void setSexoEnum(SexoEnum sexo) {
         this.sexo = sexo;
+    }
+
+    public void setSexoEnum(int sexo) {
+        switch (sexo) {
+            case 1:
+                this.sexo = SexoEnum.MASCULINO;
+                break;        
+            case 2:
+                this.sexo = SexoEnum.FEMININO;
+                break;
+            case 3:
+                this.sexo = SexoEnum.NAODECLARADO;
+                break;
+        }
     }
 
     public String getEmail() {
