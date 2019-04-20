@@ -1,12 +1,14 @@
 package AcademiaGestaoWebApi.Manager;
 
-import AcademiaGestaoWebApi.Models.Avaliacao;
+import java.util.List;
+
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
+import AcademiaGestaoWebApi.Models.ResponseModels.ApiRetorno;
 
 public class AvaliacaoManager {
 
-	public Boolean insertAvaliacao(AvaliacaoRequest avaliacao) {
-		return false;
+	public ApiRetorno<List<Boolean>> insertAvaliacao(AvaliacaoRequest avaliacao) {
+		return new ApiRetorno<List<Boolean>>();
 	}
 
 }
