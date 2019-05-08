@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
@@ -27,7 +27,7 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT Username, Password, true AS Enable FROM User WHERE Username=?")
-                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordEncoder(new NotEncoder())
                 .authoritiesByUsernameQuery("SELECT U.Username, R.Role FROM User_Role AS UR \n" +
                                                                     "INNER JOIN User AS U ON U.ID_User = UR.ID_user\n" +
                                                                     "INNER JOIN Role AS R ON R.Role_ID = UR.Role_ID WHERE U.Username=?");
@@ -56,5 +56,19 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
                                    "/configuration/security",
                                    "/swagger-ui.html",
                                    "/webjars/**");
+    }
+
+    public class NotEncoder implements PasswordEncoder{
+
+        @Override
+        public String encode(CharSequence rawPassword) {
+            return rawPassword.toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            return rawPassword.toString().equals(encodedPassword);
+        }
+        
     }
 }
