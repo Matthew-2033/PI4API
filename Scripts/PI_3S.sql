@@ -45,7 +45,16 @@ CREATE TABLE Avaliacao
 	avaliacao_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     avaliado_id INT NOT NULL,
     
-    -- Dados do Avaliado
+    CONSTRAINT avaliacao_dados FOREIGN KEY (avaliado_id)
+		REFERENCES Avaliado(avaliado_id)
+);
+
+CREATE TABLE infomacoes(
+	
+    id_info INT NOT NULL auto_increment primary KEY,
+    id_avaliacao INT NOT NULL,
+    
+	-- Dados do Avaliado
 	idade INT NOT NULL,
 	massa DECIMAL(4,2) NOT NULL,
     estatura DECIMAL(4,2) NOT NULL,
@@ -75,15 +84,14 @@ CREATE TABLE Avaliacao
     perna_direita DECIMAL(4,2) NOT NULL,
     perna_esquerda DECIMAL(4,2) NOT NULL,
     
-    CONSTRAINT avaliacao_dados FOREIGN KEY (avaliado_id)
-		REFERENCES Avaliado(avaliado_id)
+    CONSTRAINT info_avaliacao FOREIGN KEY(id_info)
+		REFERENCES Avaliacao(avaliacao_id)
 );
 
-CREATE TABLE avaliacao_resultado
+CREATE TABLE resultado_gerais
 (
 	avaliacao_resultado_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     avaliacao_id INT NOT NULL,
-    avaliado_id INT NOT NULL,
     imc DECIMAL(4,2) NOT NULL,
     pccg DECIMAL(4,2) NOT NULL,
     peso_atual DECIMAL(4,2) NOT NULL,
@@ -92,9 +100,39 @@ CREATE TABLE avaliacao_resultado
     peso_ideal DECIMAL(4,2) NOT NULL,
     peso_em_excesso DECIMAL(4,2) NOT NULL,
     
-    CONSTRAINT resultado_avalicao FOREIGN KEY (avaliacao_id)
-		REFERENCES Avaliacao(avaliacao_id),
-	CONSTRAINT resultado_avaliado FOREIGN KEY (avaliado_id)
-		REFERENCES Avaliado(avaliado_id)
+	CONSTRAINT resultado_geral_avaliacao FOREIGN KEY (avaliacao_id)
+		REFERENCES Avaliacao(avaliacao_id)
+);
+
+CREATE TABLE tipo
+(
+	id_tipo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(250) NOT NULL
+);
+
+DROP TABLE gordurDa;
+CREATE TABLE gordurDa(
+	
+    id_gordura INT NOT NULL,
+	id_tipo INT NOT NULL,
+    avaliacao_id INT NOT NULL, 
+    gordura DOUBLE NOT NULL,
     
+    CONSTRAINT tipo_gordura FOREIGN KEY(id_tipo)
+		REFERENCES tipo(id_tipo),
+	CONSTRAINT gordura_avaliacao FOREIGN KEY(avaliacao_id)
+		REFERENCES Avaliacao(avaliacao_id)
+);
+
+CREATE TABLE densidade_corporal(
+
+	id_corporal INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_tipo INT NOT NULL,
+    avaliacao_id INT NOT NULL, 
+    densidade DOUBLE NOT NULL,
+    
+	CONSTRAINT tipo_gordura FOREIGN KEY (id_tipo)
+		REFERENCES tipo(id_tipo),
+	CONSTRAINT densidade_avaliacao FOREIGN KEY(avaliacao_id)
+		REFERENCES Avaliacao(avaliacao_id)
 );

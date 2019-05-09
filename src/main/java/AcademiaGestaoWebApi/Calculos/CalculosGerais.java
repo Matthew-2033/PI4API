@@ -3,7 +3,7 @@ package AcademiaGestaoWebApi.Calculos;
 public class CalculosGerais{
 
     // Calculos de resultado simples:
-    public static Double calculo_imc(double massa, double estatura){
+    public static Double imc(double massa, double estatura){
         
         double result = 0;
 
@@ -14,7 +14,7 @@ public class CalculosGerais{
         return result;
     }
     
-    public static Double calculo_pccq(double cintura, double quadril){
+    public static Double pccq(double cintura, double quadril){
         
         double result = 0;
         
@@ -25,8 +25,8 @@ public class CalculosGerais{
         return result;
     }
     
-    //Calculos de Fracionamento CC
-    public static Double calculo_massaDeGordura(double pesoAtual, double gordura){
+    //Calculos de Fracionamento CC:
+    public static Double massaDeGordura(double pesoAtual, double gordura){
         
         double result = 0;
         
@@ -37,7 +37,7 @@ public class CalculosGerais{
         return result;
     }
     
-    public static Double calculo_massaMagra(double pesoAtual, double massaDeGordura){
+    public static Double massaMagra(double pesoAtual, double massaDeGordura){
         
         double result = 0;
         
@@ -48,7 +48,7 @@ public class CalculosGerais{
         return result;
     }
     
-    public static Double calculo_pesoIdeal(double massaMagra, double gorduraIdeal){
+    public static Double pesoIdeal(double massaMagra, double gorduraIdeal){
         
         double result = 0;
         
@@ -59,7 +59,7 @@ public class CalculosGerais{
         return result;
     }
     
-    public static Double calculo_pesoExcesso(double pesoAtual, double pesoIdeal){
+    public static Double pesoExcesso(double pesoAtual, double pesoIdeal){
         
         double result = 0;
         
