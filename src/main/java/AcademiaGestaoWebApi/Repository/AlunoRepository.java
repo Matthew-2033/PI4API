@@ -57,7 +57,7 @@ public class AlunoRepository extends Repository<Aluno> {
     public int insert(Aluno aluno, Connection connection) throws Exception {        
         try{
 
-            String query = "INSERT INTO Avaliado "
+            String query = "INSERT INTO aluno "
                         +   "("
                         +       "nome,"
                         +       "data_nascimento,"
