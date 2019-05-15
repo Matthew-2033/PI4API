@@ -32,14 +32,8 @@ BEGIN
     );
     /* Pega o último ID inserido dentro da Avalicao */
     SELECT last_insert_id() INTO id_info_inserido;	
-    INSERT INTO avaliacao1 (id_aluno, id_info) values(aluno, id_info_inserido);
     
+    IF id_info_inserido IS NOT NULL THEN 
+		INSERT INTO avaliacao1 (id_aluno, id_info) values(aluno, id_info_inserido);
+    END IF;
 END$$
-
-CALL sp_add_avaliacao(1,2,3,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
-use hugolutke01;
-select * from aluno;
-select * from avaliacao1;
-select * from informacoes;
-DROP PROCEDURE sp_add_avaliacao;
-select * from avaliacao1 join informacoes using(id_info);
