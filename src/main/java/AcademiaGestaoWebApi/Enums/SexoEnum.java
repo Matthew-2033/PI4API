@@ -1,6 +1,5 @@
 package AcademiaGestaoWebApi.Enums;
 
-
 public enum SexoEnum{
     MASCULINO(1),
     FEMININO(2);

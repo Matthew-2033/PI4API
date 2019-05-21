@@ -1,10 +1,26 @@
 package AcademiaGestaoWebApi.Calculos;
 
+import AcademiaGestaoWebApi.Enums.SexoEnum;
+
 public class CalculosGerais{
 
+    public CalculosGerais(SexoEnum Sexo){        
+        if(Sexo == SexoEnum.MASCULINO){
+            porcentagemDeGorduraDefinida = 20;
+            porcentagemDeGorduraIdeal = 5;
+            return;
+        }
+
+        porcentagemDeGorduraDefinida = 24;
+        porcentagemDeGorduraIdeal = 8;
+    }
+
+    private double porcentagemDeGorduraDefinida;
+    private double porcentagemDeGorduraIdeal;
+
     // Calculos de resultado simples:
-    public static Double imc(double massa, double estatura){
-        
+    public Double imc(double massa, double estatura){
+                
         double result = 0;
 
         if(massa != 0 && estatura != 0){
@@ -14,7 +30,7 @@ public class CalculosGerais{
         return result;
     }
     
-    public static Double pccq(double cintura, double quadril){
+    public Double pccq(double cintura, double quadril){
         
         double result = 0;
         
@@ -26,45 +42,45 @@ public class CalculosGerais{
     }
     
     //Calculos de Fracionamento CC:
-    public static Double massaDeGordura(double pesoAtual, double gordura){
+    public Double massaDeGordura(double massa){
         
         double result = 0;
         
-        if(pesoAtual != 0 && gordura != 0){
-            result = pesoAtual * gordura;
+        if(massa != 0 && porcentagemDeGorduraDefinida != 0){
+            result = massa * porcentagemDeGorduraDefinida;
         }
         
         return result;
     }
     
-    public static Double massaMagra(double pesoAtual, double massaDeGordura){
+    public Double massaMagra(double massa, double massaDeGordura){
         
         double result = 0;
         
-        if(pesoAtual != 0 && massaDeGordura != 0){            
-            result = pesoAtual - massaDeGordura;
+        if(massa != 0 && massaDeGordura != 0){            
+            result = massa - massaDeGordura;
         }
         
         return result;
     }
     
-    public static Double pesoIdeal(double massaMagra, double gorduraIdeal){
+    public Double pesoIdeal(double massaMagra){
         
         double result = 0;
         
-        if(massaMagra != 0 && gorduraIdeal != 0){
-            result = massaMagra / (1 - gorduraIdeal);
+        if(massaMagra != 0 && porcentagemDeGorduraIdeal != 0){
+            result = massaMagra / (1 - porcentagemDeGorduraIdeal);
         }
         
         return result;
     }
     
-    public static Double pesoExcesso(double pesoAtual, double pesoIdeal){
+    public Double pesoExcesso(double massa, double pesoIdeal){
         
         double result = 0;
         
-        if(pesoAtual != 0 && pesoIdeal != 0){
-            result = pesoAtual - pesoIdeal;
+        if(massa != 0 && pesoIdeal != 0){
+            result = massa - pesoIdeal;
         }
         
         return result;
