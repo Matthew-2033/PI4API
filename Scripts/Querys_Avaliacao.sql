@@ -1,6 +1,9 @@
 /* Query Para retornar todos os parametros possiveis referentes a Avaliacao */ 
+delimiter $$
+CREATE PROCEDURE SP_SELECT_AVALIACAO(IN id INT)
+BEGIN
 SELECT 
-	  al.id_aluno AS ID_ALUNO
+	    al.id_aluno AS ID_ALUNO
       , av.id_avaliacao AS ID_AVALIACAO
       , info.id_info AS ID_INFO
       , rg.id_resultado_gerais AS ID_RESULTADO_GERAIS
@@ -42,10 +45,14 @@ SELECT
     INNER JOIN informacoes info using(id_info)
 	INNER JOIN resultado_gerais rg using(id_resultado_gerais)
     INNER JOIN indice_Gordura ig using(id_gordura)
-    INNER JOIN densidade_corporal dc using(id_corporal);
+    INNER JOIN densidade_corporal dc using(id_corporal)
+WHERE av.id_avaliacao = id;
 
+END $$
+delimiter ;
 
-    
+DROP PROCEDURE SP_SELECT_AVALIACAO;
+CALL SP_SELECT_AVALIACAO(2);
 SELECT * FROM resultado_gerais;
 SELECT * FROM indice_Gordura;
 SELECT * FROM densidade_corporal;

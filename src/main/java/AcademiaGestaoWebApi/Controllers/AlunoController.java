@@ -34,7 +34,7 @@ public class AlunoController{
 
         try {                     
             List<Aluno> alunos = alunoManager.selectAlunos(id);    
-
+            
             response.setData(alunos);
             response.setSucess(true);
             return response;

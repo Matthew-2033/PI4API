@@ -53,6 +53,32 @@ public class AlunoRepository extends Repository<Aluno> {
         }                 
     }
 
+    public List<Aluno> selectSemAvaliacao(Connection connection) throws Exception{
+        
+        CallableStatement stmt = null;
+        ResultSet data = null;
+        
+        List<Aluno> alunos = new ArrayList<>();
+        
+        try {
+            String query = "{CALL sp_select_avaliado_sem_avaliacao()}";
+            
+            stmt = connection.prepareCall(query);
+            
+            data = stmt.executeQuery();
+            
+            AutoMapper<Aluno> autoMapper = new AutoMapper<Aluno>(new Aluno());
+            
+            alunos = autoMapper.map(data);
+            return alunos;
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
+        
+    }
+    
     @Override
     public int insert(Aluno aluno, Connection connection) throws Exception {        
         try{

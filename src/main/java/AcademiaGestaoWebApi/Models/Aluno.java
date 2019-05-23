@@ -9,13 +9,15 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  *
  * @author Gabriel
  */
-public class Aluno{
+public class Aluno {
 
     private int id;
 
     private String nome;
 
     private LocalDate dataNascimento;
+
+    private LocalDate ultimaAvaliacao;
 
     private SexoEnum sexo;
 
@@ -51,6 +53,14 @@ public class Aluno{
         this.dataNascimento = dataNascimento;
     }
 
+    public LocalDate getUltimaAvaliacao() {
+        return ultimaAvaliacao;
+    }
+
+    public void setUltimaAvaliacao(LocalDate ultimaAvaliacao) {
+        this.ultimaAvaliacao = ultimaAvaliacao;
+    }
+    
     public SexoEnum getSexo() {
         return this.sexo;
     }
@@ -63,7 +73,7 @@ public class Aluno{
         switch (sexo) {
             case 1:
                 this.sexo = SexoEnum.MASCULINO;
-                break;        
+                break;
             case 2:
                 this.sexo = SexoEnum.FEMININO;
                 break;

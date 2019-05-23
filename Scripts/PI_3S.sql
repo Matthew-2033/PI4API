@@ -39,36 +39,21 @@ CREATE TABLE aluno
     CPF VARCHAR(15) NOT NULL UNIQUE,
     ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
-drop table avaliacao1;
-CREATE TABLE avaliacao1
+
+CREATE TABLE avaliacao2
 (
 	id_avaliacao INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT NOT NULL,
-    id_info INT NOT NULL,
-    id_resultado_gerais INT DEFAULT NULL,
-    id_gordura INT DEFAULT NULL,
-    id_corporal INT DEFAULT NULL, 
+    data_avaliacao TIMESTAMP DEFAULT NOW(),
     
     CONSTRAINT avaliacao_aluno FOREIGN KEY (id_aluno)
-		REFERENCES aluno(id_aluno),
-        
-	CONSTRAINT avaliacao_info FOREIGN KEY (id_info)
-		REFERENCES informacoes(id_info),
-        
-	CONSTRAINT avaliacao_resultado_geral FOREIGN KEY (id_resultado_gerais)
-		REFERENCES resultado_gerais(id_resultado_gerais),
-        
-	CONSTRAINT avaliacao_gordura FOREIGN KEY (id_gordura)
-		REFERENCES indice_Gordura(id_gordura),
-        
-	CONSTRAINT avaliacao_densidade_corporal FOREIGN KEY (id_corporal)
-		REFERENCES densidade_corporal(id_corporal)
+		REFERENCES aluno(id_aluno)
 );
 
 CREATE TABLE informacoes(
 	
     id_info INT NOT NULL auto_increment primary KEY,
-    
+    id_avaliacao INT NOT NULL,
 	-- Dados do Avaliado
 	idade INT NOT NULL,
 	massa DECIMAL(4,2) NOT NULL,
@@ -96,19 +81,26 @@ CREATE TABLE informacoes(
     coxa_direita DECIMAL(4,2) NOT NULL,
     coxa_esquerda DECIMAL(4,2) NOT NULL,
     perna_direita DECIMAL(4,2) NOT NULL,
-    perna_esquerda DECIMAL(4,2) NOT NULL
+    perna_esquerda DECIMAL(4,2) NOT NULL,
+    
+    CONSTRAINT fk_info_avaliacao FOREIGN KEY (id_avaliacao)
+		REFERENCES avaliacao2(id_avaliacao)
 );
 
 CREATE TABLE resultado_gerais
 (
 	id_resultado_gerais INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_avaliacao INT NOT NULL,
     imc DECIMAL(4,2) NOT NULL,
     pccg DECIMAL(4,2) NOT NULL,
     peso_atual DECIMAL(4,2) NOT NULL,
     massa_de_gordura DECIMAL(4,2) NOT NULL,
     massa_magra DECIMAL(4,2) NOT NULL,
     peso_ideal DECIMAL(4,2) NOT NULL,
-    peso_em_excesso DECIMAL(4,2) NOT NULL
+    peso_em_excesso DECIMAL(4,2) NOT NULL,
+    
+	CONSTRAINT fk_geral_avaliacao FOREIGN KEY (id_avaliacao)
+		REFERENCES avaliacao2(id_avaliacao)
 );
 
 CREATE TABLE tipo
@@ -120,9 +112,12 @@ CREATE TABLE tipo
 CREATE TABLE indice_Gordura
 (	
     id_gordura INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_avaliacao INT NOT NULL,
 	id_tipo INT NOT NULL,
     gordura DOUBLE NOT NULL,
     
+    CONSTRAINT fk_gordura_avaliacao FOREIGN KEY (id_avaliacao)
+		REFERENCES avaliacao2(id_avaliacao),
     CONSTRAINT tipo_gordura FOREIGN KEY(id_tipo)
 		REFERENCES tipo(id_tipo)
 );
@@ -130,10 +125,12 @@ CREATE TABLE indice_Gordura
 CREATE TABLE densidade_corporal
 (
 	id_corporal INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_avaliacao INT NOT NULL,
     id_tipo INT NOT NULL,
     densidade DOUBLE NOT NULL,
     
+    CONSTRAINT fk_densidade_avaliacao FOREIGN KEY (id_avaliacao)
+		REFERENCES avaliacao2(id_avaliacao),
 	CONSTRAINT tipo_densidade_corporal FOREIGN KEY (id_tipo)
 		REFERENCES tipo(id_tipo)
 );
-
