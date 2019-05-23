@@ -1,6 +1,6 @@
 package AcademiaGestaoWebApi.Calculos;
 
-public class DensidadeDeGorduraCalculo{    
+public class PorcentagemDeGordura{    
 
     public double pollock7D(int idade, double peitoral, double axilarMedia, double subEscapular, double tricipital, double supraIliciaca, double abdominal, double coxa){
         if(idade == 0 || peitoral == 0 || axilarMedia == 0 || subEscapular == 0 || tricipital == 0 || supraIliciaca == 0 || abdominal == 0 || coxa == 0){

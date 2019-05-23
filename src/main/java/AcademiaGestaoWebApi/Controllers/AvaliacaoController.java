@@ -36,7 +36,7 @@ public class AvaliacaoController{
         ApiRetorno<List<Boolean>> response = new ApiRetorno<List<Boolean>>();
 
         try {
-            ApiRetorno<List<Boolean>> result = avaliacaoManager.insertAvaliacao(avaliacao);    
+            ApiRetorno<Boolean> result = avaliacaoManager.insertAvaliacao(avaliacao);    
 
             if(!result.isSucess()){
                 throw new Exception("Não foi possivel inserir a avaliação");
