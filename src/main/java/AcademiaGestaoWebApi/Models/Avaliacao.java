@@ -2,6 +2,8 @@ package AcademiaGestaoWebApi.Models;
 
 import java.util.List;
 
+import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
+
 /**
  *
  * @author Gabriel
@@ -326,5 +328,38 @@ public class Avaliacao {
 
     public void setIndiceDeGordura(List<IndiceDeGordura> indiceDeGordura) {
         this.indiceDeGordura = indiceDeGordura;
+    }
+
+    public static class Factory{
+
+        public static Avaliacao create(AvaliacaoRequest avaliacaoRequest){
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao.setMassa(avaliacaoRequest.getMassa());
+            avaliacao.setEstatura(avaliacaoRequest.getEstatura());
+            avaliacao.setPeitoral(avaliacaoRequest.getPeitoral());
+            avaliacao.setMediaAuxiliar(avaliacaoRequest.getMediaAuxiliar());
+            avaliacao.setSubEscapular(avaliacaoRequest.getSubEscapular());
+            avaliacao.setTricipital(avaliacaoRequest.getTricipital());
+            avaliacao.setBiciptal(avaliacaoRequest.getBiciptal());
+            avaliacao.setSupraIliaca(avaliacaoRequest.getSupraIliaca());
+            avaliacao.setAbdominalDobra(avaliacaoRequest.getAbdominalDobra());
+            avaliacao.setCoxa(avaliacaoRequest.getCoxa());
+            avaliacao.setPanturrilha(avaliacaoRequest.getPanturrilha());
+            avaliacao.setTorax(avaliacaoRequest.getTorax());
+            avaliacao.setBracoDireito(avaliacaoRequest.getBracoDireito());
+            avaliacao.setBracoEsquerdo(avaliacaoRequest.getBracoEsquerdo());
+            avaliacao.setAntebracoDireito(avaliacaoRequest.getAntebracoDireito());
+            avaliacao.setAntebracoEsquerdo(avaliacaoRequest.getAntebracoEsquerdo());
+            avaliacao.setAbdominalPerimetro(avaliacaoRequest.getAbdominalPerimetro());
+            avaliacao.setCintura(avaliacaoRequest.getCintura());
+            avaliacao.setQuadril(avaliacaoRequest.getQuadril());
+            avaliacao.setCoxaDireita(avaliacaoRequest.getCoxaDireita());
+            avaliacao.setCoxaEsquerda(avaliacaoRequest.getCoxaEsquerda());
+            avaliacao.setPernaDireita(avaliacaoRequest.getPernaDireita());
+            avaliacao.setPernaEsquerda(avaliacaoRequest.getPernaEsquerda());
+
+            return avaliacao;
+        }
+
     }
 }
