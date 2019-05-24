@@ -72,7 +72,7 @@ public class Avaliacao {
 
     private double pernaEsquerda;
 
-    private List<IndiceDeGordura> indiceDeGordura;
+    private List<PorcentagemDeGordura> indiceDeGordura;
 
     public int getID() {
         return this.iD;
@@ -322,11 +322,11 @@ public class Avaliacao {
         this.pernaEsquerda = pernaEsquerda;
     }
 
-    public List<IndiceDeGordura> getIndiceDeGordura() {
+    public List<PorcentagemDeGordura> getIndiceDeGordura() {
         return this.indiceDeGordura;
     }
 
-    public void setIndiceDeGordura(List<IndiceDeGordura> indiceDeGordura) {
+    public void setIndiceDeGordura(List<PorcentagemDeGordura> indiceDeGordura) {
         this.indiceDeGordura = indiceDeGordura;
     }
 
