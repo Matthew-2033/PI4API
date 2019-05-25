@@ -20,8 +20,6 @@ public class Avaliacao {
 
     private double pccg;
 
-    private double pesoAtual;
-
     private double pesoIdeal;
     
     private double pesoEmExcesso;
@@ -72,7 +70,7 @@ public class Avaliacao {
 
     private double pernaEsquerda;
 
-    private List<PorcentagemDeGordura> indiceDeGordura;
+    private List<PorcentagemDeGordura> porcentagemDeGordura;
 
     public int getID() {
         return this.iD;
@@ -112,14 +110,6 @@ public class Avaliacao {
 
     public void setPccg(double pccg) {
         this.pccg = pccg;
-    }
-
-    public double getPesoAtual() {
-        return this.pesoAtual;
-    }
-
-    public void setPesoAtual(double pesoAtual) {
-        this.pesoAtual = pesoAtual;
     }
 
     public double getPesoIdeal() {
@@ -322,12 +312,12 @@ public class Avaliacao {
         this.pernaEsquerda = pernaEsquerda;
     }
 
-    public List<PorcentagemDeGordura> getIndiceDeGordura() {
-        return this.indiceDeGordura;
+    public List<PorcentagemDeGordura> getPorcentagemDeGordura() {
+        return this.porcentagemDeGordura;
     }
 
-    public void setIndiceDeGordura(List<PorcentagemDeGordura> indiceDeGordura) {
-        this.indiceDeGordura = indiceDeGordura;
+    public void setPorcentagemDeGordura(List<PorcentagemDeGordura> porcentagemDeGordura) {
+        this.porcentagemDeGordura = porcentagemDeGordura;
     }
 
     public static class Factory{

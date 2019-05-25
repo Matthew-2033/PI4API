@@ -6,13 +6,13 @@ public class CalculosGerais{
 
     public CalculosGerais(SexoEnum Sexo){        
         if(Sexo == SexoEnum.MASCULINO){
-            porcentagemDeGorduraDefinida = 20;
-            porcentagemDeGorduraIdeal = 5;
+            porcentagemDeGorduraDefinida = 19.94;
+            porcentagemDeGorduraIdeal = 0.95;
             return;
         }
 
-        porcentagemDeGorduraDefinida = 24;
-        porcentagemDeGorduraIdeal = 8;
+        porcentagemDeGorduraDefinida = 23.5;
+        porcentagemDeGorduraIdeal = 0.92;
     }
 
     private double porcentagemDeGorduraDefinida;
@@ -47,7 +47,7 @@ public class CalculosGerais{
         double result = 0;
         
         if(massa != 0 && porcentagemDeGorduraDefinida != 0){
-            result = massa * porcentagemDeGorduraDefinida;
+            result = (massa * porcentagemDeGorduraDefinida) / 100;
         }
         
         return result;
@@ -69,7 +69,7 @@ public class CalculosGerais{
         double result = 0;
         
         if(massaMagra != 0 && porcentagemDeGorduraIdeal != 0){
-            result = massaMagra / (1 - porcentagemDeGorduraIdeal);
+            result = massaMagra / porcentagemDeGorduraIdeal;
         }
         
         return result;

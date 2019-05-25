@@ -1,20 +1,22 @@
 package AcademiaGestaoWebApi.Models;
 
+import AcademiaGestaoWebApi.Enums.AutorEnum;
+
 public class PorcentagemDeGordura{
 
-    private String autor;
+    private AutorEnum autor;
     private double porcentagemDeGordura;
 
-    public PorcentagemDeGordura(String autor, double porcentagemDeGordura){
+    public PorcentagemDeGordura(AutorEnum autor, double porcentagemDeGordura){
         this.autor = autor;
         this.porcentagemDeGordura = porcentagemDeGordura;
     }
 
-    public String getAutor(){
+    public AutorEnum getAutor(){
         return this.autor;
     }
 
-    public void setAutor(String autor){
+    public void setAutor(AutorEnum autor){
         this.autor = autor;
     }
 
