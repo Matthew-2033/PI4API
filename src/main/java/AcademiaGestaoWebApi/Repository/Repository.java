@@ -47,15 +47,14 @@ public abstract class Repository<T> {
 
     public abstract List<T> select(Object param, Connection connection) throws Exception;
 
-    public int insert(T object) throws Exception {
+    public boolean insert(T object) throws Exception {
         Connection connection = ConnectionConfig.getConnection(false);
-        connection.setAutoCommit(false);
 
         try {
-            int id = insert(object, connection);
+            boolean sucesso = insert(object, connection);
             connection.commit();
             ConnectionConfig.closeConnection(connection, stmt);
-            return id;
+            return sucesso;
         } catch (Exception ex) {
 
             connection.rollback();
@@ -65,7 +64,7 @@ public abstract class Repository<T> {
         }
     }
     
-    public abstract int insert(T object, Connection connection) throws Exception;
+    public abstract boolean insert(T object, Connection connection) throws Exception;
 
     public boolean update(T object) throws Exception {
         Connection connection = ConnectionConfig.getConnection(false);

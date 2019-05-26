@@ -82,11 +82,11 @@ public class AlunoRepository extends Repository<Aluno> {
     }
     
     @Override
-    public int insert(Aluno aluno, Connection connection) throws Exception {        
+    public boolean insert(Aluno aluno, Connection connection) throws Exception {        
         try{
-
             String query = "INSERT INTO aluno "
                         +   "("
+                        +       "id_aluno,"
                         +       "nome,"
                         +       "data_nascimento,"
                         +       "sexo,"
@@ -94,7 +94,7 @@ public class AlunoRepository extends Repository<Aluno> {
                         +       "CPF,"
                         +       "ativo"
                         +   ")"
-                        +   "VALUES (?, ?, ?, ?, ?, ?);";
+                        +   "VALUES (uuid(), ?, ?, ?, ?, ?, ?);";
             
             stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -106,17 +106,13 @@ public class AlunoRepository extends Repository<Aluno> {
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());
 
-            stmt.executeUpdate();     
-            
-            ResultSet data = stmt.getGeneratedKeys();
+            int rows = stmt.executeUpdate();     
 
-            int id = 0;
-            if (data.next()) {
-                id = data.getInt(1);
+            if(rows <= 0){
+                return false;
             }
-
-            connection.commit();
-            return id;
+            
+            return true;
         }catch(Exception error){
             error.printStackTrace();
             throw new Exception(error);

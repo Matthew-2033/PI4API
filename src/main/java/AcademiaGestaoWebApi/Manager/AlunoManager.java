@@ -44,16 +44,11 @@ public class AlunoManager {
         }                
     }
     
-    public Boolean insertAluno(Aluno aluno) throws Exception {
+    public boolean insertAluno(Aluno aluno) throws Exception {
         Repository<Aluno> repositori = RepositoryFactory.CreateRepository(RepositoryEnum.ALUNO);
 
         try {
-            int idNovoAluno = repositori.insert(aluno);
-            Boolean sucesso = false;
-            if(idNovoAluno >= 0){
-                sucesso = true;
-            }
-            
+            boolean sucesso = repositori.insert(aluno);
             return sucesso;
         } catch (Exception ex) {
             throw new Exception(ex);

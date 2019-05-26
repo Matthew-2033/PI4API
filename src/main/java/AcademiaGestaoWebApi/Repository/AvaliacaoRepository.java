@@ -51,7 +51,7 @@ public class AvaliacaoRepository extends Repository {
     }
 
     @Override
-    public int insert(Object object, Connection connection) throws Exception {
+    public boolean insert(Object object, Connection connection) throws Exception {
         Avaliacao avaliacao = (Avaliacao) object;
 
         try {
@@ -72,7 +72,7 @@ public class AvaliacaoRepository extends Repository {
 
         }
 
-        return 0;
+        return false;
     }
 
     @Override

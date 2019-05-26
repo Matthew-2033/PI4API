@@ -61,27 +61,27 @@ public class AlunoController{
 
     @ApiOperation(value = "Inseri um aluno")
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ApiRetorno<Boolean> postAluno(@RequestBody @Valid Aluno aluno) {
+    public ResponseEntity<ApiRetorno<Boolean>> postAluno(@RequestBody @Valid Aluno aluno) {
         AlunoManager alunoManager = new AlunoManager();
         ApiRetorno<Boolean> response = new ApiRetorno<Boolean>();
 
         try {
             Boolean result = alunoManager.insertAluno(aluno);    
 
-            if(!result){
+            if(!result){                
                 throw new Exception("Não foi possivel inserir o Aluno");
             }
 
             response.setSucess(result);
             response.setMensagem("Aluno inserido com sucesso");
-            return response;
+            return new ResponseEntity<ApiRetorno<Boolean>>(response, HttpStatus.OK);
         } catch (Exception ex) {
             List<String> errorMensages = new ArrayList<String>();
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setMensagem("Não foi possivel inserir o aluno");
             response.setSucess(false);
-            return response;
+            return new ResponseEntity<ApiRetorno<Boolean>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         } 
     }
 
