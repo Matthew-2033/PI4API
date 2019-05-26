@@ -123,14 +123,14 @@ public class AlunoRepository extends Repository<Aluno> {
     public boolean update(Aluno aluno, Connection connection) throws Exception {        
         try{
 
-            String query = "UPDATE Avaliado SET "
+            String query = "UPDATE aluno SET "
                                 + "nome = ?,"
                                 + "data_nascimento = ?,"
                                 + "sexo = ?,"
                                 + "email = ?,"
                                 + "CPF = ?,"
                                 + "ativo = ? " 
-                         + " WHERE avaliado_id = ?;";
+                         + " WHERE id_aluno = ?;";
             
             stmt = connection.prepareStatement(query);
             
@@ -166,7 +166,7 @@ public class AlunoRepository extends Repository<Aluno> {
         
         try{
             
-            String query = "DELETE FROM Avaliado WHERE avaliado_id = ?"; 
+            String query = "DELETE FROM aluno WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAluno.toString());

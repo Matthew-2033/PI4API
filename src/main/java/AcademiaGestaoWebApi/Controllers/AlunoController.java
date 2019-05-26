@@ -113,12 +113,14 @@ public class AlunoController{
 
     @ApiOperation(value = "Deleta um aluno")
     @DeleteMapping()
-    public ApiRetorno<Boolean> deleteAluno(@RequestParam @Valid UUID idAluno) {
+    public ApiRetorno<Boolean> deleteAluno(@RequestParam @Valid String id) {
         AlunoManager alunoManager = new AlunoManager();
         ApiRetorno<Boolean> response = new ApiRetorno<Boolean>();
 
         try {
-            Boolean result = alunoManager.deleteAluno(idAluno);    
+            UUID idGuid = UUID.fromString(id);     
+
+            Boolean result = alunoManager.deleteAluno(idGuid);    
 
             response.setData(result);
             response.setSucess(true);
