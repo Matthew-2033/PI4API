@@ -1,10 +1,12 @@
 package AcademiaGestaoWebApi.Models.RequestModels;
 
+import java.util.UUID;
+
 import AcademiaGestaoWebApi.Enums.SexoEnum;
 
 public class AvaliacaoRequest {
     
-    private int idAluno;
+    private UUID idAluno;
 
     private int idade;
 
@@ -57,11 +59,11 @@ public class AvaliacaoRequest {
     private double pernaEsquerda;
 
 
-    public int getIdAluno() {
+    public UUID getIdAluno() {
         return this.idAluno;
     }
 
-    public void setIdAluno(int idAluno) {
+    public void setIdAluno(UUID idAluno) {
         this.idAluno = idAluno;
     }
 

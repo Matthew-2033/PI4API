@@ -1,20 +1,33 @@
 package AcademiaGestaoWebApi.Manager;
 
+import java.sql.Connection;
+
 import AcademiaGestaoWebApi.Calculos.CalculosGerais;
 import AcademiaGestaoWebApi.Calculos.PorcentagemDeGorduraCalculo;
+import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Avaliacao;
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 import AcademiaGestaoWebApi.Models.ResponseModels.ApiRetorno;
+import AcademiaGestaoWebApi.Repository.AvaliacaoRepository;
 
 public class AvaliacaoManager {
 
     private PorcentagemDeGorduraCalculo porcentagemDeGorduraCalculos;
+    private AvaliacaoRepository repository;
+    private Connection connection;
     
-    public ApiRetorno<Boolean> insertAvaliacao(AvaliacaoRequest avaliacaoRequest) {
+    public ApiRetorno<Boolean> insertAvaliacao(AvaliacaoRequest avaliacaoRequest) throws Exception {
+        connection = ConnectionConfig.getConnection(false);
+        repository = new AvaliacaoRepository();
 
-        Avaliacao avaliacao = RealizaCalculosAvalicao(avaliacaoRequest);                
+        try {
+            Avaliacao avaliacao = RealizaCalculosAvalicao(avaliacaoRequest);                
+            repository.insert(avaliacao);
 
-        return new ApiRetorno<Boolean>();
+            return new ApiRetorno<Boolean>();    
+        } catch (Exception ex) {
+            throw ex;
+        }        
     }
 
     public Avaliacao RealizaCalculosAvalicao(AvaliacaoRequest avaliacaoRequest) {

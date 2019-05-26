@@ -1,12 +1,7 @@
 package AcademiaGestaoWebApi.Calculos;
 
 import AcademiaGestaoWebApi.Enums.SexoEnum;
-import AcademiaGestaoWebApi.Models.Avaliacao;
-import AcademiaGestaoWebApi.Models.DensidadeCorporal;
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class DensidadeCorporalCalculo {
 
@@ -149,12 +144,12 @@ public class DensidadeCorporalCalculo {
     }
 
     protected double thorland7D(AvaliacaoRequest avaliacao) {
-        if (avaliacao.getMediaAuxiliar() == 0 || avaliacao.getSubEscapular() == 0 || avaliacao.getSubEscapular() == 0 || avaliacao.getAbdominalDobra() == 0 || avaliacao.getCoxa() == 0 || avaliacao.getPanturrilha() == 0) {
+        if (avaliacao.getMediaAuxiliar() == 0 || avaliacao.getSubEscapular() == 0 || avaliacao.getTricipital() == 0 || avaliacao.getSupraIliaca() == 0 || avaliacao.getAbdominalDobra() == 0 || avaliacao.getCoxa() == 0 || avaliacao.getPanturrilha() == 0) {
             return 0;
         }
 
-        double dobras = avaliacao.getMediaAuxiliar() + avaliacao.getSubEscapular() + avaliacao.getSubEscapular() + avaliacao.getAbdominalDobra() + avaliacao.getCoxa() + avaliacao.getPanturrilha();
-        double densidadeCorporal = thorland7DMultiplicadorVal_1 - thorland3DMultiplicadorVal_2 * dobras + thorland7DMultiplicadorDobras * (dobras * dobras);
+        double dobras = avaliacao.getMediaAuxiliar() + avaliacao.getSubEscapular() + avaliacao.getTricipital() + avaliacao.getSupraIliaca() + avaliacao.getAbdominalDobra() + avaliacao.getCoxa() + avaliacao.getPanturrilha();
+        double densidadeCorporal = thorland7DMultiplicadorVal_1 - thorland7DMultiplicadorVal_2 * dobras + thorland7DMultiplicadorDobras * (dobras * dobras);
         return densidadeCorporal;
     }
 

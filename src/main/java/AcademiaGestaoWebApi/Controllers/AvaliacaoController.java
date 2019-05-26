@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,7 @@ public class AvaliacaoController{
 
     @ApiOperation("Inseri uma avaliação")
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ApiRetorno<List<Boolean>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
+    public ResponseEntity<ApiRetorno<List<Boolean>>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         ApiRetorno<List<Boolean>> response = new ApiRetorno<List<Boolean>>();
 
@@ -43,14 +45,14 @@ public class AvaliacaoController{
             }
             
             response.setMensagem("Avaliação inserida com sucesso");
-            return response;
+            return new ResponseEntity<ApiRetorno<List<Boolean>>>(response, HttpStatus.OK);
         } catch (Exception ex) {
             List<String> errorMensages = new ArrayList<String>();
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setMensagem("Não foi possivel inserir a avaliação");
             response.setSucess(false);
-            return response;
+            return new ResponseEntity<ApiRetorno<List<Boolean>>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         } 
     }
 }

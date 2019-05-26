@@ -2,6 +2,7 @@ package AcademiaGestaoWebApi.Models;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Enums.SexoEnum;
 
@@ -11,7 +12,7 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  */
 public class Aluno {
 
-    private int id;
+    private UUID id;
 
     private String nome;
 
@@ -29,11 +30,11 @@ public class Aluno {
 
     private List<Avaliacao> historicoDeAvaliacao;
 
-    public int getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

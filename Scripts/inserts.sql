@@ -1,25 +1,25 @@
 USE hugolutke01;
 
 -- Insert de Roles:
-insert into User(Username, Password)
-	values('GabrielCarmo', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');
-insert into User(Username, Password)
-	values('Matheus', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');    
-insert into User(Username, Password)
-	values('Casio', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');    
-insert into User(Username, Password)
-	values('Lucas', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');    
+insert into User(ID_User, Username)
+	values('4ad7924a-7f84-11e9-9499-005056a34071', 'GabrielCarmo');
+insert into User(ID_User, Username)
+	values('6380603d-7f84-11e9-9499-005056a34071', 'Matheus');    
+insert into User(ID_User, Username)
+	values('65f53ddf-7f84-11e9-9499-005056a34071', 'Casio');    
+insert into User(ID_User, Username)
+	values('68659525-7f84-11e9-9499-005056a34071', 'Lucas');    
 
-insert into Role(Role)
-	values('admin');  
-insert into User_Role(ID_User, Role_ID)
-	values(1, 1); 
-insert into User_Role(ID_User, Role_ID)
-	values(2, 1); 
-insert into User_Role(ID_User, Role_ID)
-	values(3, 1); 
-insert into User_Role(ID_User, Role_ID)
-	values(4, 1); 
+insert into Role(Role_ID, Role)
+	values('2190b649-7f85-11e9-9499-005056a34071', 'admin');  
+insert into User_Role(Id_User_Role, ID_User, Role_ID)
+	values(uuid(), '4ad7924a-7f84-11e9-9499-005056a34071', '2190b649-7f85-11e9-9499-005056a34071'); 
+insert into User_Role(Id_User_Role, ID_User, Role_ID)
+	values(uuid(), '6380603d-7f84-11e9-9499-005056a34071', '2190b649-7f85-11e9-9499-005056a34071'); 
+insert into User_Role(Id_User_Role, ID_User, Role_ID)
+	values(uuid(), '65f53ddf-7f84-11e9-9499-005056a34071', '2190b649-7f85-11e9-9499-005056a34071'); 
+insert into User_Role(Id_User_Role, ID_User, Role_ID)
+	values(uuid(), '68659525-7f84-11e9-9499-005056a34071', '2190b649-7f85-11e9-9499-005056a34071'); 
     
 -- Insert de Avaliados:
 insert into Avaliado (nome, data_nascimento, sexo, email, CPF) values ('Matheus', '1999/05/25', 1, 'matheus-a.g@hotmail.com', '123456789');

@@ -13,13 +13,15 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import DataLib.AutoMapper.*;
 
 public class AlunoRepository extends Repository<Aluno> {
 
     @Override
-    public List<Aluno> select(int id, Connection connection) throws Exception {
-
+    public List<Aluno> select(Object idObject, Connection connection) throws Exception {
+        UUID id = (UUID) idObject;
         CallableStatement stmt = null;
         ResultSet data = null;
         
@@ -30,13 +32,13 @@ public class AlunoRepository extends Repository<Aluno> {
             String query = "{CALL SP_S_Avaliado(?)}";
             
             stmt = connection.prepareCall(query);
-            
-            switch (id) {
-                case 0:
+
+            switch (id.toString()) {
+                case "00000000-0000-0000-0000-000000000000":
                     stmt.setNull(1, Types.INTEGER, null); 
                     break;    
                 default:
-                    stmt.setInt(1, id);
+                    stmt.setString(1, id.toString());
                     break;
             }
            
@@ -143,7 +145,7 @@ public class AlunoRepository extends Repository<Aluno> {
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());
-            stmt.setInt(7, aluno.getId());
+            stmt.setString(7, aluno.getId().toString());
 
             stmt.executeUpdate();   
 
@@ -155,11 +157,12 @@ public class AlunoRepository extends Repository<Aluno> {
     } 
     
     @Override
-    public boolean delete(int idAluno, Connection connection) throws Exception {
+    public boolean delete(Object idAluno, Connection connection) throws Exception {
         
+        UUID guidID = (UUID) idAluno;
         boolean temConexao = true;
         if(connection == null){
-            connection = ConnectionConfig.getConnection();
+            connection = ConnectionConfig.getConnection(false);
             temConexao = false;
         }
         
@@ -170,7 +173,7 @@ public class AlunoRepository extends Repository<Aluno> {
             String query = "DELETE FROM Avaliado WHERE avaliado_id = ?"; 
             
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idAluno);
+            stmt.setString(1, idAluno.toString());
             stmt.execute();                 
             
             return true;

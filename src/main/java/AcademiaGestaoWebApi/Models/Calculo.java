@@ -1,17 +1,19 @@
 package AcademiaGestaoWebApi.Models;
 
-public class Calculo{
+import java.util.UUID;
 
-    private int id;
+public class Calculo {
+
+    private UUID id;
 
     private String nome;
 
 
-    public int getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

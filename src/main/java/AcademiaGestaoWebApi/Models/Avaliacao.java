@@ -1,6 +1,7 @@
 package AcademiaGestaoWebApi.Models;
 
 import java.util.List;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 
@@ -10,7 +11,7 @@ import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
  */
 public class Avaliacao {
 
-    private int iD;
+    private UUID iD;
 
     private double massa;
     
@@ -72,11 +73,11 @@ public class Avaliacao {
 
     private List<PorcentagemDeGordura> porcentagemDeGordura;
 
-    public int getID() {
+    public UUID getID() {
         return this.iD;
     }
 
-    public void setID(int iD) {
+    public void setID(UUID iD) {
         this.iD = iD;
     }
 

@@ -1,6 +1,5 @@
 package AcademiaGestaoWebApi.Calculos;
 
-import AcademiaGestaoWebApi.Models.Avaliacao;
 import AcademiaGestaoWebApi.Models.PorcentagemDeGordura;
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 
@@ -146,7 +145,7 @@ public class PorcentagemDeGorduraCalculo{
     private double thorland7D(AvaliacaoRequest avaliacao){
 
         DensidadeCorporalCalculo thorland7DCalculo = new DensidadeCorporalCalculo(avaliacao.getSexo());
-        double thorland7DResult = thorland7DCalculo.petroski(avaliacao);
+        double thorland7DResult = thorland7DCalculo.thorland7D(avaliacao);
 
         if (thorland7DResult == 0) {
             return 0;
@@ -162,7 +161,7 @@ public class PorcentagemDeGorduraCalculo{
     private double thorland3D(AvaliacaoRequest avaliacao){
 
         DensidadeCorporalCalculo thorland3DCalculo = new DensidadeCorporalCalculo(avaliacao.getSexo());
-        double thorland3DResult = thorland3DCalculo.petroski(avaliacao);
+        double thorland3DResult = thorland3DCalculo.thorland3D(avaliacao);
 
         if(thorland3DResult == 0){
             return 0;

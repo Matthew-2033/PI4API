@@ -10,9 +10,12 @@ import io.swagger.annotations.ApiOperation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,22 +31,31 @@ public class AlunoController{
 
     @ApiOperation(value = "Retorna um ou mais alunos")
     @GetMapping()
-    public ApiRetorno<List<Aluno>> getAluno(String id) {
+    public ResponseEntity<ApiRetorno<List<Aluno>>> getAluno(String id) {
         AlunoManager alunoManager = new AlunoManager();
         ApiRetorno<List<Aluno>> response = new ApiRetorno<List<Aluno>>();                 
 
-        try {                     
-            List<Aluno> alunos = alunoManager.selectAlunos(id);    
+        try {   
+            UUID idGuid = new UUID(0, 0);
+            if(id != null && !id.isEmpty()){
+                idGuid = UUID.fromString(id);             
+            }
             
+            List<Aluno> alunos = alunoManager.selectAlunos(idGuid);    
+            if(alunos.isEmpty()){
+                response.setMensagem("Nenhum aluno foi encontrado");
+                return new ResponseEntity<ApiRetorno<List<Aluno>>>(response, HttpStatus.NOT_FOUND);
+            }
+
             response.setData(alunos);
             response.setSucess(true);
-            return response;
+            return new ResponseEntity<ApiRetorno<List<Aluno>>>(response, HttpStatus.OK);
         } catch (Exception ex) {
             List<String> errorMensages = new ArrayList<String>();
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setSucess(false);
-            return response;
+            return new ResponseEntity<ApiRetorno<List<Aluno>>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }                
     }
 
@@ -101,7 +113,7 @@ public class AlunoController{
 
     @ApiOperation(value = "Deleta um aluno")
     @DeleteMapping()
-    public ApiRetorno<Boolean> deleteAluno(@RequestParam @Valid int idAluno) {
+    public ApiRetorno<Boolean> deleteAluno(@RequestParam @Valid UUID idAluno) {
         AlunoManager alunoManager = new AlunoManager();
         ApiRetorno<Boolean> response = new ApiRetorno<Boolean>();
 

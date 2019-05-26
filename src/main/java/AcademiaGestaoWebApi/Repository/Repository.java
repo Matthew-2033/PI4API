@@ -3,6 +3,7 @@ package AcademiaGestaoWebApi.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Config.ConnectionConfig;
 
@@ -10,10 +11,10 @@ public abstract class Repository<T> {
 
     protected PreparedStatement stmt = null;
 
-    public T select(int id) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
+    public T select(Object param) throws Exception {
+        Connection connection = ConnectionConfig.getConnection(false);
         try {
-            List<T> objects = select(id, connection);
+            List<T> objects = select(param, connection);
             ConnectionConfig.closeConnection(connection, stmt);
 
             if(objects == null || objects.size() <= 0){
@@ -31,9 +32,9 @@ public abstract class Repository<T> {
     }
         
     public List<T> select() throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
+        Connection connection = ConnectionConfig.getConnection(false);
         try {
-            int id = 0;
+            UUID id = new UUID(0, 0);
             List<T> object = select(id, connection);
             ConnectionConfig.closeConnection(connection, stmt);
             return object;
@@ -44,10 +45,10 @@ public abstract class Repository<T> {
         }
     }
 
-    public abstract List<T> select(int id, Connection connection) throws Exception;
+    public abstract List<T> select(Object param, Connection connection) throws Exception;
 
     public int insert(T object) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
+        Connection connection = ConnectionConfig.getConnection(false);
         connection.setAutoCommit(false);
 
         try {
@@ -67,7 +68,7 @@ public abstract class Repository<T> {
     public abstract int insert(T object, Connection connection) throws Exception;
 
     public boolean update(T object) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
+        Connection connection = ConnectionConfig.getConnection(false);
         connection.setAutoCommit(false);
 
         try {
@@ -86,8 +87,8 @@ public abstract class Repository<T> {
 
     public abstract boolean update(T object, Connection connection) throws Exception;
 
-    public boolean delete(int id) throws Exception {
-        Connection connection = ConnectionConfig.getConnection();
+    public boolean delete(UUID id) throws Exception {
+        Connection connection = ConnectionConfig.getConnection(false);
         connection.setAutoCommit(false);
         try {
             Boolean delete = delete(id, connection);
@@ -102,5 +103,5 @@ public abstract class Repository<T> {
         }
     }
 
-    public abstract boolean delete(int id, Connection connection) throws Exception;
+    public abstract boolean delete(Object id, Connection connection) throws Exception;
 }

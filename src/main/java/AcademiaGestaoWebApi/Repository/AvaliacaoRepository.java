@@ -2,23 +2,22 @@ package AcademiaGestaoWebApi.Repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.UUID;
 
-import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Avaliacao;
 import DataLib.AutoMapper.AutoMapper;
 
 public class AvaliacaoRepository extends Repository {
 
     @Override
-    public List<Avaliacao> select(int id, Connection connection) throws Exception {
+    public List<Avaliacao> select(Object id, Connection connection) throws Exception {
 
+        UUID guidId = (UUID) id;
         CallableStatement stmt = null;
         ResultSet data = null;
 
@@ -29,12 +28,12 @@ public class AvaliacaoRepository extends Repository {
 
             stmt = connection.prepareCall(query);
 
-            switch (id) {
-                case 0:
+            switch (id.toString()) {
+                case "00000000-0000-0000-0000-000000000000":
                     stmt.setNull(1, Types.INTEGER, null);
                     break;
                 default:
-                    stmt.setInt(1, id);
+                    stmt.setString(1, id.toString());
                     break;
             }
 
@@ -53,6 +52,26 @@ public class AvaliacaoRepository extends Repository {
 
     @Override
     public int insert(Object object, Connection connection) throws Exception {
+        Avaliacao avaliacao = (Avaliacao) object;
+
+        try {
+
+            String query = "INSERT INTO aluno "
+            +   "("
+            +   ")"
+            +   "VALUES ();";
+
+            stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            //Params
+            //stmt.setString(1, aluno.getNome());
+
+            stmt.executeUpdate(); 
+
+        } catch (Exception e) {
+
+        }
+
         return 0;
     }
 
@@ -62,7 +81,7 @@ public class AvaliacaoRepository extends Repository {
     }
 
     @Override
-    public boolean delete(int id, Connection connection) throws Exception {
+    public boolean delete(Object id, Connection connection) throws Exception {
         return false;
     }
 }

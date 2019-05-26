@@ -2,6 +2,7 @@ package AcademiaGestaoWebApi.Manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Enums.RepositoryEnum;
 import AcademiaGestaoWebApi.Models.Aluno;
@@ -10,24 +11,19 @@ import AcademiaGestaoWebApi.Repository.RepositoryFactory;
  
 public class AlunoManager {
 
-    public List<Aluno> selectAlunos(String id) throws Exception {
+    public List<Aluno> selectAlunos(UUID id) throws Exception {
 
         Repository<Aluno> repositori = RepositoryFactory.CreateRepository(RepositoryEnum.ALUNO);
 
         List<Aluno> alunos = new ArrayList<Aluno>();
 
         try {
-            if(id == null){
+            if(id.toString().equals("00000000-0000-0000-0000-000000000000")){
                 alunos = repositori.select();
                 return alunos;
             }
 
-            if(!id.matches("[0-9]+")){
-                throw new NumberFormatException("O ID passado não é um número");
-            }
-
-            int idAluno = Integer.parseInt(id);
-            Aluno aluno = repositori.select(idAluno);
+            Aluno aluno = repositori.select(id);
             alunos.add(aluno);
             return alunos;
         } catch (Exception ex) {
@@ -75,7 +71,7 @@ public class AlunoManager {
         }                
     }
 
-    public Boolean deleteAluno(int idAluno) throws Exception {
+    public Boolean deleteAluno(UUID idAluno) throws Exception {
         Repository<Aluno> repositori = RepositoryFactory.CreateRepository(RepositoryEnum.ALUNO);
 
         try {
