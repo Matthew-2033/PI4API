@@ -1,6 +1,7 @@
 package AcademiaGestaoWebApi.Manager;
 
 import java.sql.Connection;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Calculos.CalculosGerais;
 import AcademiaGestaoWebApi.Calculos.PorcentagemDeGorduraCalculo;
@@ -8,24 +9,61 @@ import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Avaliacao;
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 import AcademiaGestaoWebApi.Models.ResponseModels.ApiRetorno;
+import AcademiaGestaoWebApi.Repository.AvaliacaoDobrasRepository;
+import AcademiaGestaoWebApi.Repository.AvaliacaoPerimetrosRepository;
+import AcademiaGestaoWebApi.Repository.AvaliacaoPorcentagemGordura;
 import AcademiaGestaoWebApi.Repository.AvaliacaoRepository;
 
 public class AvaliacaoManager {
 
     private PorcentagemDeGorduraCalculo porcentagemDeGorduraCalculos;
-    private AvaliacaoRepository repository;
+    private AvaliacaoRepository repositoryAvaliacao;
+    private AvaliacaoDobrasRepository repositoryDobras;
+    private AvaliacaoPerimetrosRepository repositoryPerimetros;
+    private AvaliacaoPorcentagemGordura repositoryGordura;
     private Connection connection;
     
     public ApiRetorno<Boolean> insertAvaliacao(AvaliacaoRequest avaliacaoRequest) throws Exception {
         connection = ConnectionConfig.getConnection(false);
-        repository = new AvaliacaoRepository();
+        repositoryAvaliacao = new AvaliacaoRepository();
+        repositoryDobras = new AvaliacaoDobrasRepository();
+        repositoryPerimetros = new AvaliacaoPerimetrosRepository();
+        repositoryGordura = new AvaliacaoPorcentagemGordura();
+        ApiRetorno<Boolean> retorno = new ApiRetorno<>();
 
         try {
-            Avaliacao avaliacao = RealizaCalculosAvalicao(avaliacaoRequest);                
-            repository.insert(avaliacao);
+            Avaliacao avaliacao = RealizaCalculosAvalicao(avaliacaoRequest);    
+            avaliacao.setID(UUID.randomUUID());
+            
+            boolean sucesso = repositoryAvaliacao.insert(avaliacao, connection);
 
-            return new ApiRetorno<Boolean>();    
+            if(!sucesso){
+                throw new Exception("Erro ao foi possivel inserir a avaliação");
+            }
+
+            sucesso = repositoryDobras.insert(avaliacao.getDobrasAvaliacao(), connection);
+
+            if(!sucesso){
+                throw new Exception("Erro ao foi possivel inserir a avaliação");
+            }
+
+            sucesso = repositoryPerimetros.insert(avaliacao.getPerimetrosAvaliacao(), connection);
+
+            if(!sucesso){
+                throw new Exception("Erro ao foi possivel inserir a avaliação");
+            }
+
+            sucesso = repositoryGordura.insert(avaliacao.getPorcentagemDeGordura(), connection);
+
+            retorno.setData(sucesso);
+            retorno.setSucess(sucesso);
+            connection.commit();
+            ConnectionConfig.closeConnection(connection);
+
+            return retorno;    
         } catch (Exception ex) {
+            connection.rollback();
+            ConnectionConfig.closeConnection(connection);
             throw ex;
         }        
     }

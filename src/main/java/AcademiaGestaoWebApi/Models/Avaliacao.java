@@ -1,5 +1,6 @@
 package AcademiaGestaoWebApi.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,8 @@ import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 public class Avaliacao {
 
     private UUID iD;
+
+    private UUID idAluno;
 
     private double massa;
     
@@ -29,47 +32,9 @@ public class Avaliacao {
     
     private double massaDeGordura;
 
-    private double peitoral;
+    private AvaliacaoDobras dobrasAvaliacao;
 
-    private double mediaAuxiliar;
-
-    private double subEscapular;
-
-    private double tricipital;
-
-    private double biciptal;
-
-    private double supraIliaca;
-
-    private double abdominalDobra;
-
-    private double coxa;
-
-    private double panturrilha;
-
-    private double torax;
-
-    private double bracoDireito;
-
-    private double bracoEsquerdo;
-
-    private double antebracoDireito;
-
-    private double antebracoEsquerdo;
-
-    private double abdominalPerimetro;
-
-    private double cintura;
-
-    private double quadril;
-
-    private double coxaDireita;
-
-    private double coxaEsquerda;
-
-    private double pernaDireita;
-
-    private double pernaEsquerda;
+    private AvaliacaoPerimetros perimetrosAvaliacao;
 
     private List<PorcentagemDeGordura> porcentagemDeGordura;
 
@@ -77,8 +42,36 @@ public class Avaliacao {
         return this.iD;
     }
 
-    public void setID(UUID iD) {
-        this.iD = iD;
+    public void setID(UUID id) {        
+        this.iD = id;
+
+        if(dobrasAvaliacao != null){
+            dobrasAvaliacao.setIdAvaliacao(id);
+        }
+
+        if(perimetrosAvaliacao != null){
+            perimetrosAvaliacao.setIdAvaliacao(id);
+        }
+
+        if(porcentagemDeGordura == null){
+            return;
+        }
+
+        List<PorcentagemDeGordura> porcentagemDeGorduras = new ArrayList<>();
+        for (PorcentagemDeGordura item : porcentagemDeGordura) {
+            item.setIdAvaliacao(id);
+            porcentagemDeGorduras.add(item);
+        }      
+        
+        porcentagemDeGordura = porcentagemDeGorduras;
+    }
+
+    public UUID getIdAluno() {
+        return this.idAluno;
+    }
+
+    public void setIdAluno(UUID idAluno) {
+        this.idAluno = idAluno;
     }
 
     public double getMassa() {
@@ -145,174 +138,6 @@ public class Avaliacao {
         this.massaDeGordura = massaDeGordura;
     }
 
-    public double getPeitoral() {
-        return this.peitoral;
-    }
-
-    public void setPeitoral(double peitoral) {
-        this.peitoral = peitoral;
-    }
-
-    public double getMediaAuxiliar() {
-        return this.mediaAuxiliar;
-    }
-
-    public void setMediaAuxiliar(double mediaAuxiliar) {
-        this.mediaAuxiliar = mediaAuxiliar;
-    }
-
-    public double getSubEscapular() {
-        return this.subEscapular;
-    }
-
-    public void setSubEscapular(double subEscapular) {
-        this.subEscapular = subEscapular;
-    }
-
-    public double getTricipital() {
-        return this.tricipital;
-    }
-
-    public void setTricipital(double tricipital) {
-        this.tricipital = tricipital;
-    }
-
-    public double getBiciptal() {
-        return this.biciptal;
-    }
-
-    public void setBiciptal(double biciptal) {
-        this.biciptal = biciptal;
-    }
-
-    public double getSupraIliaca() {
-        return this.supraIliaca;
-    }
-
-    public void setSupraIliaca(double supraIliaca) {
-        this.supraIliaca = supraIliaca;
-    }
-
-    public double getAbdominalDobra() {
-        return this.abdominalDobra;
-    }
-
-    public void setAbdominalDobra(double abdominalDobra) {
-        this.abdominalDobra = abdominalDobra;
-    }
-
-    public double getCoxa() {
-        return this.coxa;
-    }
-
-    public void setCoxa(double coxa) {
-        this.coxa = coxa;
-    }
-
-    public double getPanturrilha() {
-        return this.panturrilha;
-    }
-
-    public void setPanturrilha(double panturrilha) {
-        this.panturrilha = panturrilha;
-    }
-
-    public double getTorax() {
-        return this.torax;
-    }
-
-    public void setTorax(double torax) {
-        this.torax = torax;
-    }
-
-    public double getBracoDireito() {
-        return this.bracoDireito;
-    }
-
-    public void setBracoDireito(double bracoDireito) {
-        this.bracoDireito = bracoDireito;
-    }
-
-    public double getBracoEsquerdo() {
-        return this.bracoEsquerdo;
-    }
-
-    public void setBracoEsquerdo(double bracoEsquerdo) {
-        this.bracoEsquerdo = bracoEsquerdo;
-    }
-
-    public double getAntebracoDireito() {
-        return this.antebracoDireito;
-    }
-
-    public void setAntebracoDireito(double antebracoDireito) {
-        this.antebracoDireito = antebracoDireito;
-    }
-
-    public double getAntebracoEsquerdo() {
-        return this.antebracoEsquerdo;
-    }
-
-    public void setAntebracoEsquerdo(double antebracoEsquerdo) {
-        this.antebracoEsquerdo = antebracoEsquerdo;
-    }
-
-    public double getAbdominalPerimetro() {
-        return this.abdominalPerimetro;
-    }
-
-    public void setAbdominalPerimetro(double abdominalPerimetro) {
-        this.abdominalPerimetro = abdominalPerimetro;
-    }
-
-    public double getCintura() {
-        return this.cintura;
-    }
-
-    public void setCintura(double cintura) {
-        this.cintura = cintura;
-    }
-
-    public double getQuadril() {
-        return this.quadril;
-    }
-
-    public void setQuadril(double quadril) {
-        this.quadril = quadril;
-    }
-
-    public double getCoxaDireita() {
-        return this.coxaDireita;
-    }
-
-    public void setCoxaDireita(double coxaDireita) {
-        this.coxaDireita = coxaDireita;
-    }
-
-    public double getCoxaEsquerda() {
-        return this.coxaEsquerda;
-    }
-
-    public void setCoxaEsquerda(double coxaEsquerda) {
-        this.coxaEsquerda = coxaEsquerda;
-    }
-
-    public double getPernaDireita() {
-        return this.pernaDireita;
-    }
-
-    public void setPernaDireita(double pernaDireita) {
-        this.pernaDireita = pernaDireita;
-    }
-
-    public double getPernaEsquerda() {
-        return this.pernaEsquerda;
-    }
-
-    public void setPernaEsquerda(double pernaEsquerda) {
-        this.pernaEsquerda = pernaEsquerda;
-    }
-
     public List<PorcentagemDeGordura> getPorcentagemDeGordura() {
         return this.porcentagemDeGordura;
     }
@@ -321,34 +146,57 @@ public class Avaliacao {
         this.porcentagemDeGordura = porcentagemDeGordura;
     }
 
+    public AvaliacaoDobras getDobrasAvaliacao() {
+        return this.dobrasAvaliacao;
+    }
+
+    public void setDobrasAvaliacao(AvaliacaoDobras dobrasAvaliacao) {
+        this.dobrasAvaliacao = dobrasAvaliacao;
+    }
+
+    public AvaliacaoPerimetros getPerimetrosAvaliacao() {
+        return this.perimetrosAvaliacao;
+    }
+
+    public void setPerimetrosAvaliacao(AvaliacaoPerimetros perimetrosAvaliacao) {
+        this.perimetrosAvaliacao = perimetrosAvaliacao;
+    }
+
     public static class Factory{
 
         public static Avaliacao create(AvaliacaoRequest avaliacaoRequest){
             Avaliacao avaliacao = new Avaliacao();
+            avaliacao.setIdAluno(UUID.fromString(avaliacaoRequest.getIdAluno()));
             avaliacao.setMassa(avaliacaoRequest.getMassa());
             avaliacao.setEstatura(avaliacaoRequest.getEstatura());
-            avaliacao.setPeitoral(avaliacaoRequest.getPeitoral());
-            avaliacao.setMediaAuxiliar(avaliacaoRequest.getMediaAuxiliar());
-            avaliacao.setSubEscapular(avaliacaoRequest.getSubEscapular());
-            avaliacao.setTricipital(avaliacaoRequest.getTricipital());
-            avaliacao.setBiciptal(avaliacaoRequest.getBiciptal());
-            avaliacao.setSupraIliaca(avaliacaoRequest.getSupraIliaca());
-            avaliacao.setAbdominalDobra(avaliacaoRequest.getAbdominalDobra());
-            avaliacao.setCoxa(avaliacaoRequest.getCoxa());
-            avaliacao.setPanturrilha(avaliacaoRequest.getPanturrilha());
-            avaliacao.setTorax(avaliacaoRequest.getTorax());
-            avaliacao.setBracoDireito(avaliacaoRequest.getBracoDireito());
-            avaliacao.setBracoEsquerdo(avaliacaoRequest.getBracoEsquerdo());
-            avaliacao.setAntebracoDireito(avaliacaoRequest.getAntebracoDireito());
-            avaliacao.setAntebracoEsquerdo(avaliacaoRequest.getAntebracoEsquerdo());
-            avaliacao.setAbdominalPerimetro(avaliacaoRequest.getAbdominalPerimetro());
-            avaliacao.setCintura(avaliacaoRequest.getCintura());
-            avaliacao.setQuadril(avaliacaoRequest.getQuadril());
-            avaliacao.setCoxaDireita(avaliacaoRequest.getCoxaDireita());
-            avaliacao.setCoxaEsquerda(avaliacaoRequest.getCoxaEsquerda());
-            avaliacao.setPernaDireita(avaliacaoRequest.getPernaDireita());
-            avaliacao.setPernaEsquerda(avaliacaoRequest.getPernaEsquerda());
+            
+            AvaliacaoDobras dobrasAvaliacao = new AvaliacaoDobras();
+            dobrasAvaliacao.setPeitoral(avaliacaoRequest.getPeitoral());
+            dobrasAvaliacao.setMediaAuxiliar(avaliacaoRequest.getMediaAuxiliar());
+            dobrasAvaliacao.setSubEscapular(avaliacaoRequest.getSubEscapular());
+            dobrasAvaliacao.setTricipital(avaliacaoRequest.getTricipital());
+            dobrasAvaliacao.setBiciptal(avaliacaoRequest.getBiciptal());
+            dobrasAvaliacao.setSupraIliaca(avaliacaoRequest.getSupraIliaca());
+            dobrasAvaliacao.setAbdominalDobra(avaliacaoRequest.getAbdominalDobra());
+            dobrasAvaliacao.setCoxa(avaliacaoRequest.getCoxa());
+            dobrasAvaliacao.setPanturrilha(avaliacaoRequest.getPanturrilha());
 
+            AvaliacaoPerimetros perimetrosAvaliacao = new AvaliacaoPerimetros();
+            perimetrosAvaliacao.setTorax(avaliacaoRequest.getTorax());
+            perimetrosAvaliacao.setBracoDireito(avaliacaoRequest.getBracoDireito());
+            perimetrosAvaliacao.setBracoEsquerdo(avaliacaoRequest.getBracoEsquerdo());
+            perimetrosAvaliacao.setAntebracoDireito(avaliacaoRequest.getAntebracoDireito());
+            perimetrosAvaliacao.setAntebracoEsquerdo(avaliacaoRequest.getAntebracoEsquerdo());
+            perimetrosAvaliacao.setAbdominal(avaliacaoRequest.getAbdominalPerimetro());
+            perimetrosAvaliacao.setCintura(avaliacaoRequest.getCintura());
+            perimetrosAvaliacao.setQuadril(avaliacaoRequest.getQuadril());
+            perimetrosAvaliacao.setCoxaDireita(avaliacaoRequest.getCoxaDireita());
+            perimetrosAvaliacao.setCoxaEsquerda(avaliacaoRequest.getCoxaEsquerda());
+            perimetrosAvaliacao.setPernaDireita(avaliacaoRequest.getPernaDireita());
+            perimetrosAvaliacao.setPernaEsquerda(avaliacaoRequest.getPernaEsquerda());
+
+            avaliacao.setDobrasAvaliacao(dobrasAvaliacao);
+            avaliacao.setPerimetrosAvaliacao(perimetrosAvaliacao);
             return avaliacao;
         }
 

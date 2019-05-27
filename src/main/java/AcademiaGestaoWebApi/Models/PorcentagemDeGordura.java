@@ -1,9 +1,12 @@
 package AcademiaGestaoWebApi.Models;
 
+import java.util.UUID;
+
 import AcademiaGestaoWebApi.Enums.AutorEnum;
 
 public class PorcentagemDeGordura{
 
+    private UUID idAvaliacao;
     private AutorEnum autor;
     private double porcentagemDeGordura;
 
@@ -11,6 +14,14 @@ public class PorcentagemDeGordura{
         this.autor = autor;
         this.porcentagemDeGordura = porcentagemDeGordura;
     }
+
+    public UUID getIdAvaliacao() {
+        return this.idAvaliacao;
+    }
+
+    public void setIdAvaliacao(UUID idAvaliacao) {
+        this.idAvaliacao = idAvaliacao;
+    }    
 
     public AutorEnum getAutor(){
         return this.autor;

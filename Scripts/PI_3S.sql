@@ -51,14 +51,14 @@ CREATE TABLE avaliacao
 (
 	id_avaliacao CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     dataAvaliacao DATETIME NOT NULL,
-	massa DECIMAL(5,5) NULL,
-	estatura DECIMAL(5,5) NULL,    
-    imc DECIMAL(5,5) null,
-    pccg DECIMAL(5,5) null,
-    massa_de_gordura DECIMAL(5,5) null,
-    massa_magra DECIMAL(5,5) null,
-    peso_ideal DECIMAL(5,5) null,
-    peso_em_excesso DECIMAL(5,5) null
+	massa DECIMAL(11,7) NULL,
+	estatura DECIMAL(11,7) NULL,    
+    imc DECIMAL(11,7) null,
+    pccg DECIMAL(11,7) null,
+    massa_de_gordura DECIMAL(11,7) null,
+    massa_magra DECIMAL(11,7) null,
+    peso_ideal DECIMAL(11,7) null,
+    peso_em_excesso DECIMAL(11,7) null
 );
 
 CREATE TRIGGER avaliacao_OnInsert BEFORE INSERT ON avaliacao
@@ -81,15 +81,15 @@ CREATE TABLE avaliacaoDobras
 (
 	id_avaliacaoDobras CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     id_avaliacao CHAR(36) NOT NULL,
-	peitoral DECIMAL(5,5) NULL,
-	auxiliar_media DECIMAL(5,5) NULL,
-	sub_escapular DECIMAL(5,5) NULL,
-	tricipital DECIMAL(5,5) NULL,
-	biciptal DECIMAL(5,5) NULL,
-	supra_iliaca DECIMAL(5,5) NULL,
-	abdominal DECIMAL(5,5) NULL,
-	coxa DECIMAL(5,5) NULL,
-	panturrilha DECIMAL(5,5) NULL,
+	peitoral DECIMAL(11,7) NULL,
+	auxiliar_media DECIMAL(11,7) NULL,
+	sub_escapular DECIMAL(11,7) NULL,
+	tricipital DECIMAL(11,7) NULL,
+	biciptal DECIMAL(11,7) NULL,
+	supra_iliaca DECIMAL(11,7) NULL,
+	abdominal DECIMAL(11,7) NULL,
+	coxa DECIMAL(11,7) NULL,
+	panturrilha DECIMAL(11,7) NULL,
     
 	CONSTRAINT avaliacaoDobras_avaliacao FOREIGN KEY (id_avaliacao)
 		REFERENCES avaliacao(id_avaliacao)
@@ -99,18 +99,18 @@ CREATE TABLE avaliacaoPerimetro
 (
 	id_avaliacaoPerimetro CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     id_avaliacao CHAR(36) NOT NULL,
-	torax DECIMAL(5,5) NULL,
-	braco_direito DECIMAL(5,5) NULL,
-	braco_esquerdo DECIMAL(5,5) NULL,
-	antebraco_direito DECIMAL(5,5) NULL,
-	antebraco_esquerdo DECIMAL(5,5) NULL,
-    abdominal DECIMAL(5,5) NULL,
-	cintura DECIMAL(5,5) NULL,
-	quadril DECIMAL(5,5) NULL,
-	coxa_direita DECIMAL(5,5) NULL,
-	coxa_esquerda DECIMAL(5,5) NULL,
-	perna_direita DECIMAL(5,5) NULL,
-	perna_esquerda DECIMAL(5,5) NULL,
+	torax DECIMAL(11,7) NULL,
+	braco_direito DECIMAL(11,7) NULL,
+	braco_esquerdo DECIMAL(11,7) NULL,
+	antebraco_direito DECIMAL(11,7) NULL,
+	antebraco_esquerdo DECIMAL(11,7) NULL,
+    abdominal DECIMAL(11,7) NULL,
+	cintura DECIMAL(11,7) NULL,
+	quadril DECIMAL(11,7) NULL,
+	coxa_direita DECIMAL(11,7) NULL,
+	coxa_esquerda DECIMAL(11,7) NULL,
+	perna_direita DECIMAL(11,7) NULL,
+	perna_esquerda DECIMAL(11,7) NULL,
     
     CONSTRAINT avaliacaoPerimetro_avaliacao FOREIGN KEY (id_avaliacao)
 		REFERENCES avaliacao(id_avaliacao)
@@ -120,7 +120,7 @@ CREATE TABLE avaliacaoPorcentagemGordura
 (
 	id_avaliacaoPorcentagemGordura CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     id_avaliacao CHAR(36) NOT NULL,
-    porcentagemGordura DECIMAL(5,5) NOT NULL,
+    porcentagemGordura DECIMAL(11,7) NOT NULL,
     autor VARCHAR(20) NOT NULL,
     
 	CONSTRAINT avaliacaoPorcentagemGordura_avaliacao FOREIGN KEY (id_avaliacao)
