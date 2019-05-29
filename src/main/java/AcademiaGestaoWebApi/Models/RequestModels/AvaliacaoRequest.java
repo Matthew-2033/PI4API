@@ -6,7 +6,7 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
 
 public class AvaliacaoRequest {
     
-    private UUID idAluno;
+    private String idAluno;
 
     private int idade;
 
@@ -59,11 +59,11 @@ public class AvaliacaoRequest {
     private double pernaEsquerda;
 
 
-    public UUID getIdAluno() {
+    public String getIdAluno() {
         return this.idAluno;
     }
 
-    public void setIdAluno(UUID idAluno) {
+    public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;
     }
 

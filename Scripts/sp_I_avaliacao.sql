@@ -1,42 +1,24 @@
+/*
 delimiter $$
 CREATE PROCEDURE sp_I_avaliacao
 (
+	IN ID_avaliacao CHAR(36),
 	IN ID_aluno CHAR(36),
-	IN massa DECIMAL(4,6), 
-	IN estatura DECIMAL(5,6),
-	IN peitoral DECIMAL(5,6), 
-	IN auxiliar_media DECIMAL(5,6), 
-	IN sub_escapular DECIMAL(5,6),
-	IN tricipital DECIMAL(5,6), 
-	IN biciptal DECIMAL(5,6), 
-	IN supra_iliaca DECIMAL(5,6),
-	IN abdominal DECIMAL(5,6),
-	IN coxa DECIMAL(5,6), 
-	IN panturrilha DECIMAL(5,6),
-	IN torax DECIMAL(5,6), 
-	IN braco_direito DECIMAL(5,6),
-	IN braco_esquerdo DECIMAL(5,6),
-	IN antebraco_direito DECIMAL(5,6), 
-	IN antebraco_esquerdo DECIMAL(5,6), 
-	IN cintura DECIMAL(5,6),
-	IN quadril DECIMAL(5,6), 
-	IN coxa_direita DECIMAL(5,6), 
-	IN coxa_esquerda DECIMAL(5,6), 
-	IN perna_direita DECIMAL(5,6), 
-	IN perna_esquerda DECIMAL(5,6),
-    IN imc DECIMAL(5,6),
-    IN pccq DECIMAL(5,6),
-    IN massaDeGordura DECIMAL(5,6),
-    IN massaMagra DECIMAL(5,6),
-    IN pesoIdeal DECIMAL(5,6),
-    IN pesoEmExcesso DECIMAL(5,6),
-    IN porcentagemDeGordura VARCHAR(190)
+	IN massa DECIMAL(11,7), 
+	IN estatura DECIMAL(11,7),
+    IN imc DECIMAL(11,7),
+    IN pccq DECIMAL(11,7),
+    IN massaDeGordura DECIMAL(11,7),
+    IN massaMagra DECIMAL(11,7),
+    IN pesoIdeal DECIMAL(11,7),
+    IN pesoEmExcesso DECIMAL(11,7)
 )
 BEGIN
+
+	DECLARE id_avaliacao_inserido CHAR(36);
+    DECLARE idAlunoAvaliacao CHAR(36);
     
-	DECLARE id_avaliacao_inserido CHAR(36) DEFAULT NULL;
-		
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION    
 	
 	INSERT INTO avaliacao 
     (
@@ -48,82 +30,50 @@ BEGIN
         ,massa_de_gordura
         ,massa_magra
         ,peso_ideal
-        ,peso_em_excesso        
+        ,peso_em_excesso  
 	) 
     VALUES
     (
-		uuid()
-        ,1
-        ,2
-        ,3
-        ,4
-        ,5
-        ,6
-        ,7
-        ,8
+		 idAvaliacao
+        ,massa
+        ,estatura
+        ,imc
+        ,pccg
+        ,massa_de_gordura
+        ,massa_magra
+        ,peso_ideal
+        ,peso_em_excesso
 	);
 	
-	SELECT last_insert_id() INTO id_avaliacao_inserido;		
+	SET id_avaliacao_inserido = (SELECT id_avaliacao FROM avaliacao WHERE id_avaliacao = idAvaliacao);
 	
-	IF id_avaliacao_inserido IS NOT NULL THEN 
-		INSERT INTO informacoes 
+	IF id_avaliacao_inserido IS NOT NULL 
+    THEN 
+		
+        SET idAlunoAvaliacao = uuid();
+		INSERT INTO alunoAvaliacao 
 		( 
-			 id_avaliacao
-			,idade 
-			,massa 
-			,estatura 
-			,peitoral 
-			,auxiliar_media
-			,sub_escapular 
-			,tricipital 
-			,biciptal 
-			,supra_iliaca
-			,abdominal 
-			,coxa 
-			,panturrilha 
-			,torax 
-			,braco_direito
-			,braco_esquerdo 
-			,antebraco_direito 
-			,antebraco_esquerdo
-			,cintura 
-			,quadril 
-			,coxa_direita 
-			,coxa_esquerda 
-			,perna_direita
-			,perna_esquerda
+			 id_alunoAvaliacao
+			,id_aluno
+			,id_avaliacao
 		) 
 		VALUE 
 		( 
-			 id_avaliacao_inserido
-			,idade 
-			,massa 
-			,estatura 
-			,peitoral
-			,auxiliar_media 
-			,sub_escapular 
-			,tricipital
-			,biciptal 
-			,supra_iliaca 
-			,abdominal
-			,coxa 
-			,panturrilha 
-			,torax 
-			,braco_direito
-			,braco_esquerdo 
-			,antebraco_direito
-			,antebraco_esquerdo
-			,cintura 
-			,quadril 
-			,coxa_direita 
-			,coxa_esquerda
-			,perna_direita 
-			,perna_esquerda
-		);
+			 idAlunoAvaliacao
+			,ID_aluno
+            ,ID_avaliacao
+		);				
+              
 	END IF; 
+    
+	SELECT IFF(COUNT(*) = 1, TRUE, FALSE) sucesso FROM alunoAvaliacao WHERE id_alunoAvaliacao = idAlunoAvaliacao;		
 END$$
 delimiter ;
-
+*/
+/*
 drop PROCEDURE sp_add_avaliacao;
-CALL sp_add_avaliacao(2,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);
+CALL sp_add_avaliacao();
 select * from avaliacao;
+*/
+
+CALL sp_I_avaliacao(uuid(), '5de0574c-1f18-44be-984a-05bd4f825f3f', 1, 2, 3, 4, 5, 6, 7, 8);

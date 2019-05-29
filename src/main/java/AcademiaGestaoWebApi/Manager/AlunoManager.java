@@ -27,7 +27,7 @@ public class AlunoManager {
             alunos.add(aluno);
             return alunos;
         } catch (Exception ex) {
-            throw new Exception(ex);
+            throw ex;
         }                
     }
 
@@ -40,7 +40,7 @@ public class AlunoManager {
             
             return aluno;
         } catch (Exception ex) {
-            throw new Exception(ex);
+            throw ex;
         }                
     }
     
@@ -51,7 +51,7 @@ public class AlunoManager {
             boolean sucesso = repositori.insert(aluno);
             return sucesso;
         } catch (Exception ex) {
-            throw new Exception(ex);
+            throw ex;
         }                
     }
 
@@ -62,7 +62,7 @@ public class AlunoManager {
             Boolean result = repositori.update(aluno);
             return result;
         } catch (Exception ex) {
-            throw new Exception(ex);
+            throw ex;
         }                
     }
 
@@ -73,7 +73,7 @@ public class AlunoManager {
             Boolean result = repositori.delete(idAluno);
             return result;
         } catch (Exception ex) {
-            throw new Exception(ex);
+            throw ex;
         }                
     }
 }
