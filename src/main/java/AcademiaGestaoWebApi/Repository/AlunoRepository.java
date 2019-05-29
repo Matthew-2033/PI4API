@@ -166,7 +166,7 @@ public class AlunoRepository extends Repository<Aluno> {
         
         try{
             
-            String query = "DELETE FROM aluno WHERE id_aluno = ?"; 
+            String query = "UPDATE aluno SET ativo = FALSE WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAluno.toString());
