@@ -59,6 +59,7 @@ public class AvaliacaoRepository extends Repository {
             String query = "INSERT INTO avaliacao" 
             +"("
             +"     id_avaliacao"
+            +"    ,id_aluno"
             +"    ,massa"
             +"    ,estatura"
             +"    ,imc"
@@ -68,20 +69,21 @@ public class AvaliacaoRepository extends Repository {
             +"    ,peso_ideal"
             +"    ,peso_em_excesso  "
             +")" 
-            +"VALUES(?,?,?,?,?,?,?,?,?);";
+            +"VALUES(?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
             //Params
             stmt.setString(1, avaliacao.getID().toString());
-            stmt.setDouble(2, avaliacao.getMassa());
-            stmt.setDouble(3, avaliacao.getEstatura());
-            stmt.setDouble(4, avaliacao.getImc());
-            stmt.setDouble(5, avaliacao.getPccg());
-            stmt.setDouble(6, avaliacao.getMassaDeGordura());
-            stmt.setDouble(7, avaliacao.getMassaMagra());
-            stmt.setDouble(8, avaliacao.getPesoIdeal());
-            stmt.setDouble(9, avaliacao.getPesoEmExcesso());
+            stmt.setString(2, avaliacao.getIdAluno().toString());
+            stmt.setDouble(3, avaliacao.getMassa());
+            stmt.setDouble(4, avaliacao.getEstatura());
+            stmt.setDouble(5, avaliacao.getImc());
+            stmt.setDouble(6, avaliacao.getPccg());
+            stmt.setDouble(7, avaliacao.getMassaDeGordura());
+            stmt.setDouble(8, avaliacao.getMassaMagra());
+            stmt.setDouble(9, avaliacao.getPesoIdeal());
+            stmt.setDouble(10, avaliacao.getPesoEmExcesso());
 
             int rows = stmt.executeUpdate(); 
 
@@ -90,44 +92,10 @@ public class AvaliacaoRepository extends Repository {
                 return false;
             }
 
-            sucesso = insertAvaliacaoAluno(avaliacao.getID(), avaliacao.getIdAluno(), connection);
             return sucesso;
         } catch (Exception ex) {
             throw ex;
         }        
-    }
-
-    private boolean insertAvaliacaoAluno(UUID idAvaliacao, UUID idAluno, Connection connection) throws Exception {
-        try {
-            String query = "INSERT INTO alunoAvaliacao"
-            +"("
-            +"     id_alunoAvaliacao"
-            +"    ,id_aluno"
-            +"    ,id_avaliacao"
-            +")"
-            +"VALUE" 
-            +"("
-            +"     uuid()"
-            +"    ,?"
-            +"    ,?"
-            +");";
-
-            stmt = connection.prepareStatement(query);
-            
-            stmt.setString(1, idAluno.toString());
-            stmt.setString(2, idAvaliacao.toString());
-
-            int rows = stmt.executeUpdate(); 
-
-            boolean sucesso = false;
-            if(rows > 0){
-                sucesso = true;
-            }
-
-            return sucesso;
-        } catch (Exception ex) {
-            throw ex;
-        }
     }
 
     @Override
