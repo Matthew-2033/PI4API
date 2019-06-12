@@ -128,6 +128,7 @@ public class AlunoController {
 
             response.setData(result);
             response.setSucess(true);
+            response.setMensagem("aluno removido com sucesso");
             return response;
         } catch (Exception ex) {
           

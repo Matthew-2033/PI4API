@@ -1,22 +1,41 @@
-package AcademiaGestaoWebApi.Models.RequestModels;
+package DTO;
 
+import AcademiaGestaoWebApi.Models.AvaliacaoDobras;
+import AcademiaGestaoWebApi.Models.AvaliacaoPerimetros;
+import AcademiaGestaoWebApi.Models.PorcentagemDeGordura;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
-
-import AcademiaGestaoWebApi.Enums.SexoEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class AvaliacaoRequest {
+/**
+ *
+ * @author matheusvieira
+ */
+public class AvaliacaoDTO {
 
-    private String idAluno;
+    private UUID iD;
 
-    private int idade;
+    private UUID idAluno;
 
-    private SexoEnum sexo;
+    private LocalDate dataAvaliacao;
 
     private double massa;
 
     private double estatura;
+
+    private double imc;
+
+    private double pccg;
+
+    private double pesoIdeal;
+
+    private double pesoEmExcesso;
+
+    private double massaMagra;
+
+    private double massaDeGordura;
 
     private double peitoral;
 
@@ -46,7 +65,7 @@ public class AvaliacaoRequest {
 
     private double antebracoEsquerdo;
 
-    private double abdominalPerimetro;
+    private double abdominal;
 
     private double cintura;
 
@@ -60,43 +79,34 @@ public class AvaliacaoRequest {
 
     private double pernaEsquerda;
 
-    public String getIdAluno() {
-        return this.idAluno;
+    private List<PorcentagemDeGordura> porcentagemDeGordura;
+
+    public UUID getiD() {
+        return iD;
     }
 
-    public void setIdAluno(String idAluno) {
+    public void setiD(UUID iD) {
+        this.iD = iD;
+    }
+
+    public UUID getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(UUID idAluno) {
         this.idAluno = idAluno;
     }
 
-    public int getIdade() {
-        return this.idade;
+    public LocalDate getDataAvaliacao() {
+        return dataAvaliacao;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public SexoEnum getSexo() {
-        return this.sexo;
-    }
-
-    public void setSexoEnum(SexoEnum sexo) {
-        this.sexo = sexo;
-    }
-
-    public void setSexoEnum(int sexo) {
-        switch (sexo) {
-            case 1:
-                this.sexo = SexoEnum.MASCULINO;
-                break;
-            case 2:
-                this.sexo = SexoEnum.FEMININO;
-                break;
-        }
+    public void setDataAvaliacao(LocalDate dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 
     public double getMassa() {
-        return this.massa;
+        return massa;
     }
 
     public void setMassa(double massa) {
@@ -104,15 +114,63 @@ public class AvaliacaoRequest {
     }
 
     public double getEstatura() {
-        return this.estatura;
+        return estatura;
     }
 
     public void setEstatura(double estatura) {
         this.estatura = estatura;
     }
 
+    public double getImc() {
+        return imc;
+    }
+
+    public void setImc(double imc) {
+        this.imc = imc;
+    }
+
+    public double getPccg() {
+        return pccg;
+    }
+
+    public void setPccg(double pccg) {
+        this.pccg = pccg;
+    }
+
+    public double getPesoIdeal() {
+        return pesoIdeal;
+    }
+
+    public void setPesoIdeal(double pesoIdeal) {
+        this.pesoIdeal = pesoIdeal;
+    }
+
+    public double getPesoEmExcesso() {
+        return pesoEmExcesso;
+    }
+
+    public void setPesoEmExcesso(double pesoEmExcesso) {
+        this.pesoEmExcesso = pesoEmExcesso;
+    }
+
+    public double getMassaMagra() {
+        return massaMagra;
+    }
+
+    public void setMassaMagra(double massaMagra) {
+        this.massaMagra = massaMagra;
+    }
+
+    public double getMassaDeGordura() {
+        return massaDeGordura;
+    }
+
+    public void setMassaDeGordura(double massaDeGordura) {
+        this.massaDeGordura = massaDeGordura;
+    }
+
     public double getPeitoral() {
-        return this.peitoral;
+        return peitoral;
     }
 
     public void setPeitoral(double peitoral) {
@@ -120,7 +178,7 @@ public class AvaliacaoRequest {
     }
 
     public double getMediaAuxiliar() {
-        return this.mediaAuxiliar;
+        return mediaAuxiliar;
     }
 
     public void setMediaAuxiliar(double mediaAuxiliar) {
@@ -128,7 +186,7 @@ public class AvaliacaoRequest {
     }
 
     public double getSubEscapular() {
-        return this.subEscapular;
+        return subEscapular;
     }
 
     public void setSubEscapular(double subEscapular) {
@@ -136,7 +194,7 @@ public class AvaliacaoRequest {
     }
 
     public double getTricipital() {
-        return this.tricipital;
+        return tricipital;
     }
 
     public void setTricipital(double tricipital) {
@@ -144,7 +202,7 @@ public class AvaliacaoRequest {
     }
 
     public double getBiciptal() {
-        return this.biciptal;
+        return biciptal;
     }
 
     public void setBiciptal(double biciptal) {
@@ -152,7 +210,7 @@ public class AvaliacaoRequest {
     }
 
     public double getSupraIliaca() {
-        return this.supraIliaca;
+        return supraIliaca;
     }
 
     public void setSupraIliaca(double supraIliaca) {
@@ -160,7 +218,7 @@ public class AvaliacaoRequest {
     }
 
     public double getAbdominalDobra() {
-        return this.abdominalDobra;
+        return abdominalDobra;
     }
 
     public void setAbdominalDobra(double abdominalDobra) {
@@ -168,7 +226,7 @@ public class AvaliacaoRequest {
     }
 
     public double getCoxa() {
-        return this.coxa;
+        return coxa;
     }
 
     public void setCoxa(double coxa) {
@@ -176,7 +234,7 @@ public class AvaliacaoRequest {
     }
 
     public double getPanturrilha() {
-        return this.panturrilha;
+        return panturrilha;
     }
 
     public void setPanturrilha(double panturrilha) {
@@ -184,7 +242,7 @@ public class AvaliacaoRequest {
     }
 
     public double getTorax() {
-        return this.torax;
+        return torax;
     }
 
     public void setTorax(double torax) {
@@ -192,7 +250,7 @@ public class AvaliacaoRequest {
     }
 
     public double getBracoDireito() {
-        return this.bracoDireito;
+        return bracoDireito;
     }
 
     public void setBracoDireito(double bracoDireito) {
@@ -200,7 +258,7 @@ public class AvaliacaoRequest {
     }
 
     public double getBracoEsquerdo() {
-        return this.bracoEsquerdo;
+        return bracoEsquerdo;
     }
 
     public void setBracoEsquerdo(double bracoEsquerdo) {
@@ -208,7 +266,7 @@ public class AvaliacaoRequest {
     }
 
     public double getAntebracoDireito() {
-        return this.antebracoDireito;
+        return antebracoDireito;
     }
 
     public void setAntebracoDireito(double antebracoDireito) {
@@ -216,23 +274,23 @@ public class AvaliacaoRequest {
     }
 
     public double getAntebracoEsquerdo() {
-        return this.antebracoEsquerdo;
+        return antebracoEsquerdo;
     }
 
     public void setAntebracoEsquerdo(double antebracoEsquerdo) {
         this.antebracoEsquerdo = antebracoEsquerdo;
     }
 
-    public double getAbdominalPerimetro() {
-        return this.abdominalPerimetro;
+    public double getAbdominal() {
+        return abdominal;
     }
 
-    public void setAbdominalPerimetro(double abdominalPerimetro) {
-        this.abdominalPerimetro = abdominalPerimetro;
+    public void setAbdominal(double abdominal) {
+        this.abdominal = abdominal;
     }
 
     public double getCintura() {
-        return this.cintura;
+        return cintura;
     }
 
     public void setCintura(double cintura) {
@@ -240,7 +298,7 @@ public class AvaliacaoRequest {
     }
 
     public double getQuadril() {
-        return this.quadril;
+        return quadril;
     }
 
     public void setQuadril(double quadril) {
@@ -248,7 +306,7 @@ public class AvaliacaoRequest {
     }
 
     public double getCoxaDireita() {
-        return this.coxaDireita;
+        return coxaDireita;
     }
 
     public void setCoxaDireita(double coxaDireita) {
@@ -256,7 +314,7 @@ public class AvaliacaoRequest {
     }
 
     public double getCoxaEsquerda() {
-        return this.coxaEsquerda;
+        return coxaEsquerda;
     }
 
     public void setCoxaEsquerda(double coxaEsquerda) {
@@ -264,7 +322,7 @@ public class AvaliacaoRequest {
     }
 
     public double getPernaDireita() {
-        return this.pernaDireita;
+        return pernaDireita;
     }
 
     public void setPernaDireita(double pernaDireita) {
@@ -272,11 +330,19 @@ public class AvaliacaoRequest {
     }
 
     public double getPernaEsquerda() {
-        return this.pernaEsquerda;
+        return pernaEsquerda;
     }
 
     public void setPernaEsquerda(double pernaEsquerda) {
         this.pernaEsquerda = pernaEsquerda;
+    }
+
+    public List<PorcentagemDeGordura> getPorcentagemDeGordura() {
+        return porcentagemDeGordura;
+    }
+
+    public void setPorcentagemDeGordura(List<PorcentagemDeGordura> porcentagemDeGordura) {
+        this.porcentagemDeGordura = porcentagemDeGordura;
     }
 
     @Override

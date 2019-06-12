@@ -10,22 +10,23 @@ import java.util.List;
 import java.util.UUID;
 
 import AcademiaGestaoWebApi.Models.Avaliacao;
+import DTO.AvaliacaoDTO;
 import DataLib.AutoMapper.AutoMapper;
 
 public class AvaliacaoRepository extends Repository {
 
     @Override
-    public List<Avaliacao> select(Object id, Connection connection) throws Exception {
+    public List<AvaliacaoDTO> select(Object id, Connection connection) throws Exception {
 
         UUID guidId = (UUID) id;
         CallableStatement stmt = null;
         ResultSet data = null;
 
-        List<Avaliacao> avaliacoes = new ArrayList();
+        List<AvaliacaoDTO> avaliacoes = new ArrayList();
 
         try {
-            String query = "{CALL SP_SELECT_AVALIACAO(?)}";
 
+            String query = "CALL SP_S_Avaliacao(?)";
             stmt = connection.prepareCall(query);
 
             switch (id.toString()) {
@@ -39,37 +40,37 @@ public class AvaliacaoRepository extends Repository {
 
             data = stmt.executeQuery();
 
-            AutoMapper<Avaliacao> autoMapper = new AutoMapper<Avaliacao>(new Avaliacao());
+            AutoMapper<AvaliacaoDTO> autoMapper = new AutoMapper<AvaliacaoDTO>(new AvaliacaoDTO());
 
             avaliacoes = autoMapper.map(data);
             return avaliacoes;
-            
-        } catch(Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
         }
     }
-    
+
     @Override
     public boolean insert(Object object, Connection connection) throws Exception {
         Avaliacao avaliacao = (Avaliacao) object;
 
         try {
 
-            String query = "INSERT INTO avaliacao" 
-            +"("
-            +"     id_avaliacao"
-            +"    ,id_aluno"
-            +"    ,massa"
-            +"    ,estatura"
-            +"    ,imc"
-            +"    ,pccg"
-            +"    ,massa_de_gordura"
-            +"    ,massa_magra"
-            +"    ,peso_ideal"
-            +"    ,peso_em_excesso  "
-            +")" 
-            +"VALUES(?,?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT INTO avaliacao"
+                    + "("
+                    + "     id_avaliacao"
+                    + "    ,id_aluno"
+                    + "    ,massa"
+                    + "    ,estatura"
+                    + "    ,imc"
+                    + "    ,pccg"
+                    + "    ,massa_de_gordura"
+                    + "    ,massa_magra"
+                    + "    ,peso_ideal"
+                    + "    ,peso_em_excesso  "
+                    + ")"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -85,17 +86,17 @@ public class AvaliacaoRepository extends Repository {
             stmt.setDouble(9, avaliacao.getPesoIdeal());
             stmt.setDouble(10, avaliacao.getPesoEmExcesso());
 
-            int rows = stmt.executeUpdate(); 
+            int rows = stmt.executeUpdate();
 
             boolean sucesso = true;
-            if(rows <= 0){
+            if (rows <= 0) {
                 return false;
             }
 
             return sucesso;
         } catch (Exception ex) {
             throw ex;
-        }        
+        }
     }
 
     @Override

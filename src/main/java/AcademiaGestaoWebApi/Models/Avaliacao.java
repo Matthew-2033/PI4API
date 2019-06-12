@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,7 +16,9 @@ public class Avaliacao {
     private UUID iD;
 
     private UUID idAluno;
-
+    
+    private LocalDate dataAvaliacao;
+    
     private double massa;
     
     private double estatura;
@@ -72,6 +75,14 @@ public class Avaliacao {
 
     public void setIdAluno(UUID idAluno) {
         this.idAluno = idAluno;
+    }
+
+    public LocalDate getDataAvaliacao() {
+        return dataAvaliacao;
+    }
+
+    public void setDataAvaliacao(LocalDate dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 
     public double getMassa() {

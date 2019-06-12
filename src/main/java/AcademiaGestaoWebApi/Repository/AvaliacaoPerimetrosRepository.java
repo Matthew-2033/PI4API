@@ -15,32 +15,72 @@ import DataLib.AutoMapper.AutoMapper;
 public class AvaliacaoPerimetrosRepository extends Repository {
 
     @Override
-    public List select(Object param, Connection connection) throws Exception {
-        return null;
+    public List select(Object idObject, Connection connection) throws Exception {
+        UUID id = (UUID) idObject;
+        CallableStatement stmt = null;
+        ResultSet data = null;
+
+        List<AvaliacaoPerimetros> dobras = new ArrayList<>();
+
+        try {
+
+            String query = "SELECT"
+                    + "    id_avaliacaoPerimetro AS id"
+                    + "   ,id_avaliacao AS idAvaliacao"
+                    + "   ,torax AS torax"
+                    + "   ,braco_direito AS bracoDireito"
+                    + "   ,braco_esquerdo AS bracoEsquerdo"
+                    + "   ,antebraco_direito AS antebracoDireito"
+                    + "   ,antebraco_esquerdo AS antebracoEsquerdo"
+                    + "   ,abdominal AS abdominal" 
+                    + "   ,cintura AS cintura"
+                    + "   ,quadril AS quadril"
+                    + "   ,coxa_direita AS coxaDireita"
+                    + "   ,coxa_esquerda AS coxaEsquerda"
+                    + "   ,perna_direita AS pernaDireita"
+                    + "   ,perna_esquerda AS pernaEsquerda " 
+                    + "FROM avaliacaoPerimetro "
+                    + " WHERE idAvaliacao = ?";
+
+            stmt = connection.prepareCall(query);
+
+            stmt.setString(1, id.toString());
+
+            data = stmt.executeQuery();
+
+            AutoMapper<AvaliacaoPerimetros> autoMapper = new AutoMapper<AvaliacaoPerimetros>(new AvaliacaoPerimetros());
+
+            dobras = autoMapper.map(data);
+
+            return dobras;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
     }
 
     @Override
     public boolean insert(Object obejct, Connection connection) throws Exception {
         AvaliacaoPerimetros dobras = (AvaliacaoPerimetros) obejct;
         try {
-            String query = "INSERT INTO avaliacaoPerimetro" 
-            +"("
-            +"    id_avaliacaoPerimetro"
-            +"   ,id_avaliacao"
-            +"   ,torax"
-            +"   ,braco_direito"
-            +"   ,braco_esquerdo"
-            +"   ,antebraco_direito"
-            +"   ,antebraco_esquerdo"
-            +"   ,abdominal"
-            +"   ,cintura"
-            +"   ,quadril"
-            +"   ,coxa_direita"
-            +"   ,coxa_esquerda" 
-            +"   ,perna_direita"
-            +"   ,perna_esquerda"
-            +")" 
-            +"VALUES(uuid(),?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT INTO avaliacaoPerimetro"
+                    + "("
+                    + "    id_avaliacaoPerimetro"
+                    + "   ,id_avaliacao"
+                    + "   ,torax"
+                    + "   ,braco_direito"
+                    + "   ,braco_esquerdo"
+                    + "   ,antebraco_direito"
+                    + "   ,antebraco_esquerdo"
+                    + "   ,abdominal"
+                    + "   ,cintura"
+                    + "   ,quadril"
+                    + "   ,coxa_direita"
+                    + "   ,coxa_esquerda"
+                    + "   ,perna_direita"
+                    + "   ,perna_esquerda"
+                    + ")"
+                    + "VALUES(uuid(),?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -57,11 +97,11 @@ public class AvaliacaoPerimetrosRepository extends Repository {
             stmt.setDouble(11, dobras.getCoxaEsquerda());
             stmt.setDouble(12, dobras.getPernaDireita());
             stmt.setDouble(13, dobras.getPernaEsquerda());
-            
-            int rows = stmt.executeUpdate(); 
+
+            int rows = stmt.executeUpdate();
 
             boolean sucesso = false;
-            if(rows > 0){
+            if (rows > 0) {
                 sucesso = true;
             }
 

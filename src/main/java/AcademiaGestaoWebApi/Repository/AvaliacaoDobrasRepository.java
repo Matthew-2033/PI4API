@@ -15,29 +15,68 @@ import DataLib.AutoMapper.AutoMapper;
 public class AvaliacaoDobrasRepository extends Repository {
 
     @Override
-    public List select(Object param, Connection connection) throws Exception {
-        return null;
+    public List select(Object idObject, Connection connection) throws Exception {
+
+        UUID id = (UUID) idObject;
+        CallableStatement stmt = null;
+        ResultSet data = null;
+
+        List<AvaliacaoDobras> dobras = new ArrayList<>();
+
+        try {
+
+            String query = "SELECT"
+                    + "     id_avaliacaoDobras AS id"
+                    + "    ,id_avaliacao AS idAvaliacao"
+                    + "    ,peitoral AS peitoral"
+                    + "    ,auxiliar_media AS mediaAuxiliar"
+                    + "    ,sub_escapular AS subEscapular"
+                    + "    ,tricipital AS tricipital"
+                    + "    ,biciptal AS biciptal"
+                    + "    ,supra_iliaca AS supraIliaca"
+                    + "    ,abdominal AS abdominalDobra"
+                    + "    ,coxa AS coxa"
+                    + "    ,panturrilha AS panturrilha"
+                    + "FROM avaliacaoDobras "
+                    + " WHERE idAvaliacao = ?";
+
+            stmt = connection.prepareCall(query);
+
+            stmt.setString(1, id.toString());
+
+            data = stmt.executeQuery();
+
+            AutoMapper<AvaliacaoDobras> autoMapper = new AutoMapper<AvaliacaoDobras>(new AvaliacaoDobras());
+
+            dobras = autoMapper.map(data);
+
+            return dobras;
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
     }
 
     @Override
     public boolean insert(Object obejct, Connection connection) throws Exception {
         AvaliacaoDobras dobras = (AvaliacaoDobras) obejct;
         try {
-            String query = "INSERT INTO avaliacaoDobras" 
-            +"("
-            +"     id_avaliacaoDobras"
-            +"    ,id_avaliacao"
-            +"    ,peitoral"
-            +"    ,auxiliar_media"
-            +"    ,sub_escapular"
-            +"    ,tricipital"
-            +"    ,biciptal"
-            +"    ,supra_iliaca"
-            +"    ,abdominal"
-            +"    ,coxa"
-            +"    ,panturrilha"
-            +")" 
-            +"VALUES(uuid(),?,?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT INTO avaliacaoDobras"
+                    + "("
+                    + "     id_avaliacaoDobras"
+                    + "    ,id_avaliacao"
+                    + "    ,peitoral"
+                    + "    ,auxiliar_media"
+                    + "    ,sub_escapular"
+                    + "    ,tricipital"
+                    + "    ,biciptal"
+                    + "    ,supra_iliaca"
+                    + "    ,abdominal"
+                    + "    ,coxa"
+                    + "    ,panturrilha"
+                    + ")"
+                    + "VALUES(uuid(),?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -51,11 +90,11 @@ public class AvaliacaoDobrasRepository extends Repository {
             stmt.setDouble(8, dobras.getAbdominalDobra());
             stmt.setDouble(9, dobras.getCoxa());
             stmt.setDouble(10, dobras.getPanturrilha());
-            
-            int rows = stmt.executeUpdate(); 
+
+            int rows = stmt.executeUpdate();
 
             boolean sucesso = false;
-            if(rows > 0){
+            if (rows > 0) {
                 sucesso = true;
             }
 
@@ -63,7 +102,7 @@ public class AvaliacaoDobrasRepository extends Repository {
         } catch (Exception ex) {
             throw ex;
         }
-    } 
+    }
 
     @Override
     public boolean update(Object object, Connection connection) throws Exception {
