@@ -95,10 +95,10 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
         List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) object;
         try {
             String query = "UPDATE avaliacaoPorcentagemGordura SET "
-                            +"	 porcentagemGordura = ? "
-                            +"WHERE "
-                            +"	id_avaliacao = ? "
-                            +"	AND autor = ?;";
+                    + "	 porcentagemGordura = ? "
+                    + "WHERE "
+                    + "	id_avaliacao = ? "
+                    + "	AND autor = ?;";
 
             stmt = connection.prepareStatement(query);
 
@@ -125,6 +125,24 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
 
     @Override
     public boolean delete(Object id, Connection connection) throws Exception {
-        return false;
+        UUID idAvaliacao = (UUID) id;
+        try {
+
+            String query = "DELETE FROM avaliacaoPorcentagemGordura WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, idAvaliacao.toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }

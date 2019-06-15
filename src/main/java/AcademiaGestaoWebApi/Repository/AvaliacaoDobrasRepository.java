@@ -49,7 +49,7 @@ public class AvaliacaoDobrasRepository extends Repository {
             dobras = autoMapper.map(data);
 
             return dobras;
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new Exception(ex);
@@ -107,16 +107,16 @@ public class AvaliacaoDobrasRepository extends Repository {
         AvaliacaoDobras dobras = (AvaliacaoDobras) object;
         try {
             String query = "UPDATE avaliacaoDobras SET "
-                            +"	  peitoral = ? " 
-                            +"	 ,auxiliar_media = ? " 
-                            +"	 ,sub_escapular = ? " 
-                            +"	 ,tricipital = ? " 
-                            +"	 ,biciptal = ? " 
-                            +"	 ,supra_iliaca = ? " 
-                            +"	 ,abdominal = ? " 
-                            +"	 ,coxa = ? " 
-                            +"	 ,panturrilha = ? " 
-                            +"WHERE id_avaliacao = ?;";
+                    + "	  peitoral = ? "
+                    + "	 ,auxiliar_media = ? "
+                    + "	 ,sub_escapular = ? "
+                    + "	 ,tricipital = ? "
+                    + "	 ,biciptal = ? "
+                    + "	 ,supra_iliaca = ? "
+                    + "	 ,abdominal = ? "
+                    + "	 ,coxa = ? "
+                    + "	 ,panturrilha = ? "
+                    + "WHERE id_avaliacao = ?;";
 
             stmt = connection.prepareStatement(query);
 
@@ -146,6 +146,24 @@ public class AvaliacaoDobrasRepository extends Repository {
 
     @Override
     public boolean delete(Object id, Connection connection) throws Exception {
-        return false;
+        UUID idAvaliacao = (UUID) id;
+        try {
+
+            String query = "DELETE FROM avaliacaoDobras WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, idAvaliacao.toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }

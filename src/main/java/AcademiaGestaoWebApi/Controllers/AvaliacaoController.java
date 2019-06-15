@@ -20,6 +20,7 @@ import DTO.AvaliacaoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,12 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("Api/Avaliacao")
 public class AvaliacaoController {
+   
 
     @ApiOperation("Retorna uma lista de Avaliações")
     @GetMapping()
     public ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>> selectAvaliacao(@RequestParam String id) {
-        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         ApiRetorno<List<AvaliacaoDTO>> response = new ApiRetorno<>();
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
             UUID idGuid = new UUID(0, 0);
@@ -66,8 +68,8 @@ public class AvaliacaoController {
     @ApiOperation("Inseri uma avaliação")
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<ApiRetorno<List<Boolean>>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
-        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
             ApiRetorno<Boolean> result = avaliacaoManager.insertAvaliacao(avaliacao);
@@ -91,8 +93,8 @@ public class AvaliacaoController {
     @ApiOperation("Altera uma avaliação")
     @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<ApiRetorno<List<Boolean>>> updateAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
-        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
             ApiRetorno<Boolean> result = avaliacaoManager.updateAvaliacao(avaliacao);
@@ -108,6 +110,31 @@ public class AvaliacaoController {
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setMensagem("Não foi possivel atualizar a avaliação");
+            response.setSucess(false);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @ApiOperation("Deleta uma avaliação")
+    @DeleteMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<ApiRetorno<List<Boolean>>> deleteAvaliacao(@RequestParam @Valid String idAvaliacao) {
+        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
+
+        try {
+            ApiRetorno<Boolean> result = avaliacaoManager.deleteAvaliacao(idAvaliacao);
+
+            if (!result.isSucess()) {
+                throw new Exception("Não foi possivel deletar a avaliação");
+            }
+
+            response.setMensagem("Avaliação deletada com sucesso");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception ex) {
+            List<String> errorMensages = new ArrayList<>();
+            errorMensages.add(ex.getMessage());
+            response.setErrorMessages(errorMensages);
+            response.setMensagem("Não foi possivel deletar a avaliação");
             response.setSucess(false);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }

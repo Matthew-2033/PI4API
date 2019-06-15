@@ -142,6 +142,24 @@ public class AvaliacaoRepository extends Repository {
 
     @Override
     public boolean delete(Object id, Connection connection) throws Exception {
-        return false;
+        UUID idAvaliacao = (UUID) id;
+        try {
+
+            String query = "DELETE FROM avaliacao WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, idAvaliacao.toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }
