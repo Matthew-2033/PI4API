@@ -67,17 +67,17 @@ public class AvaliacaoController {
      */
     @ApiOperation("Inseri uma avaliação")
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<ApiRetorno<List<Boolean>>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
-        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+    public ResponseEntity<ApiRetorno<Boolean>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
+        ApiRetorno<Boolean> response = new ApiRetorno<>();
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
-            ApiRetorno<Boolean> result = avaliacaoManager.insertAvaliacao(avaliacao);
+            response = avaliacaoManager.insertAvaliacao(avaliacao);
 
-            if (!result.isSucess()) {
+            if (!response.isSucess()) {
                 throw new Exception("Não foi possivel inserir a avaliação");
             }
-
+            
             response.setMensagem("Avaliação inserida com sucesso");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
@@ -92,14 +92,14 @@ public class AvaliacaoController {
     
     @ApiOperation("Altera uma avaliação")
     @PutMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<ApiRetorno<List<Boolean>>> updateAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
-        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+    public ResponseEntity<ApiRetorno<Boolean>> updateAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
+        ApiRetorno<Boolean> response = new ApiRetorno<>();
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
-            ApiRetorno<Boolean> result = avaliacaoManager.updateAvaliacao(avaliacao);
+            response = avaliacaoManager.updateAvaliacao(avaliacao);
 
-            if (!result.isSucess()) {
+            if (!response.isSucess()) {
                 throw new Exception("Não foi possivel atualizar a avaliação");
             }
 
@@ -117,14 +117,14 @@ public class AvaliacaoController {
     
     @ApiOperation("Deleta uma avaliação")
     @DeleteMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<ApiRetorno<List<Boolean>>> deleteAvaliacao(@RequestParam @Valid String idAvaliacao) {
-        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+    public ResponseEntity<ApiRetorno<Boolean>>  deleteAvaliacao(@RequestParam @Valid String idAvaliacao) {
+        ApiRetorno<Boolean> response = new ApiRetorno<>();
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
 
         try {
-            ApiRetorno<Boolean> result = avaliacaoManager.deleteAvaliacao(idAvaliacao);
+            response = avaliacaoManager.deleteAvaliacao(idAvaliacao);
 
-            if (!result.isSucess()) {
+            if (!response.isSucess()) {
                 throw new Exception("Não foi possivel deletar a avaliação");
             }
 
