@@ -1,7 +1,7 @@
 package AcademiaGestaoWebApi.Enums;
 
 public enum AutorEnum {
-    POLLCK7D(1),
+    POLLOCK7D(1),
     POLLOCK3D(2),
     GUEDES(3),
     PETROSKY(4),

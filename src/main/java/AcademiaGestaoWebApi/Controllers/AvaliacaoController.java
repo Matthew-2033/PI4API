@@ -49,8 +49,9 @@ public class AvaliacaoController {
                 return new ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>>(response, HttpStatus.NOT_FOUND);
             }
 
-            response.setData(avaliacoes);
+            response.setData(avaliacoes);            
             response.setSucess(true);
+            
             return new ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>>(response, HttpStatus.OK);
         } catch (Exception ex) {
             List<String> errorMensages = new ArrayList<String>();

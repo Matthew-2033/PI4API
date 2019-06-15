@@ -24,7 +24,7 @@ public class PorcentagemDeGorduraCalculo{
 
         double pollock7D = this.pollock7D(avaliacao);
         if (pollock7D >= 0 ) {
-            PorcentagemDeGordura gordura = new PorcentagemDeGordura(AutorEnum.POLLCK7D, pollock7D);
+            PorcentagemDeGordura gordura = new PorcentagemDeGordura(AutorEnum.POLLOCK7D, pollock7D);
             porcentagemDeGorduraLista.add(gordura);
         }
 
