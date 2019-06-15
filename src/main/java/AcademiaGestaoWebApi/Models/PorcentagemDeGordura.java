@@ -38,7 +38,7 @@ public class PorcentagemDeGordura {
     public void setAutorEnum(int autor) {
         switch (autor) {
             case 1:
-                this.autor = AutorEnum.POLLCK7D;
+                this.autor = AutorEnum.POLLOCK7D;
                 break;
             case 2:
                 this.autor = AutorEnum.POLLOCK3D;

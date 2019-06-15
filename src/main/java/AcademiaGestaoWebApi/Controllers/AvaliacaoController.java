@@ -48,7 +48,7 @@ public class AvaliacaoController {
                 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
 
-            response.setData(avaliacoes);
+            response.setData(avaliacoes);            
             response.setSucess(true);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
