@@ -1,0 +1,24 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 30,
+            "database": "hugolutke01",
+            "dialect": "MySQL",
+            "name": " PI_3S_Producao",
+            "password": "projeto3",
+            "port": 3306,
+            "server": "mysql04-farm51.kinghost.net",
+            "username": "hugolutke01"
+        },
+        {
+            "connectionTimeout": 30,
+            "database": "hugolutke01",
+            "dialect": "MySQL",
+            "name": "PI_3S",
+            "password": "projeto3",
+            "port": 3306,
+            "server": "mysql04-farm51.kinghost.net",
+            "username": "hugolutke01"
+        }
+    ]
+}

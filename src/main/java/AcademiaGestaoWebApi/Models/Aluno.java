@@ -2,6 +2,7 @@ package AcademiaGestaoWebApi.Models;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import AcademiaGestaoWebApi.Enums.SexoEnum;
 
@@ -9,13 +10,15 @@ import AcademiaGestaoWebApi.Enums.SexoEnum;
  *
  * @author Gabriel
  */
-public class Aluno{
+public class Aluno {
 
-    private int id;
+    private UUID id;
 
     private String nome;
 
     private LocalDate dataNascimento;
+
+    private LocalDate ultimaAvaliacao;
 
     private SexoEnum sexo;
 
@@ -27,11 +30,11 @@ public class Aluno{
 
     private List<Avaliacao> historicoDeAvaliacao;
 
-    public int getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -51,6 +54,14 @@ public class Aluno{
         this.dataNascimento = dataNascimento;
     }
 
+    public LocalDate getUltimaAvaliacao() {
+        return ultimaAvaliacao;
+    }
+
+    public void setUltimaAvaliacao(LocalDate ultimaAvaliacao) {
+        this.ultimaAvaliacao = ultimaAvaliacao;
+    }
+    
     public SexoEnum getSexo() {
         return this.sexo;
     }
@@ -63,12 +74,9 @@ public class Aluno{
         switch (sexo) {
             case 1:
                 this.sexo = SexoEnum.MASCULINO;
-                break;        
+                break;
             case 2:
                 this.sexo = SexoEnum.FEMININO;
-                break;
-            case 3:
-                this.sexo = SexoEnum.NAODECLARADO;
                 break;
         }
     }

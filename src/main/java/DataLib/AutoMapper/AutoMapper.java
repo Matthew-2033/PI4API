@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AutoMapper<T> {
 
@@ -66,6 +67,10 @@ public class AutoMapper<T> {
 
             try {
                 switch (property.type) {
+                    case "java.util.UUID" :
+                        UUID guidValue = UUID.fromString(data.getString(property.name)); 
+                        field.set(instance, guidValue);                    
+                        break;
                     case "int":                    
                         int intValue = data.getInt(property.name);
                         field.set(instance, intValue);

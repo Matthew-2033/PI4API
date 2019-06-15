@@ -10,7 +10,7 @@ BEGIN
 			AV.avaliado_id as id,
 			AV.nome as nome,
 			AV.data_nascimento as dataNascimento,
-			if(AV.sexo = "M", 1, if(AV.sexo = "F", 2, 3)) as sexo,
+			if(AV.sexo = "M", 1, 2) as sexo,
 			AV.email as email,
 			AV.CPF as cpf,
 			AV.ativo as ativo

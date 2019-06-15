@@ -1,184 +1,165 @@
 package AcademiaGestaoWebApi.Repository;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Avaliacao;
+import DTO.AvaliacaoDTO;
+import DataLib.AutoMapper.AutoMapper;
 
 public class AvaliacaoRepository extends Repository {
 
-    private Connection con = null;
+    @Override
+    public List<AvaliacaoDTO> select(Object id, Connection connection) throws Exception {
 
-    public  AvaliacaoRepository() {
-        con = ConnectionConfig.getConnection();
-    }
+        UUID guidId = (UUID) id;
+        CallableStatement stmt = null;
+        ResultSet data = null;
 
-    public List<Avaliacao> select(int avaliadoId, int a){
-        
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<Avaliacao> avaliacaoList = new ArrayList<>();
+        List<AvaliacaoDTO> avaliacoes = new ArrayList();
 
         try {
-            
-            String query = "SELECT * FROM Avaliacao "
-                            +"INNER JOIN Avaliado "
-                            +"on Avaliado.avaliado_id = Avaliacao.avaliado_id "
-                            +"WHERE Avaliado.avaliado_id = ?";
 
-            stmt = con.prepareStatement(query);
-            //Param:
-            stmt.setInt(1, avaliadoId);            
-            rs = stmt.executeQuery();
+            String query = "CALL SP_S_Avaliacao(?)";
+            stmt = connection.prepareCall(query);
 
-            while (rs.next()) {
-                
-                Avaliacao avaliacao = new Avaliacao();                
-                avaliacao.setID(rs.getInt("avalicao_id"));
-                avaliacao.setMassa(rs.getDouble("massa"));
-                avaliacao.setEstatura(rs.getDouble("estatura"));
-                avaliacao.setPeitoral(rs.getDouble("peitoral"));
-                avaliacao.setMediaAuxiliar(rs.getDouble("auxiliar_media"));
-                avaliacao.setSubEscapular(rs.getDouble("sub_escapular"));
-                avaliacao.setTricipital(rs.getDouble("tricipital"));
-                avaliacao.setBiciptal(rs.getDouble("biciptal"));
-                avaliacao.setSupraIliaca(rs.getDouble("supra_iliaca"));
-                avaliacao.setCoxa(rs.getDouble("coxa"));
-                avaliacao.setPanturrilha(rs.getDouble("panturrilha"));                                                
-                avaliacao.setTorax(rs.getDouble("torax"));
-                avaliacao.setBracoDireito(rs.getDouble("braco_direito"));
-                avaliacao.setBracoEsquerdo(rs.getDouble("braco_esquerdo"));
-                avaliacao.setAntebracoDireito(rs.getDouble("antebraco_direito"));
-                avaliacao.setAntebracoEsquerdo(rs.getDouble("antebraco_esquerdo"));
-                avaliacao.setAbdominal(rs.getDouble("abdominal"));
-                avaliacao.setCintura(rs.getDouble("cintura"));
-                avaliacao.setQuadril(rs.getDouble("quadril"));
-                avaliacao.setCoxaDireita(rs.getDouble("coxa_direita"));
-                avaliacao.setCoxaEsquerda(rs.getDouble("coxa_esquerda"));
-                avaliacao.setPernaDireita(rs.getDouble("perna_direita"));
-                avaliacao.setPernaEsquerda(rs.getDouble("perna_esquerda"));
-                avaliacao.setImc(rs.getDouble("imc"));
-                avaliacao.setPccg(rs.getDouble("pccg"));
-                avaliacao.setPesoAtual(rs.getDouble("peso_atual"));
-                avaliacao.setMassaDeGordura(rs.getDouble("massa_de_gordura"));
-                avaliacao.setMassaMagra(rs.getDouble("massa_magra"));
-                avaliacao.setPesoIdeal(rs.getDouble("peso_ideal"));
-                avaliacao.setQuantidadeDePesoEmExcesso(rs.getDouble("peso_em_excesso"));
-
-                avaliacaoList.add(avaliacao);
-                
+            switch (id.toString()) {
+                case "00000000-0000-0000-0000-000000000000":
+                    stmt.setNull(1, Types.INTEGER, null);
+                    break;
+                default:
+                    stmt.setString(1, id.toString());
+                    break;
             }
 
-        } catch (SQLException error) {
-            error.printStackTrace();
-        }finally{
-            ConnectionConfig.closeConnection(con, stmt, rs);;
-        }
+            data = stmt.executeQuery();
 
-        return avaliacaoList;
+            AutoMapper<AvaliacaoDTO> autoMapper = new AutoMapper<AvaliacaoDTO>(new AvaliacaoDTO());
+
+            avaliacoes = autoMapper.map(data);
+            return avaliacoes;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
-    public boolean update(){
-
-        con = ConnectionConfig.getConnection();
-        PreparedStatement stmt = null;
-
+    @Override
+    public boolean insert(Object object, Connection connection) throws Exception {
+        Avaliacao avaliacao = (Avaliacao) object;
         try {
 
-            
-            String query = "UPDATE `hugolutke01`.`Avaliacao` SET "
-                                + " `massa` = ?, "
-                                + "`estatura` = ?, "
-                                + "`peitoral` = ?, "
-                                + "`auxiliar_media` = ?, "
-                                +"`sub_escapular` = ?, "
-                                +"`tricipital` = ?, "
-                                +"`biciptal` = ?, "
-                                +"`supra_iliaca` = ?, "
-                                +"`coxa` = ?, "
-                                +"`panturrilha` = ?, "
-                                +"`torax` = ?, "
-                                +"`braco_direito` = ?, "
-                                +"`braco_esquerdo` = ?, "
-                                +"`antebraco_direito` = ?, "
-                                +"`antebraco_esquerdo` = ?, "
-                                +"`abdominal` = ?, "
-                                +"`cintura` = ?, "
-                                +"`quadril` = ?, "
-                                +"`coxa_direita` = ?, "
-                                +"`coxa_esquerda` = ?, "
-                                +"`perna_direita` = ?, "
-                                +"`perna_esquerda` = ?, "
-                                +"`imc` = ?, "
-                                +"`pccg` = ?, "
-                                +"`peso_atual` = ?, "
-                                +"`massa_de_gordura` = ?, "
-                                +"`massa_magra` = ?, "
-                                +"`peso_ideal` = ?, "
-                                +"`peso_em_excesso` = ?" 
-                            +"WHERE (`avaliacao_id` = '1')";
+            String query = "INSERT INTO avaliacao"
+                    + "("
+                    + "     id_avaliacao"
+                    + "    ,id_aluno"
+                    + "    ,massa"
+                    + "    ,estatura"
+                    + "    ,imc"
+                    + "    ,pccg"
+                    + "    ,massa_de_gordura"
+                    + "    ,massa_magra"
+                    + "    ,peso_ideal"
+                    + "    ,peso_em_excesso  "
+                    + ")"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
-            stmt = con.prepareStatement(query);
+            stmt = connection.prepareStatement(query);
 
             //Params
-            
+            stmt.setString(1, avaliacao.getID().toString());
+            stmt.setString(2, avaliacao.getIdAluno().toString());
+            stmt.setDouble(3, avaliacao.getMassa());
+            stmt.setDouble(4, avaliacao.getEstatura());
+            stmt.setDouble(5, avaliacao.getImc());
+            stmt.setDouble(6, avaliacao.getPccg());
+            stmt.setDouble(7, avaliacao.getMassaDeGordura());
+            stmt.setDouble(8, avaliacao.getMassaMagra());
+            stmt.setDouble(9, avaliacao.getPesoIdeal());
+            stmt.setDouble(10, avaliacao.getPesoEmExcesso());
 
-        } catch (Exception e) {
+            int rows = stmt.executeUpdate();
 
-        }            
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
 
-
-        return false;
-    }
-
-    public boolean delete(Avaliacao avaliacao){
-
-        PreparedStatement stmt = null;
-
-        try {
-
-            String query = "DELETE FROM Avaliacao WHERE avaliacao_id = ?";
-
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, avaliacao.getID());
-            stmt.execute();
-
-            return true;
-
-        } catch (SQLException error) {
-            error.printStackTrace();
-            return false;
-        } finally {
-            ConnectionConfig.closeConnection(con, stmt);
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
         }
-
-        
-    }
-
-    @Override
-    public List select(int id, Connection connection) throws Exception {
-        return null;
-    }
-
-    @Override
-    public int insert(Object object, Connection connection) throws Exception {
-        return 0;
     }
 
     @Override
     public boolean update(Object object, Connection connection) throws Exception {
-        return false;
+        Avaliacao avaliacao = (Avaliacao) object;
+        try {
+
+            String query = ""
+                    + "UPDATE avaliacao SET " 
+                    +"	    massa = ? " 
+                    +"    , estatura = ? " 
+                    +"    , imc = ? " 
+                    +"    , pccg = ? " 
+                    +"    , massa_de_gordura = ? " 
+                    +"    , massa_magra = ? " 
+                    +"    , peso_ideal = ? " 
+                    +"    , peso_em_excesso = ? " 
+                    +"WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+
+            //Params
+            stmt.setDouble(1, avaliacao.getMassa());
+            stmt.setDouble(2, avaliacao.getEstatura());
+            stmt.setDouble(3, avaliacao.getImc());
+            stmt.setDouble(4, avaliacao.getPccg());
+            stmt.setDouble(5, avaliacao.getMassaDeGordura());
+            stmt.setDouble(6, avaliacao.getMassaMagra());
+            stmt.setDouble(7, avaliacao.getPesoIdeal());
+            stmt.setDouble(8, avaliacao.getPesoEmExcesso());
+            stmt.setString(9, avaliacao.getID().toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
-    public boolean delete(int id, Connection connection) throws Exception {
-        return false;
+    public boolean delete(Object id, Connection connection) throws Exception {
+        UUID idAvaliacao = (UUID) id;
+        try {
+
+            String query = "DELETE FROM avaliacao WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, idAvaliacao.toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = true;
+            if (rows <= 0) {
+                return false;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
-
-
 }

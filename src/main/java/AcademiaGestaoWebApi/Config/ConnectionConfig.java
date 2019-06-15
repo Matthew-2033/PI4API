@@ -22,10 +22,11 @@ public class ConnectionConfig {
 
     private static String password;
 
-    public static Connection getConnection() {
+    public static Connection getConnection(boolean autoCommit) {
         try {
-            return DriverManager.getConnection(url, username, password);
-
+            Connection connection = DriverManager.getConnection(url, username, password);
+            connection.setAutoCommit(autoCommit);
+            return connection;
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao estabeler conexão: " + ex);
         }
