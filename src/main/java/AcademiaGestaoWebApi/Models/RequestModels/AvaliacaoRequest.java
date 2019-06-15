@@ -1,13 +1,13 @@
 package AcademiaGestaoWebApi.Models.RequestModels;
 
-import java.util.UUID;
-
 import AcademiaGestaoWebApi.Enums.SexoEnum;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class AvaliacaoRequest {
 
+    private String id;
+    
     private String idAluno;
 
     private int idade;
@@ -63,6 +63,14 @@ public class AvaliacaoRequest {
     public String getIdAluno() {
         return this.idAluno;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }        
 
     public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;

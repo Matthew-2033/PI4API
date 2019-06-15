@@ -6,7 +6,6 @@ import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-import AcademiaGestaoWebApi.Calculos.DensidadeCorporalCalculo;
 import AcademiaGestaoWebApi.Enums.AutorEnum;
 import AcademiaGestaoWebApi.Enums.SexoEnum;;
 

@@ -1,16 +1,12 @@
 package AcademiaGestaoWebApi.Repository;
 
-import AcademiaGestaoWebApi.Models.Avaliacao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import AcademiaGestaoWebApi.Models.AvaliacaoPerimetros;
 import AcademiaGestaoWebApi.Models.PorcentagemDeGordura;
 import DataLib.AutoMapper.AutoMapper;
 
@@ -59,8 +55,8 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
     }
 
     @Override
-    public boolean insert(Object obejct, Connection connection) throws Exception {
-        List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) obejct;
+    public boolean insert(Object object, Connection connection) throws Exception {
+        List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) object;
         try {
             String query = "INSERT INTO avaliacaoPorcentagemGordura"
                     + "("
@@ -96,7 +92,35 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
 
     @Override
     public boolean update(Object object, Connection connection) throws Exception {
-        return false;
+        List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) object;
+        try {
+            String query = "UPDATE avaliacaoPorcentagemGordura SET "
+                            +"	 porcentagemGordura = ? "
+                            +"WHERE "
+                            +"	id_avaliacao = ? "
+                            +"	AND autor = ?;";
+
+            stmt = connection.prepareStatement(query);
+
+            boolean sucesso = true;
+            for (PorcentagemDeGordura porcentagem : porcentagens) {
+
+                stmt.setDouble(1, porcentagem.getPorcentagemDeGordura());
+                stmt.setString(2, porcentagem.getIdAvaliacao().toString());
+                stmt.setString(3, porcentagem.getAutor().toString());
+
+                int rows = stmt.executeUpdate();
+
+                if (rows <= 0) {
+                    sucesso = false;
+                    break;
+                }
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override

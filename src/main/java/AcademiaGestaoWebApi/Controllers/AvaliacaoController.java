@@ -1,6 +1,5 @@
 package AcademiaGestaoWebApi.Controllers;
 
-import AcademiaGestaoWebApi.Manager.AlunoManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import AcademiaGestaoWebApi.Manager.AvaliacaoManager;
-import AcademiaGestaoWebApi.Models.Aluno;
-import AcademiaGestaoWebApi.Models.Avaliacao;
 import AcademiaGestaoWebApi.Models.RequestModels.AvaliacaoRequest;
 import AcademiaGestaoWebApi.Models.ResponseModels.ApiRetorno;
 import DTO.AvaliacaoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.UUID;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Api("Avaliação")
@@ -35,7 +32,7 @@ public class AvaliacaoController {
     @GetMapping()
     public ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>> selectAvaliacao(@RequestParam String id) {
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
-        ApiRetorno<List<AvaliacaoDTO>> response = new ApiRetorno<List<AvaliacaoDTO>>();
+        ApiRetorno<List<AvaliacaoDTO>> response = new ApiRetorno<>();
 
         try {
             UUID idGuid = new UUID(0, 0);
@@ -46,18 +43,18 @@ public class AvaliacaoController {
             List<AvaliacaoDTO> avaliacoes = avaliacaoManager.selectAvaliacao(idGuid);
             if (avaliacoes.isEmpty()) {
                 response.setMensagem("Nenhuma avaliacao foi encontrada");
-                return new ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>>(response, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
 
             response.setData(avaliacoes);
             response.setSucess(true);
-            return new ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>>(response, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
-            List<String> errorMensages = new ArrayList<String>();
+            List<String> errorMensages = new ArrayList<>();
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setSucess(false);
-            return new ResponseEntity<ApiRetorno<List<AvaliacaoDTO>>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -70,7 +67,7 @@ public class AvaliacaoController {
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<ApiRetorno<List<Boolean>>> insertAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
-        ApiRetorno<List<Boolean>> response = new ApiRetorno<List<Boolean>>();
+        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
 
         try {
             ApiRetorno<Boolean> result = avaliacaoManager.insertAvaliacao(avaliacao);
@@ -80,14 +77,39 @@ public class AvaliacaoController {
             }
 
             response.setMensagem("Avaliação inserida com sucesso");
-            return new ResponseEntity<ApiRetorno<List<Boolean>>>(response, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
-            List<String> errorMensages = new ArrayList<String>();
+            List<String> errorMensages = new ArrayList<>();
             errorMensages.add(ex.getMessage());
             response.setErrorMessages(errorMensages);
             response.setMensagem("Não foi possivel inserir a avaliação");
             response.setSucess(false);
-            return new ResponseEntity<ApiRetorno<List<Boolean>>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @ApiOperation("Altera uma avaliação")
+    @PutMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<ApiRetorno<List<Boolean>>> updateAvaliacao(@RequestBody @Valid AvaliacaoRequest avaliacao) {
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
+        ApiRetorno<List<Boolean>> response = new ApiRetorno<>();
+
+        try {
+            ApiRetorno<Boolean> result = avaliacaoManager.updateAvaliacao(avaliacao);
+
+            if (!result.isSucess()) {
+                throw new Exception("Não foi possivel atualizar a avaliação");
+            }
+
+            response.setMensagem("Avaliação atualizada com sucesso");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception ex) {
+            List<String> errorMensages = new ArrayList<>();
+            errorMensages.add(ex.getMessage());
+            response.setErrorMessages(errorMensages);
+            response.setMensagem("Não foi possivel atualizar a avaliação");
+            response.setSucess(false);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

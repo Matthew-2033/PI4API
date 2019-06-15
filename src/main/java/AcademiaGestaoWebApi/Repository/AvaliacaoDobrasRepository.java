@@ -3,8 +3,6 @@ package AcademiaGestaoWebApi.Repository;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -59,8 +57,8 @@ public class AvaliacaoDobrasRepository extends Repository {
     }
 
     @Override
-    public boolean insert(Object obejct, Connection connection) throws Exception {
-        AvaliacaoDobras dobras = (AvaliacaoDobras) obejct;
+    public boolean insert(Object object, Connection connection) throws Exception {
+        AvaliacaoDobras dobras = (AvaliacaoDobras) object;
         try {
             String query = "INSERT INTO avaliacaoDobras"
                     + "("
@@ -106,7 +104,44 @@ public class AvaliacaoDobrasRepository extends Repository {
 
     @Override
     public boolean update(Object object, Connection connection) throws Exception {
-        return false;
+        AvaliacaoDobras dobras = (AvaliacaoDobras) object;
+        try {
+            String query = "UPDATE avaliacaoDobras SET "
+                            +"	  peitoral = ? " 
+                            +"	 ,auxiliar_media = ? " 
+                            +"	 ,sub_escapular = ? " 
+                            +"	 ,tricipital = ? " 
+                            +"	 ,biciptal = ? " 
+                            +"	 ,supra_iliaca = ? " 
+                            +"	 ,abdominal = ? " 
+                            +"	 ,coxa = ? " 
+                            +"	 ,panturrilha = ? " 
+                            +"WHERE id_avaliacao = ?;";
+
+            stmt = connection.prepareStatement(query);
+
+            stmt.setDouble(1, dobras.getPeitoral());
+            stmt.setDouble(2, dobras.getMediaAuxiliar());
+            stmt.setDouble(3, dobras.getSubEscapular());
+            stmt.setDouble(4, dobras.getTricipital());
+            stmt.setDouble(5, dobras.getBiciptal());
+            stmt.setDouble(6, dobras.getSupraIliaca());
+            stmt.setDouble(7, dobras.getAbdominalDobra());
+            stmt.setDouble(8, dobras.getCoxa());
+            stmt.setDouble(9, dobras.getPanturrilha());
+            stmt.setString(10, dobras.getIdAvaliacao().toString());
+
+            int rows = stmt.executeUpdate();
+
+            boolean sucesso = false;
+            if (rows > 0) {
+                sucesso = true;
+            }
+
+            return sucesso;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
