@@ -124,11 +124,11 @@ public class AlunoRepository extends Repository<Aluno> {
         try{
 
             String query = "UPDATE aluno SET "
-                                + "nome = ?,"
-                                + "data_nascimento = ?,"
-                                + "sexo = ?,"
-                                + "email = ?,"
-                                + "CPF = ?,"
+                                + "nome = ?, "
+                                + "data_nascimento = ?, "
+                                + "sexo = ?, "
+                                + "email = ?, "
+                                + "CPF = ?, "
                                 + "ativo = ? " 
                          + " WHERE id_aluno = ?;";
             

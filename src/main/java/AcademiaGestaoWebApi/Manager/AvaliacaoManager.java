@@ -184,7 +184,11 @@ public class AvaliacaoManager {
 
     public List<AvaliacaoDTO> selectAvaliacao(UUID id) throws Exception {
         List<AvaliacaoDTO> avaliacoes = repositoryAvaliacao.select(id, connection);
-
+        int i = 1;
+        for (AvaliacaoDTO avaliacao : avaliacoes) {
+            avaliacao.setAvaliacao(i++);
+        }        
+        
         for (AvaliacaoDTO avaliacao : avaliacoes) {
             avaliacao.setPorcentagemDeGordura(repositoryGordura.select(avaliacao.getiD(), connection));
         }

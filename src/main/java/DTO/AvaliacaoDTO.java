@@ -17,6 +17,8 @@ public class AvaliacaoDTO {
 
     private UUID iD;
 
+    private int avaliacao;
+
     private UUID idAluno;
 
     private LocalDate dataAvaliacao;
@@ -348,5 +350,13 @@ public class AvaliacaoDTO {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }   
+
+    public int getAvaliacao() {
+        return avaliacao;
     }
+
+    public void setAvaliacao(int avaliacao) {
+        this.avaliacao = avaliacao;
+    }        
 }
