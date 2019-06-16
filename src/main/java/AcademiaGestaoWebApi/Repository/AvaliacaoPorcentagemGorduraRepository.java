@@ -27,7 +27,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
                     + "    id_avaliacao AS idAvaliacao"
                     + "   ,porcentagemGordura AS porcentagemDeGordura"
                     + "   ,case"
-                    + "      when autor = 'POLLCK7D' then 1 "
+                    + "      when autor = 'POLLOCK7D' then 1 "
                     + "      when autor = 'POLLOCK3D' then 2 "
                     + "      when autor = 'GUEDES' then 3 "
                     + "      when autor = 'PETROSKY' then 4 "
