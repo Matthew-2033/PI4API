@@ -15,7 +15,9 @@ import AcademiaGestaoWebApi.Repository.AvaliacaoPorcentagemGorduraRepository;
 import AcademiaGestaoWebApi.Repository.AvaliacaoRepository;
 import DTO.AvaliacaoDTO;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public class AvaliacaoManager {
 
@@ -184,11 +186,17 @@ public class AvaliacaoManager {
 
     public List<AvaliacaoDTO> selectAvaliacao(UUID id) throws Exception {
         List<AvaliacaoDTO> avaliacoes = repositoryAvaliacao.select(id, connection);
+
+        avaliacoes = avaliacoes
+                .stream()
+                .sorted(Comparator.comparing(AvaliacaoDTO::getDataAvaliacao).reversed())
+                .collect(toList());
+
         int i = 1;
         for (AvaliacaoDTO avaliacao : avaliacoes) {
             avaliacao.setAvaliacao(i++);
-        }        
-        
+        }
+
         for (AvaliacaoDTO avaliacao : avaliacoes) {
             avaliacao.setPorcentagemDeGordura(repositoryGordura.select(avaliacao.getiD(), connection));
         }

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -98,6 +99,11 @@ public class AutoMapper<T> {
                         Date date = data.getDate(property.name);
     
                         field.set(instance, date.toLocalDate());
+                        break;
+                    case "java.time.LocalDateTime":
+                        Timestamp dateTime = data.getTimestamp(property.name);
+    
+                        field.set(instance, dateTime.toLocalDateTime());
                         break;
                 }
             } catch (Exception ex) {

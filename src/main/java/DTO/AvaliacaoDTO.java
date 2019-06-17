@@ -1,9 +1,8 @@
 package DTO;
 
-import AcademiaGestaoWebApi.Models.AvaliacaoDobras;
-import AcademiaGestaoWebApi.Models.AvaliacaoPerimetros;
 import AcademiaGestaoWebApi.Models.PorcentagemDeGordura;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,7 +20,7 @@ public class AvaliacaoDTO {
 
     private UUID idAluno;
 
-    private LocalDate dataAvaliacao;
+    private LocalDateTime dataAvaliacao;
 
     private double massa;
 
@@ -99,11 +98,11 @@ public class AvaliacaoDTO {
         this.idAluno = idAluno;
     }
 
-    public LocalDate getDataAvaliacao() {
+    public LocalDateTime getDataAvaliacao() {
         return dataAvaliacao;
     }
 
-    public void setDataAvaliacao(LocalDate dataAvaliacao) {
+    public void setDataAvaliacao(LocalDateTime dataAvaliacao) {
         this.dataAvaliacao = dataAvaliacao;
     }
 
