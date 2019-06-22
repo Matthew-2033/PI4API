@@ -2,8 +2,9 @@ package AcademiaGestaoWebApi.Enums;
 
 public enum RepositoryEnum{
     ALUNO(1),
-    AVALIACAO(2);
-
+    AVALIACAO(2),
+    MEDIAGORDURA(3);
+    
     public int valorRepository;
 
     RepositoryEnum(int valor) {

@@ -18,6 +18,8 @@ public final class RepositoryFactory {
                 return new AlunoRepository();              
             case "AVALIACAO":
                 return new AvaliacaoRepository();
+            case "MEDIAGORDURA":
+                return new DadosRepository();
         }
 
         return null;
