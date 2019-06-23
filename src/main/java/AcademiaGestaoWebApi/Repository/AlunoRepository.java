@@ -183,4 +183,36 @@ public class AlunoRepository extends Repository<Aluno> {
             throw new Exception(error);
         }
     }
+    
+    public boolean ativarAluno(Object idAluno) throws Exception {
+        Connection connection = ConnectionConfig.getConnection(false);
+        UUID guidID = (UUID) idAluno;
+        boolean temConexao = true;
+        if(connection == null){
+            connection = ConnectionConfig.getConnection(false);
+            temConexao = false;
+        }
+        
+        PreparedStatement stmt = null;
+        
+        try{
+            
+            String query = "UPDATE aluno SET ativo = TRUE WHERE id_aluno = ?"; 
+            
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, idAluno.toString());
+            stmt.execute();    
+            connection.commit();
+            ConnectionConfig.closeConnection(connection, stmt);
+            return true;
+        }catch(SQLException error){
+            if(!temConexao){
+                connection.rollback();
+                ConnectionConfig.closeConnection(connection, stmt);
+            }
+
+            error.printStackTrace();
+            throw new Exception(error);
+        }
+    }
 }

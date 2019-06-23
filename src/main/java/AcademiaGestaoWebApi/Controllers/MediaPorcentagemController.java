@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MediaPorcentagemController {
 
     @ApiOperation("Retorna média de gordura por sexo")
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<ApiRetorno<List<MediaPorcentagemGordura>>> selectMediaGorduraPorSexo() {
         ApiRetorno<List<MediaPorcentagemGordura>> response = new ApiRetorno<>();
         MediaPorcentagemManager manager = new MediaPorcentagemManager();

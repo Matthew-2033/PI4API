@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import AcademiaGestaoWebApi.Enums.RepositoryEnum;
 import AcademiaGestaoWebApi.Models.Aluno;
+import AcademiaGestaoWebApi.Repository.AlunoRepository;
 import AcademiaGestaoWebApi.Repository.Repository;
 import AcademiaGestaoWebApi.Repository.RepositoryFactory;
  
@@ -71,6 +72,17 @@ public class AlunoManager {
 
         try {
             Boolean result = repositori.delete(idAluno);
+            return result;
+        } catch (Exception ex) {
+            throw ex;
+        }                
+    }
+    
+    public Boolean ativarAluno(UUID idAluno) throws Exception {
+        AlunoRepository repositori = new AlunoRepository();
+
+        try {
+            Boolean result = repositori.ativarAluno(idAluno);
             return result;
         } catch (Exception ex) {
             throw ex;
