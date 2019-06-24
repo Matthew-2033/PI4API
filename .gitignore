@@ -25,3 +25,7 @@ HELP.md
 /.nb-gradle/
 /build/
 .vscode/launch.json
+/.vs/academiawebapi/v16/.suo
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
