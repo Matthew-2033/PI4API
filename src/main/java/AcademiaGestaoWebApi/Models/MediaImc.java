@@ -13,6 +13,7 @@ public class MediaImc {
 
     private double media;
     private String faixa;
+    private int qtd;
 
     public double getMedia() {
         return media;
@@ -30,4 +31,11 @@ public class MediaImc {
         this.faixa = faixa;
     }
 
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
 }
