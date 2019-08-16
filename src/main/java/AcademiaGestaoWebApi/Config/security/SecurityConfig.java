@@ -28,7 +28,7 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, true AS Enable FROM acesso.usuario WHERE username=?")
                 .passwordEncoder(new NotEncoder())
-                .authoritiesByUsernameQuery("SELECT U.username, R.role FROM usuario_role AS UR \n" +
+                .authoritiesByUsernameQuery("SELECT U.username, R.role FROM acesso.usuario_role AS UR \n" +
                                                                     "INNER JOIN usuario AS U ON U.id_usuario = UR.id_usario\n" +
                                                                     "INNER JOIN role AS R ON R.id_role = UR.id_role WHERE U.username=?");
     }
