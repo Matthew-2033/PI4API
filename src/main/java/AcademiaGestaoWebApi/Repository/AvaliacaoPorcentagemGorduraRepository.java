@@ -25,7 +25,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
 
             String query = "SELECT "
                     + "    id_avaliacao AS idAvaliacao"
-                    + "   ,porcentagemGordura AS porcentagemDeGordura"
+                    + "   ,porcentagem_gordura AS porcentagemDeGordura"
                     + "   ,case"
                     + "      when autor = 'POLLOCK7D' then 1 "
                     + "      when autor = 'POLLOCK3D' then 2 "
@@ -34,7 +34,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
                     + "      when autor = 'THORLAND7D' then 5 "
                     + "      when autor = 'THORLAND3D' then 6 "
                     + "    end as autor "
-                    + "FROM avaliacaoPorcentagemGordura "
+                    + "FROM avaliacao.porcentagem_gordura "
                     + "WHERE id_avaliacao = ? ";
 
             stmt = connection.prepareCall(query);
@@ -58,14 +58,13 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
     public boolean insert(Object object, Connection connection) throws Exception {
         List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) object;
         try {
-            String query = "INSERT INTO avaliacaoPorcentagemGordura"
+            String query = "INSERT INTO avaliacao.porcentagem_gordura"
                     + "("
-                    + "    id_avaliacaoPorcentagemGordura"
                     + "   ,id_avaliacao"
-                    + "   ,porcentagemGordura"
+                    + "   ,porcentagem_gordura"
                     + "   ,autor"
                     + ")"
-                    + "VALUES(uuid(),?,?,?);";
+                    + "VALUES(?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -94,8 +93,8 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
     public boolean update(Object object, Connection connection) throws Exception {
         List<PorcentagemDeGordura> porcentagens = (ArrayList<PorcentagemDeGordura>) object;
         try {
-            String query = "UPDATE avaliacaoPorcentagemGordura SET "
-                    + "	 porcentagemGordura = ? "
+            String query = "UPDATE avaliacao.porcentagem_gordura SET "
+                    + "	 porcentagem_gordura = ? "
                     + "WHERE "
                     + "	id_avaliacao = ? "
                     + "	AND autor = ?;";
@@ -128,7 +127,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
         UUID idAvaliacao = (UUID) id;
         try {
 
-            String query = "DELETE FROM avaliacaoPorcentagemGordura WHERE id_avaliacao = ?;";
+            String query = "DELETE FROM avaliacao.porcentagem_gordura WHERE id_avaliacao = ?;";
 
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAvaliacao.toString());

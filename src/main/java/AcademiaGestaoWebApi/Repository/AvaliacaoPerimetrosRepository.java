@@ -23,7 +23,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
         try {
 
             String query = "SELECT"
-                    + "    id_avaliacaoPerimetro AS id"
+                    + "    id_perimetro AS id"
                     + "   ,id_avaliacao AS idAvaliacao"
                     + "   ,torax AS torax"
                     + "   ,braco_direito AS bracoDireito"
@@ -37,7 +37,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
                     + "   ,coxa_esquerda AS coxaEsquerda"
                     + "   ,perna_direita AS pernaDireita"
                     + "   ,perna_esquerda AS pernaEsquerda " 
-                    + "FROM avaliacaoPerimetro "
+                    + "FROM avaliacao.perimetro "
                     + " WHERE idAvaliacao = ?";
 
             stmt = connection.prepareCall(query);
@@ -61,9 +61,8 @@ public class AvaliacaoPerimetrosRepository extends Repository {
     public boolean insert(Object obejct, Connection connection) throws Exception {
         AvaliacaoPerimetros dobras = (AvaliacaoPerimetros) obejct;
         try {
-            String query = "INSERT INTO avaliacaoPerimetro"
+            String query = "INSERT INTO avaliacao.perimetro"
                     + "("
-                    + "    id_avaliacaoPerimetro"
                     + "   ,id_avaliacao"
                     + "   ,torax"
                     + "   ,braco_direito"
@@ -78,7 +77,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
                     + "   ,perna_direita"
                     + "   ,perna_esquerda"
                     + ")"
-                    + "VALUES(uuid(),?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -113,7 +112,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
     public boolean update(Object object, Connection connection) throws Exception {
         AvaliacaoPerimetros dobras = (AvaliacaoPerimetros) object;
         try {
-            String query = "UPDATE avaliacaoPerimetro SET "
+            String query = "UPDATE avaliacao.perimetro SET "
                             +"	 torax = ? "
                             +"	,braco_direito = ? "
                             +"	,braco_esquerdo = ? "
@@ -162,7 +161,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
         UUID idAvaliacao = (UUID) id;
         try {
 
-            String query = "DELETE FROM avaliacaoPerimetro WHERE id_avaliacao = ?;";
+            String query = "DELETE FROM avaliacao.perimetro WHERE id_avaliacao = ?";
 
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAvaliacao.toString());

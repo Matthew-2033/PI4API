@@ -25,7 +25,7 @@ public class DadosRepository extends Repository {
         List<MediaPorcentagemGordura> medias = new ArrayList<>();
 
         try {
-            String query = "CALL SP_MEDIA_GORDURA()";
+            String query = "SELECT * FROM wiew_media_de_gordura_por_sexo";
 
             stmt = connection.prepareCall(query);
             rs = stmt.executeQuery();
@@ -45,7 +45,7 @@ public class DadosRepository extends Repository {
         ResultSet rs = null;
 
         try {
-            String query = "SELECT FN_CALCULA_PORCENTAGEM() AS porcentagem";
+            String query = "SELECT fn_calcula_porcentagem() AS porcentagem";
 
             stmt = connection.prepareCall(query);
             rs = stmt.executeQuery();
@@ -67,7 +67,7 @@ public class DadosRepository extends Repository {
         ResultSet rs = null;
         List<Dados> dados = new ArrayList<>();
         try {
-            String query = "CALL SP_S_DADOS()";
+            String query = "SELECT * FROM view_select_dados";
 
             stmt = connection.prepareCall(query);
             rs = stmt.executeQuery();

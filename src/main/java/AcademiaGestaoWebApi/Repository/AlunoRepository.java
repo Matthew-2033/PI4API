@@ -28,16 +28,16 @@ public class AlunoRepository extends Repository<Aluno> {
         List<Aluno> alunos = new ArrayList<>();
         
         try{
-            
-            String query = "{CALL SP_S_Avaliado(?)}";
-            
-            stmt = connection.prepareCall(query);
+                    
+            String query = "SELECT * FROM view_s_avaliacao";
+            String query2 = "SELECT * FROM view_s_avaliacao WHERE idAluno = ?";
 
             switch (id.toString()) {
                 case "00000000-0000-0000-0000-000000000000":
-                    stmt.setNull(1, Types.INTEGER, null); 
+                    stmt = connection.prepareCall(query);                    
                     break;    
                 default:
+                    stmt = connection.prepareCall(query2);
                     stmt.setString(1, id.toString());
                     break;
             }
@@ -86,7 +86,6 @@ public class AlunoRepository extends Repository<Aluno> {
         try{
             String query = "INSERT INTO aluno "
                         +   "("
-                        +       "id_aluno,"
                         +       "nome,"
                         +       "data_nascimento,"
                         +       "sexo,"
@@ -94,7 +93,7 @@ public class AlunoRepository extends Repository<Aluno> {
                         +       "CPF,"
                         +       "ativo"
                         +   ")"
-                        +   "VALUES (uuid(), ?, ?, ?, ?, ?, ?);";
+                        +   "VALUES (?, ?, ?, ?, ?, ?);";
             
             stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -123,7 +122,7 @@ public class AlunoRepository extends Repository<Aluno> {
     public boolean update(Aluno aluno, Connection connection) throws Exception {        
         try{
 
-            String query = "UPDATE aluno SET "
+            String query = "UPDATE aluno.aluno SET "
                                 + "nome = ?, "
                                 + "data_nascimento = ?, "
                                 + "sexo = ?, "
@@ -166,7 +165,7 @@ public class AlunoRepository extends Repository<Aluno> {
         
         try{
             
-            String query = "UPDATE aluno SET ativo = FALSE WHERE id_aluno = ?"; 
+            String query = "UPDATE aluno.aluno SET ativo = FALSE WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAluno.toString());
@@ -197,7 +196,7 @@ public class AlunoRepository extends Repository<Aluno> {
         
         try{
             
-            String query = "UPDATE aluno SET ativo = TRUE WHERE id_aluno = ?"; 
+            String query = "UPDATE aluno.aluno SET ativo = TRUE WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAluno.toString());

@@ -25,14 +25,16 @@ public class AvaliacaoRepository extends Repository {
 
         try {
 
-            String query = "CALL SP_S_Avaliacao(?)";
-            stmt = connection.prepareCall(query);
+            String query = "SELECT * FROM view_s_avaliacao";
+            String query2 = "SELECT * FROM view_s_avaliacao WHERE id = ?";
+            
 
             switch (id.toString()) {
                 case "00000000-0000-0000-0000-000000000000":
-                    stmt.setNull(1, Types.INTEGER, null);
+                    stmt = connection.prepareCall(query);
                     break;
                 default:
+                    stmt = connection.prepareCall(query2);
                     stmt.setString(1, id.toString());
                     break;
             }
@@ -55,9 +57,8 @@ public class AvaliacaoRepository extends Repository {
         Avaliacao avaliacao = (Avaliacao) object;
         try {
 
-            String query = "INSERT INTO avaliacao"
+            String query = "INSERT INTO avaliacao.avaliacao"
                     + "("
-                    + "     id_avaliacao"
                     + "    ,id_aluno"
                     + "    ,massa"
                     + "    ,estatura"
@@ -68,7 +69,7 @@ public class AvaliacaoRepository extends Repository {
                     + "    ,peso_ideal"
                     + "    ,peso_em_excesso  "
                     + ")"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?);";
+                    + "VALUES(?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
@@ -103,7 +104,7 @@ public class AvaliacaoRepository extends Repository {
         try {
 
             String query = ""
-                    + "UPDATE avaliacao SET " 
+                    + "UPDATE avaliacao.avaliacao SET " 
                     +"	    massa = ? " 
                     +"    , estatura = ? " 
                     +"    , imc = ? " 
@@ -145,7 +146,7 @@ public class AvaliacaoRepository extends Repository {
         UUID idAvaliacao = (UUID) id;
         try {
 
-            String query = "DELETE FROM avaliacao WHERE id_avaliacao = ?;";
+            String query = "DELETE FROM avaliacao.avaliacao WHERE id_avaliacao = ?;";
 
             stmt = connection.prepareStatement(query);
             stmt.setString(1, idAvaliacao.toString());
