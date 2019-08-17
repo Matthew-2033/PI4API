@@ -42,7 +42,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
 
             stmt = connection.prepareCall(query);
 
-            stmt.setString(1, id.toString());
+            stmt.setObject(1, id);
 
             data = stmt.executeQuery();
 
@@ -63,7 +63,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
         try {
             String query = "INSERT INTO avaliacao.perimetro"
                     + "("
-                    + "   ,id_avaliacao"
+                    + "   id_avaliacao"
                     + "   ,torax"
                     + "   ,braco_direito"
                     + "   ,braco_esquerdo"
@@ -77,11 +77,11 @@ public class AvaliacaoPerimetrosRepository extends Repository {
                     + "   ,perna_direita"
                     + "   ,perna_esquerda"
                     + ")"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
-
-            stmt.setString(1, dobras.getIdAvaliacao().toString());
+            
+            stmt.setObject(1, dobras.getIdAvaliacao());
             stmt.setDouble(2, dobras.getTorax());
             stmt.setDouble(3, dobras.getBracoDireito());
             stmt.setDouble(4, dobras.getBracoEsquerdo());
@@ -141,7 +141,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
             stmt.setDouble(10, dobras.getCoxaEsquerda());
             stmt.setDouble(11, dobras.getPernaDireita());
             stmt.setDouble(12, dobras.getPernaEsquerda());
-            stmt.setString(13, dobras.getIdAvaliacao().toString());
+            stmt.setObject(13, dobras.getIdAvaliacao());
 
             int rows = stmt.executeUpdate();
 
@@ -164,7 +164,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
             String query = "DELETE FROM avaliacao.perimetro WHERE id_avaliacao = ?";
 
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, idAvaliacao.toString());
+            stmt.setObject(1, idAvaliacao);
 
             int rows = stmt.executeUpdate();
 

@@ -40,7 +40,7 @@ public class AvaliacaoDobrasRepository extends Repository {
 
             stmt = connection.prepareCall(query);
 
-            stmt.setString(1, id.toString());
+            stmt.setObject(1, id);
 
             data = stmt.executeQuery();
 
@@ -128,7 +128,7 @@ public class AvaliacaoDobrasRepository extends Repository {
             stmt.setDouble(7, dobras.getAbdominalDobra());
             stmt.setDouble(8, dobras.getCoxa());
             stmt.setDouble(9, dobras.getPanturrilha());
-            stmt.setString(10, dobras.getIdAvaliacao().toString());
+            stmt.setObject(10, dobras.getIdAvaliacao());
 
             int rows = stmt.executeUpdate();
 
@@ -151,7 +151,7 @@ public class AvaliacaoDobrasRepository extends Repository {
             String query = "DELETE FROM avaliacao.dobras WHERE id_avaliacao = ?;";
 
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, idAvaliacao.toString());
+            stmt.setObject(1, idAvaliacao);
 
             int rows = stmt.executeUpdate();
 

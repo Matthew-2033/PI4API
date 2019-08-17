@@ -198,6 +198,7 @@ public class AvaliacaoManager {
         }
 
         for (AvaliacaoDTO avaliacao : avaliacoes) {
+            System.out.println("passando");
             avaliacao.setPorcentagemDeGordura(repositoryGordura.select(avaliacao.getiD(), connection));
         }
 

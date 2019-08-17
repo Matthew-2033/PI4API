@@ -26,7 +26,7 @@ public class AvaliacaoRepository extends Repository {
         try {
 
             String query = "SELECT * FROM view_s_avaliacao";
-            String query2 = "SELECT * FROM view_s_avaliacao WHERE id = ?";
+            String query2 = "SELECT * FROM view_s_avaliacao WHERE idaluno = ?";
             
 
             switch (id.toString()) {
@@ -34,11 +34,11 @@ public class AvaliacaoRepository extends Repository {
                     stmt = connection.prepareCall(query);
                     break;
                 default:
-                    stmt = connection.prepareCall(query2);
-                    stmt.setString(1, id.toString());
+                    stmt = connection.prepareCall(query2);                    
+                    stmt.setObject(1, id);
                     break;
             }
-
+            System.out.println(stmt);
             data = stmt.executeQuery();
 
             AutoMapper<AvaliacaoDTO> autoMapper = new AutoMapper<AvaliacaoDTO>(new AvaliacaoDTO());
@@ -59,7 +59,7 @@ public class AvaliacaoRepository extends Repository {
 
             String query = "INSERT INTO avaliacao.avaliacao"
                     + "("
-                    + "    ,id_aluno"
+                    + "    id_aluno"
                     + "    ,massa"
                     + "    ,estatura"
                     + "    ,imc"
@@ -126,7 +126,7 @@ public class AvaliacaoRepository extends Repository {
             stmt.setDouble(6, avaliacao.getMassaMagra());
             stmt.setDouble(7, avaliacao.getPesoIdeal());
             stmt.setDouble(8, avaliacao.getPesoEmExcesso());
-            stmt.setString(9, avaliacao.getID().toString());
+            stmt.setObject(9, avaliacao.getID());
 
             int rows = stmt.executeUpdate();
 
@@ -149,7 +149,7 @@ public class AvaliacaoRepository extends Repository {
             String query = "DELETE FROM avaliacao.avaliacao WHERE id_avaliacao = ?;";
 
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, idAvaliacao.toString());
+            stmt.setObject(1, idAvaliacao);
 
             int rows = stmt.executeUpdate();
 

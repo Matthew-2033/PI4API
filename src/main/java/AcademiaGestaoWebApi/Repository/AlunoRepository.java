@@ -29,8 +29,8 @@ public class AlunoRepository extends Repository<Aluno> {
         
         try{
                     
-            String query = "SELECT * FROM view_s_avaliacao";
-            String query2 = "SELECT * FROM view_s_avaliacao WHERE idAluno = ?";
+            String query = "SELECT * FROM public.view_select_aluno";
+            String query2 = "SELECT * FROM public.view_select_aluno WHERE id = ?";
 
             switch (id.toString()) {
                 case "00000000-0000-0000-0000-000000000000":
@@ -38,7 +38,7 @@ public class AlunoRepository extends Repository<Aluno> {
                     break;    
                 default:
                     stmt = connection.prepareCall(query2);
-                    stmt.setString(1, id.toString());
+                    stmt.setObject(1, id);
                     break;
             }
            
@@ -84,7 +84,7 @@ public class AlunoRepository extends Repository<Aluno> {
     @Override
     public boolean insert(Aluno aluno, Connection connection) throws Exception {        
         try{
-            String query = "INSERT INTO aluno "
+            String query = "INSERT INTO aluno.aluno "
                         +   "("
                         +       "nome,"
                         +       "data_nascimento,"
@@ -140,7 +140,7 @@ public class AlunoRepository extends Repository<Aluno> {
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());
-            stmt.setString(7, aluno.getId().toString());
+            stmt.setObject(7, aluno.getId());
 
             stmt.executeUpdate();   
 
@@ -168,7 +168,7 @@ public class AlunoRepository extends Repository<Aluno> {
             String query = "UPDATE aluno.aluno SET ativo = FALSE WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, idAluno.toString());
+            stmt.setObject(1, idAluno);
             stmt.execute();                 
             
             return true;
@@ -199,7 +199,7 @@ public class AlunoRepository extends Repository<Aluno> {
             String query = "UPDATE aluno.aluno SET ativo = TRUE WHERE id_aluno = ?"; 
             
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, idAluno.toString());
+            stmt.setObject(1, idAluno);
             stmt.execute();    
             connection.commit();
             ConnectionConfig.closeConnection(connection, stmt);

@@ -35,11 +35,11 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
                     + "      when autor = 'THORLAND3D' then 6 "
                     + "    end as autor "
                     + "FROM avaliacao.porcentagem_gordura "
-                    + "WHERE id_avaliacao = ? ";
+                    + "WHERE id_avaliacao = ?";
 
             stmt = connection.prepareCall(query);
-
-            stmt.setString(1, id.toString());
+            stmt.setObject(1, id);
+            System.out.println(stmt);
 
             rs = stmt.executeQuery();
 
