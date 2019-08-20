@@ -193,12 +193,12 @@ public class AvaliacaoManager {
                 .collect(toList());
 
         int i = 1;
+        
         for (AvaliacaoDTO avaliacao : avaliacoes) {
             avaliacao.setAvaliacao(i++);
         }
 
-        for (AvaliacaoDTO avaliacao : avaliacoes) {
-            System.out.println("passando");
+        for (AvaliacaoDTO avaliacao : avaliacoes) {           
             avaliacao.setPorcentagemDeGordura(repositoryGordura.select(avaliacao.getiD(), connection));
         }
 

@@ -90,17 +90,27 @@ public class AlunoRepository extends Repository<Aluno> {
                         +       "data_nascimento,"
                         +       "sexo,"
                         +       "email,"
-                        +       "CPF,"
+                        +       "cpf,"
                         +       "ativo"
                         +   ")"
-                        +   "VALUES (?, ?, ?, ?, ?, ?);";
+                        +   "VALUES (?, ?, ?::sexo, ?, ?, ?);";
             
             stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             //Params
             stmt.setString(1, aluno.getNome());
             stmt.setDate(2, Date.valueOf(aluno.getDataNascimento()));            
-            stmt.setInt(3, aluno.getSexo().getInt());
+            
+            switch (aluno.getSexo()) {
+                case FEMININO:
+                    stmt.setString(3, "F");
+                    break;
+                case MASCULINO:
+                    stmt.setString(3, "M");
+                    break;               
+            }
+            
+            //stmt.setInt(3, aluno.getSexo().getInt());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());
@@ -125,7 +135,7 @@ public class AlunoRepository extends Repository<Aluno> {
             String query = "UPDATE aluno.aluno SET "
                                 + "nome = ?, "
                                 + "data_nascimento = ?, "
-                                + "sexo = ?, "
+                                + "sexo = ?::sexo, "
                                 + "email = ?, "
                                 + "CPF = ?, "
                                 + "ativo = ? " 
@@ -135,8 +145,18 @@ public class AlunoRepository extends Repository<Aluno> {
             
             //Params
             stmt.setString(1, aluno.getNome());
-            stmt.setDate(2, Date.valueOf(aluno.getDataNascimento()));            
-            stmt.setInt(3, aluno.getSexo().getInt());
+            stmt.setDate(2, Date.valueOf(aluno.getDataNascimento()));
+            
+            switch (aluno.getSexo()) {
+                case FEMININO:
+                    stmt.setString(3, "F");
+                    break;
+                case MASCULINO:
+                    stmt.setString(3, "M");
+                    break;               
+            }
+                 
+            //stmt.setString(3, aluno.getSexo().toString());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());

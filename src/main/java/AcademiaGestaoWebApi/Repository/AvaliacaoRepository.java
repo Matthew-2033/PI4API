@@ -38,7 +38,7 @@ public class AvaliacaoRepository extends Repository {
                     stmt.setObject(1, id);
                     break;
             }
-            System.out.println(stmt);
+            
             data = stmt.executeQuery();
 
             AutoMapper<AvaliacaoDTO> autoMapper = new AutoMapper<AvaliacaoDTO>(new AvaliacaoDTO());
@@ -73,17 +73,16 @@ public class AvaliacaoRepository extends Repository {
 
             stmt = connection.prepareStatement(query);
 
-            //Params
-            stmt.setString(1, avaliacao.getID().toString());
-            stmt.setString(2, avaliacao.getIdAluno().toString());
-            stmt.setDouble(3, avaliacao.getMassa());
-            stmt.setDouble(4, avaliacao.getEstatura());
-            stmt.setDouble(5, avaliacao.getImc());
-            stmt.setDouble(6, avaliacao.getPccg());
-            stmt.setDouble(7, avaliacao.getMassaDeGordura());
-            stmt.setDouble(8, avaliacao.getMassaMagra());
-            stmt.setDouble(9, avaliacao.getPesoIdeal());
-            stmt.setDouble(10, avaliacao.getPesoEmExcesso());
+            //Params            
+            stmt.setObject(1, avaliacao.getIdAluno());
+            stmt.setDouble(2, avaliacao.getMassa());
+            stmt.setDouble(3, avaliacao.getEstatura());
+            stmt.setDouble(4, avaliacao.getImc());
+            stmt.setDouble(5, avaliacao.getPccg());
+            stmt.setDouble(6, avaliacao.getMassaDeGordura());
+            stmt.setDouble(7, avaliacao.getMassaMagra());
+            stmt.setDouble(8, avaliacao.getPesoIdeal());
+            stmt.setDouble(9, avaliacao.getPesoEmExcesso());
 
             int rows = stmt.executeUpdate();
 

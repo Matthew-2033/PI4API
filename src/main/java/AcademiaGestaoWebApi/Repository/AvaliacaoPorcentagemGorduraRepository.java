@@ -38,8 +38,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
                     + "WHERE id_avaliacao = ?";
 
             stmt = connection.prepareCall(query);
-            stmt.setObject(1, id);
-            System.out.println(stmt);
+            stmt.setObject(1, id);           
 
             rs = stmt.executeQuery();
 
@@ -60,7 +59,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
         try {
             String query = "INSERT INTO avaliacao.porcentagem_gordura"
                     + "("
-                    + "   ,id_avaliacao"
+                    + "    id_avaliacao"
                     + "   ,porcentagem_gordura"
                     + "   ,autor"
                     + ")"
@@ -71,7 +70,7 @@ public class AvaliacaoPorcentagemGorduraRepository extends Repository {
             boolean sucesso = true;
             for (PorcentagemDeGordura porcentagem : porcentagens) {
 
-                stmt.setString(1, porcentagem.getIdAvaliacao().toString());
+                stmt.setObject(1, porcentagem.getIdAvaliacao());
                 stmt.setDouble(2, porcentagem.getPorcentagemDeGordura());
                 stmt.setString(3, porcentagem.getAutor().toString());
 

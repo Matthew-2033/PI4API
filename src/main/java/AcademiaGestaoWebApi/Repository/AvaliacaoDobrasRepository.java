@@ -62,7 +62,7 @@ public class AvaliacaoDobrasRepository extends Repository {
         try {
             String query = "INSERT INTO avaliacao.dobras"
                     + "("
-                    + "    ,id_avaliacao"
+                    + "     id_avaliacao"
                     + "    ,peitoral"
                     + "    ,auxiliar_media"
                     + "    ,sub_escapular"
@@ -77,7 +77,7 @@ public class AvaliacaoDobrasRepository extends Repository {
 
             stmt = connection.prepareStatement(query);
 
-            stmt.setString(1, dobras.getIdAvaliacao().toString());
+            stmt.setObject(1, dobras.getIdAvaliacao().toString());
             stmt.setDouble(2, dobras.getPeitoral());
             stmt.setDouble(3, dobras.getMediaAuxiliar());
             stmt.setDouble(4, dobras.getSubEscapular());

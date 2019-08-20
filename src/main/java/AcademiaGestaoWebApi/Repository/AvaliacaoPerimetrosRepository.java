@@ -63,7 +63,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
         try {
             String query = "INSERT INTO avaliacao.perimetro"
                     + "("
-                    + "   id_avaliacao"
+                    + "    id_avaliacao"
                     + "   ,torax"
                     + "   ,braco_direito"
                     + "   ,braco_esquerdo"
@@ -77,7 +77,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
                     + "   ,perna_direita"
                     + "   ,perna_esquerda"
                     + ")"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
             

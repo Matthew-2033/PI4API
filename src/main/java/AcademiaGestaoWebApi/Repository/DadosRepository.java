@@ -53,6 +53,7 @@ public class DadosRepository extends Repository {
             rs.next();
             
             Double result = rs.getDouble("porcentagem");
+            
             return result;
 
         } catch (Exception ex) {
