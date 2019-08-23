@@ -80,7 +80,6 @@ public class AvaliacaoPerimetrosRepository extends Repository {
                     + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
-            
             stmt.setObject(1, dobras.getIdAvaliacao());
             stmt.setDouble(2, dobras.getTorax());
             stmt.setDouble(3, dobras.getBracoDireito());
@@ -95,6 +94,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
             stmt.setDouble(12, dobras.getPernaDireita());
             stmt.setDouble(13, dobras.getPernaEsquerda());
 
+            System.out.println(stmt);
             int rows = stmt.executeUpdate();
 
             boolean sucesso = false;

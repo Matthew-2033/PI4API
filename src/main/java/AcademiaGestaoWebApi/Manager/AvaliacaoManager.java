@@ -49,19 +49,19 @@ public class AvaliacaoManager {
             if (!sucesso) {
                 throw new Exception("Erro ao inserir a avaliação");
             }
-
+            
             sucesso = repositoryDobras.insert(avaliacao.getDobrasAvaliacao(), connection);
 
             if (!sucesso) {
                 throw new Exception("Erro ao inserir a avaliação");
             }
-
+            
             sucesso = repositoryPerimetros.insert(avaliacao.getPerimetrosAvaliacao(), connection);
-
+            
             if (!sucesso) {
                 throw new Exception("Erro ao inserir a avaliação");
             }
-
+            
             sucesso = repositoryGordura.insert(avaliacao.getPorcentagemDeGordura(), connection);
 
             if (!sucesso) {

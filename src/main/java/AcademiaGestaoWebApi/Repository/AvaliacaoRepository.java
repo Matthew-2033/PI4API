@@ -59,7 +59,8 @@ public class AvaliacaoRepository extends Repository {
 
             String query = "INSERT INTO avaliacao.avaliacao"
                     + "("
-                    + "    id_aluno"
+                    + "     id_avaliacao"
+                    + "    ,id_aluno"
                     + "    ,massa"
                     + "    ,estatura"
                     + "    ,imc"
@@ -69,21 +70,22 @@ public class AvaliacaoRepository extends Repository {
                     + "    ,peso_ideal"
                     + "    ,peso_em_excesso  "
                     + ")"
-                    + "VALUES(?,?,?,?,?,?,?,?,?);";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
             stmt = connection.prepareStatement(query);
 
-            //Params            
-            stmt.setObject(1, avaliacao.getIdAluno());
-            stmt.setDouble(2, avaliacao.getMassa());
-            stmt.setDouble(3, avaliacao.getEstatura());
-            stmt.setDouble(4, avaliacao.getImc());
-            stmt.setDouble(5, avaliacao.getPccg());
-            stmt.setDouble(6, avaliacao.getMassaDeGordura());
-            stmt.setDouble(7, avaliacao.getMassaMagra());
-            stmt.setDouble(8, avaliacao.getPesoIdeal());
-            stmt.setDouble(9, avaliacao.getPesoEmExcesso());
-
+            //Params         
+            stmt.setObject(1, avaliacao.getID());
+            stmt.setObject(2, avaliacao.getIdAluno());
+            stmt.setDouble(3, avaliacao.getMassa());
+            stmt.setDouble(4, avaliacao.getEstatura());
+            stmt.setDouble(5, avaliacao.getImc());
+            stmt.setDouble(6, avaliacao.getPccg());
+            stmt.setDouble(7, avaliacao.getMassaDeGordura());
+            stmt.setDouble(8, avaliacao.getMassaMagra());
+            stmt.setDouble(9, avaliacao.getPesoIdeal());
+            stmt.setDouble(10, avaliacao.getPesoEmExcesso());
+            System.out.println(stmt);
             int rows = stmt.executeUpdate();
 
             boolean sucesso = true;
