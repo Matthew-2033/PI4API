@@ -25,8 +25,8 @@ public class AvaliacaoRepository extends Repository {
 
         try {
 
-            String query = "SELECT * FROM view_s_avaliacao";
-            String query2 = "SELECT * FROM view_s_avaliacao WHERE idaluno = ?";
+            String query = "SELECT * FROM view_select_avaliacao";
+            String query2 = "SELECT * FROM view_select_avaliacao WHERE idaluno = ?";
             
 
             switch (id.toString()) {
