@@ -85,7 +85,7 @@ public class AvaliacaoRepository extends Repository {
             stmt.setDouble(8, avaliacao.getMassaMagra());
             stmt.setDouble(9, avaliacao.getPesoIdeal());
             stmt.setDouble(10, avaliacao.getPesoEmExcesso());
-            System.out.println(stmt);
+            
             int rows = stmt.executeUpdate();
 
             boolean sucesso = true;

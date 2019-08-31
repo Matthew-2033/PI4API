@@ -87,7 +87,7 @@ public class AvaliacaoDobrasRepository extends Repository {
             stmt.setDouble(8, dobras.getAbdominalDobra());
             stmt.setDouble(9, dobras.getCoxa());
             stmt.setDouble(10, dobras.getPanturrilha());
-            System.out.println(stmt);
+            
             int rows = stmt.executeUpdate();
 
             boolean sucesso = false;

@@ -2,7 +2,6 @@ package AcademiaGestaoWebApi.Repository;
 
 import AcademiaGestaoWebApi.Config.ConnectionConfig;
 import AcademiaGestaoWebApi.Models.Aluno;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

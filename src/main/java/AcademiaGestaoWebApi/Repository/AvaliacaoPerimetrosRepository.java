@@ -93,8 +93,7 @@ public class AvaliacaoPerimetrosRepository extends Repository {
             stmt.setDouble(11, dobras.getCoxaEsquerda());
             stmt.setDouble(12, dobras.getPernaDireita());
             stmt.setDouble(13, dobras.getPernaEsquerda());
-
-            System.out.println(stmt);
+            
             int rows = stmt.executeUpdate();
 
             boolean sucesso = false;
