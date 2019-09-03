@@ -25,7 +25,7 @@ public class DadosManager {
 
         dados = dadosRepository.selectDados(connection);
         //dados.setPorcentagemDeAvaliados(dadosRepository.selectPorcentagem(connection));
-        dados.setMediaImc(dadosRepository.selectMediaIMC(connection));
+        //dados.setMediaImc(dadosRepository.selectMediaIMC(connection));
 
         return dados;
     }

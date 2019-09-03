@@ -62,7 +62,7 @@ public class DadosRepository extends Repository {
 
     }
 
-    public Dados selectDados(Connection connection) throws Exception {
+      public Dados selectDados(Connection connection) throws Exception {
 
         CallableStatement stmt = null;
         ResultSet rs = null;
@@ -83,7 +83,7 @@ public class DadosRepository extends Repository {
         }
 
     }
-
+    /*
     public List<MediaImc> selectMediaIMC(Connection connection) throws Exception {
 
         CallableStatement stmt = null;
@@ -105,7 +105,7 @@ public class DadosRepository extends Repository {
         }
 
     }
-
+    */
     @Override
     public boolean insert(Object object, Connection connection) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

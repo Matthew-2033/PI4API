@@ -8,59 +8,58 @@ import java.util.List;
  */
 public class Dados {
 
-    private int qtdMasculino;
-    private int qtdFeminino;
-    private int qtdAtivados;
-    private int qtdInativados;
-    private double porcentagemDeAvaliados;
-    private List<MediaImc> mediaImc;
+    private int total;
+    private int ativo;
+    private int feminino;
+    private int inativos;
+    private int masculino;
+    private double nao_avaliado;    
 
     public int getQtdMasculino() {
-        return qtdMasculino;
+        return masculino;
     }
 
     public void setQtdMasculino(int qtdMasculino) {
-        this.qtdMasculino = qtdMasculino;
+        this.masculino = qtdMasculino;
     }
 
     public int getQtdFeminino() {
-        return qtdFeminino;
+        return feminino;
     }
 
     public void setQtdFeminino(int qtdFeminino) {
-        this.qtdFeminino = qtdFeminino;
+        this.feminino = qtdFeminino;
     }
 
     public int getQtdAtivados() {
-        return qtdAtivados;
+        return ativo;
     }
 
     public void setQtdAtivados(int qtdAtivados) {
-        this.qtdAtivados = qtdAtivados;
+        this.ativo = qtdAtivados;
     }
 
     public int getQtdInativados() {
-        return qtdInativados;
+        return inativos;
     }
 
     public void setQtdInativados(int qtdInativados) {
-        this.qtdInativados = qtdInativados;
+        this.inativos = qtdInativados;
     }
 
     public double getPorcentagemDeAvaliados() {
-        return porcentagemDeAvaliados;
+        return nao_avaliado;
     }
 
     public void setPorcentagemDeAvaliados(double porcentagemDeAvaliados) {
-        this.porcentagemDeAvaliados = porcentagemDeAvaliados;
+        this.nao_avaliado = porcentagemDeAvaliados;
     }
 
-    public List<MediaImc> getMediaImc() {
-        return mediaImc;
+    public int getTotal() {
+        return total;
     }
 
-    public void setMediaImc(List<MediaImc> mediaImc) {
-        this.mediaImc = mediaImc;
-    }
-
+    public void setTotal(int total) {
+        this.total = total;
+    } 
 }
