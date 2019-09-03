@@ -1,7 +1,5 @@
 package AcademiaGestaoWebApi.Models;
 
-import java.util.List;
-
 /**
  *
  * @author matheusvieira
@@ -13,47 +11,7 @@ public class Dados {
     private int feminino;
     private int inativos;
     private int masculino;
-    private double nao_avaliado;    
-
-    public int getQtdMasculino() {
-        return masculino;
-    }
-
-    public void setQtdMasculino(int qtdMasculino) {
-        this.masculino = qtdMasculino;
-    }
-
-    public int getQtdFeminino() {
-        return feminino;
-    }
-
-    public void setQtdFeminino(int qtdFeminino) {
-        this.feminino = qtdFeminino;
-    }
-
-    public int getQtdAtivados() {
-        return ativo;
-    }
-
-    public void setQtdAtivados(int qtdAtivados) {
-        this.ativo = qtdAtivados;
-    }
-
-    public int getQtdInativados() {
-        return inativos;
-    }
-
-    public void setQtdInativados(int qtdInativados) {
-        this.inativos = qtdInativados;
-    }
-
-    public double getPorcentagemDeAvaliados() {
-        return nao_avaliado;
-    }
-
-    public void setPorcentagemDeAvaliados(double porcentagemDeAvaliados) {
-        this.nao_avaliado = porcentagemDeAvaliados;
-    }
+    private int nao_avaliado;    
 
     public int getTotal() {
         return total;
@@ -61,5 +19,45 @@ public class Dados {
 
     public void setTotal(int total) {
         this.total = total;
-    } 
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
+    }
+
+    public int getFeminino() {
+        return feminino;
+    }
+
+    public void setFeminino(int feminino) {
+        this.feminino = feminino;
+    }
+
+    public int getInativos() {
+        return inativos;
+    }
+
+    public void setInativos(int inativos) {
+        this.inativos = inativos;
+    }
+
+    public int getMasculino() {
+        return masculino;
+    }
+
+    public void setMasculino(int masculino) {
+        this.masculino = masculino;
+    }
+
+    public double getNao_avaliado() {
+        return nao_avaliado;
+    }
+
+    public void setNao_avaliado(int nao_avaliado) {
+        this.nao_avaliado = nao_avaliado;
+    }
 }
