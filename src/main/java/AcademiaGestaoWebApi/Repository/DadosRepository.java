@@ -1,7 +1,7 @@
 package AcademiaGestaoWebApi.Repository;
 
 import AcademiaGestaoWebApi.Models.Dados;
-import AcademiaGestaoWebApi.Models.MediaImc;
+import AcademiaGestaoWebApi.Models.MediaDeGordura;
 import AcademiaGestaoWebApi.Models.MediaPorcentagemGordura;
 import DataLib.AutoMapper.AutoMapper;
 import java.sql.CallableStatement;
@@ -25,7 +25,7 @@ public class DadosRepository extends Repository {
         List<MediaPorcentagemGordura> medias = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM wiew_media_de_gordura_por_sexo";
+            String query = "SELECT * FROM view_avg_por_sexo";
 
             stmt = connection.prepareCall(query);
             rs = stmt.executeQuery();

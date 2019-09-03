@@ -1,5 +1,7 @@
 package AcademiaGestaoWebApi.Models;
 
+import java.util.List;
+
 /**
  *
  * @author matheusvieira
@@ -12,7 +14,8 @@ public class Dados {
     private int inativos;
     private int masculino;
     private int nao_avaliado;    
-
+    private List<MediaPorcentagemGordura> mediaPorcentagem;
+    
     public int getTotal() {
         return total;
     }
@@ -60,4 +63,12 @@ public class Dados {
     public void setNao_avaliado(int nao_avaliado) {
         this.nao_avaliado = nao_avaliado;
     }
+
+    public List<MediaPorcentagemGordura> getMediaPorcentagem() {
+        return mediaPorcentagem;
+    }
+
+    public void setMediaPorcentagem(List<MediaPorcentagemGordura> mediaPorcentagem) {
+        this.mediaPorcentagem = mediaPorcentagem;
+    }       
 }
