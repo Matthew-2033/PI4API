@@ -17,7 +17,7 @@ import java.util.List;
 public class DadosRepository extends Repository {
 
     @Override
-    public List<MediaPorcentagemGordura> select(Object param, Connection connection) throws Exception {
+    public List<MediaPorcentagemGordura> select( Object param, Connection connection) throws Exception {
 
         CallableStatement stmt = null;
         ResultSet rs = null;

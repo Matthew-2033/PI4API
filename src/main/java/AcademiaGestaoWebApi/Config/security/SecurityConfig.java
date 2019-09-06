@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @EnableAuthorizationServer
@@ -58,16 +59,11 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
                                    "/webjars/**");
     }
 
-    public class NotEncoder implements PasswordEncoder{
-
+    public class NotEncoder extends BCryptPasswordEncoder{
+        
         @Override
         public String encode(CharSequence rawPassword) {
             return rawPassword.toString();
-        }
-
-        @Override
-        public boolean matches(CharSequence rawPassword, String encodedPassword) {
-            return rawPassword.toString().equals(encodedPassword);
         }
         
     }
