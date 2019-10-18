@@ -107,8 +107,7 @@ public class AlunoRepository extends Repository<Aluno> {
                     stmt.setString(3, "M");
                     break;               
             }
-            
-            //stmt.setInt(3, aluno.getSexo().getInt());
+                        
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getCpf());
             stmt.setBoolean(6, aluno.getAtivo());

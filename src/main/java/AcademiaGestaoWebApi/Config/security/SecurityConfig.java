@@ -28,7 +28,7 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, true AS Enable FROM acesso.usuario WHERE username=?")
-                .passwordEncoder(new NotEncoder())
+                .passwordEncoder(new BCryptPasswordEncoder())
                 .authoritiesByUsernameQuery("SELECT U.username, R.role FROM acesso.usuario_role AS UR \n" +
                                                                     "INNER JOIN acesso.usuario AS U ON U.id_usuario = UR.id_usuario\n" +
                                                                     "INNER JOIN acesso.role AS R ON R.id_role = UR.id_role WHERE U.username=?");
@@ -57,19 +57,5 @@ public class SecurityConfig<CustomizeAuthenticationSuccessHandler> extends WebSe
                                    "/configuration/security",
                                    "/swagger-ui.html",
                                    "/webjars/**");
-    }
-
-    public class NotEncoder implements PasswordEncoder{
-                
-        @Override
-        public String encode(CharSequence rawPassword) {
-            return rawPassword.toString();
-        }
-
-        @Override
-        public boolean matches(CharSequence rawPassword, String encodedPassword) {            
-            return rawPassword.toString().equals(encodedPassword);
-        }
-        
     }
 }
