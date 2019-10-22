@@ -24,10 +24,10 @@ Autorization:
 
 Properties Para conectar no Banco de Producao:
 
-spring.datasource.url=jdbc:mysql://mysql.hugolutke.com.br/hugolutke01
-spring.datasource.username=hugolutke01
-spring.datasource.password=projeto3
-
+spring.datasource.url=jdbc:postgresql://67.205.152.196:5432/pi4
+spring.datasource.username=postgres
+spring.datasource.password=Witcher_03
+  
 server.port=8081
 
 security.oauth2.client.client-id=PI_3S
