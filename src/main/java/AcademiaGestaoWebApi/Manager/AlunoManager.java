@@ -31,19 +31,6 @@ public class AlunoManager {
             throw ex;
         }                
     }
-
-    public Aluno selectAluno(int id) throws Exception {
-
-        Repository<Aluno> repositori = RepositoryFactory.CreateRepository(RepositoryEnum.ALUNO);
-
-        try {
-            Aluno aluno = repositori.select(id);
-            
-            return aluno;
-        } catch (Exception ex) {
-            throw ex;
-        }                
-    }
     
     public boolean insertAluno(Aluno aluno) throws Exception {
         Repository<Aluno> repositori = RepositoryFactory.CreateRepository(RepositoryEnum.ALUNO);
