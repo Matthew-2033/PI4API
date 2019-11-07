@@ -9,7 +9,11 @@ public class Exercicio {
     private String nome;
     private LocalDate dataCriacao;
     private boolean ativo;
-
+    private int vezes;
+    private int repeticoes;
+    private double carga;
+    
+            
     public UUID getId() {
         return id;
     }
@@ -40,5 +44,31 @@ public class Exercicio {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
-    }      
+    }  
+
+    public int getVezes() {
+        return vezes;
+    }
+
+    public void setVezes(int vezes) {
+        this.vezes = vezes;
+    }
+
+    public int getRepeticoes() {
+        return repeticoes;
+    }
+
+    public void setRepeticoes(int repeticoes) {
+        this.repeticoes = repeticoes;
+    }
+
+    public double getCarga() {
+        return carga;
+    }
+
+    public void setCarga(double carga) {
+        this.carga = carga;
+    }
+
+    
 }

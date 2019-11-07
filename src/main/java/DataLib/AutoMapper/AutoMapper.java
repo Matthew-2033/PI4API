@@ -1,6 +1,11 @@
 package DataLib.AutoMapper;
 
+import AcademiaGestaoWebApi.Models.Treinos.ExercicioAtributos;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -9,6 +14,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class AutoMapper<T> {
 
@@ -37,7 +45,7 @@ public class AutoMapper<T> {
     }
 
     public List<T> map(ResultSet resultSet) throws SQLException, InstantiationException, IllegalAccessException,
-            NoSuchFieldException, SecurityException, IllegalArgumentException {
+            NoSuchFieldException, SecurityException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 
         setFilds();
 
@@ -57,7 +65,7 @@ public class AutoMapper<T> {
     }
 
     private T getInstance(ResultSet data, T object) throws InstantiationException, IllegalAccessException,
-            NoSuchFieldException, SecurityException, IllegalArgumentException, SQLException {
+            NoSuchFieldException, SecurityException, IllegalArgumentException, SQLException, InvocationTargetException, NoSuchMethodException {
 
         T instance = (T) object.getClass().newInstance();
 
@@ -68,21 +76,21 @@ public class AutoMapper<T> {
 
             try {
                 switch (property.type) {
-                    case "java.util.UUID" :
-                        UUID guidValue = UUID.fromString(data.getString(property.name)); 
-                        field.set(instance, guidValue);                    
+                    case "java.util.UUID":
+                        UUID guidValue = UUID.fromString(data.getString(property.name));
+                        field.set(instance, guidValue);
                         break;
-                    case "int":                    
+                    case "int":
                         int intValue = data.getInt(property.name);
                         field.set(instance, intValue);
                         break;
-                        
-                    case "Enum":     
+
+                    case "Enum":
                         Method setEnum = getMethodSetEnum(instance, field);
-                        
-                        int enumValue = data.getInt(property.name);    
+
+                        int enumValue = data.getInt(property.name);
                         setEnum.invoke(instance, enumValue);
-                        break;                    
+                        break;
                     case "double":
                         field.set(instance, data.getDouble(property.name));
                         break;
@@ -97,18 +105,18 @@ public class AutoMapper<T> {
                         break;
                     case "java.time.LocalDate":
                         Date date = data.getDate(property.name);
-    
+
                         field.set(instance, date.toLocalDate());
                         break;
                     case "java.time.LocalDateTime":
                         Timestamp dateTime = data.getTimestamp(property.name);
-    
+
                         field.set(instance, dateTime.toLocalDateTime());
                         break;
                 }
             } catch (Exception ex) {
                 continue;
-            }            
+            }
         }
 
         return instance;

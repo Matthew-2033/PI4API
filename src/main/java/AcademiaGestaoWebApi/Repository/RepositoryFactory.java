@@ -1,6 +1,7 @@
 package AcademiaGestaoWebApi.Repository;
 
 import AcademiaGestaoWebApi.Enums.RepositoryEnum;
+import AcademiaGestaoWebApi.Repository.Treino.TreinoRepository;
 
 public final class RepositoryFactory {
 
@@ -20,6 +21,8 @@ public final class RepositoryFactory {
                 return new AvaliacaoRepository();
             case "MEDIAGORDURA":
                 return new DadosRepository();
+            case "TREINO":
+                return new TreinoRepository();
         }
 
         return null;
