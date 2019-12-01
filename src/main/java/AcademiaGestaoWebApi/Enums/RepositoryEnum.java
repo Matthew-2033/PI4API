@@ -4,7 +4,9 @@ public enum RepositoryEnum{
     ALUNO(1),
     AVALIACAO(2),
     MEDIAGORDURA(3),
-    TREINO(4);
+    TREINO(4),    
+    GRUPOMUSCULAR(5),
+    ALUNOTREINO(6);
     
     public int valorRepository;
 

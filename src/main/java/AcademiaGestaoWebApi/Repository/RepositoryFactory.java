@@ -1,6 +1,8 @@
 package AcademiaGestaoWebApi.Repository;
 
 import AcademiaGestaoWebApi.Enums.RepositoryEnum;
+import AcademiaGestaoWebApi.Repository.Treino.AlunoTreinoRepository;
+import AcademiaGestaoWebApi.Repository.Treino.GrupoMuscularRepository;
 import AcademiaGestaoWebApi.Repository.Treino.TreinoRepository;
 
 public final class RepositoryFactory {
@@ -23,6 +25,10 @@ public final class RepositoryFactory {
                 return new DadosRepository();
             case "TREINO":
                 return new TreinoRepository();
+            case "GRUPOMUSCULAR":
+                return new GrupoMuscularRepository();
+            case "ALUNOTREINO":
+                return new AlunoTreinoRepository();
         }
 
         return null;

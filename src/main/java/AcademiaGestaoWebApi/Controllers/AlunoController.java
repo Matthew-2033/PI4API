@@ -61,7 +61,7 @@ public class AlunoController {
         }
     }
 
-    @ApiOperation(value = "Inseri um aluno")
+    @ApiOperation(value = "Insere um aluno")
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<ApiRetorno<Boolean>> postAluno(@RequestBody @Valid Aluno aluno) {
         AlunoManager alunoManager = new AlunoManager();
@@ -120,8 +120,7 @@ public class AlunoController {
         ApiRetorno<Boolean> response = new ApiRetorno<Boolean>();
 
         try {
-            UUID idGuid = UUID.fromString(id);
-            System.out.println("GUID:" + idGuid);
+            UUID idGuid = UUID.fromString(id);            
             Boolean result = alunoManager.deleteAluno(idGuid);
 
             response.setData(result);

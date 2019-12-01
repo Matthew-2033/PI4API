@@ -74,7 +74,7 @@ public class UsuarioRepository extends Repository<Usuario> {
                                 +" ,us.data_criacao AS dataDeCriacao"
                                 +" ,ro.Role AS role"
                             +" FROM acesso.usuario us"
-                            +" JOIN aluno.aluno al ON al.nome = us.username"
+                            +" JOIN aluno.aluno al ON al.id_aluno = us.id_aluno"
                             +" JOIN acesso.usuario_role USING(id_usuario)"
                             +" JOIN acesso.role ro USING(id_role)"
                             +" WHERE us.username = ?;";

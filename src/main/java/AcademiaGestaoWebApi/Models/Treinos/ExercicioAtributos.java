@@ -1,12 +1,23 @@
 package AcademiaGestaoWebApi.Models.Treinos;
 
+import java.util.UUID;
+
 public class ExercicioAtributos {
 
+    private UUID idExercicio;
     private String exercicio;
     private int vezes;
     private int repeticoes;
     private double carga;
 
+    public UUID getId() {
+        return idExercicio;
+    }
+
+    public void setId(UUID id) {
+        this.idExercicio = id;
+    }
+          
     public String getExercicio() {
         return exercicio;
     }
