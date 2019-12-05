@@ -12,9 +12,8 @@ public class AlunoTreino {
 
     private UUID idTreino;
     private String nivel;
-    private String nome;
-    private LocalDate dataCriacao;
-    private SexoEnum sexo;
+    private String treino;
+    private LocalDate dataCriacao;    
     private int repeticoes;
     private List<ExercicioAtributos> exercicios;
     private boolean ativo;
@@ -37,11 +36,11 @@ public class AlunoTreino {
     }
 
     public String getNome() {
-        return nome;
+        return treino;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.treino = nome;
     }
 
     public LocalDate getDataCriacao() {
@@ -50,28 +49,6 @@ public class AlunoTreino {
 
     public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public SexoEnum getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(SexoEnum sexo) {
-        this.sexo = sexo;
-    }
-
-    public void setSexo(int sexo) {
-        switch (sexo) {
-            case 1:
-                this.sexo = SexoEnum.MASCULINO;
-                break;
-            case 2:
-                this.sexo = SexoEnum.FEMININO;
-                break;
-            case 3:
-                this.sexo = SexoEnum.AMBOS;
-                break;
-        }
     }
 
     public boolean isAtivo() {
