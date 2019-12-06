@@ -66,9 +66,9 @@ public class AlunoTreinoController {
 
     }
 
-    @PostMapping(path = "/Finaliza/{idAluno}")
+    @GetMapping(path = "/Finaliza")
     @ApiOperation(value = "Finaliza treino diário do aluno")
-    public ResponseEntity<ApiRetorno<Boolean>> finalizar(@PathVariable String idAluno) {
+    public ResponseEntity<ApiRetorno<Boolean>> finalizar(String idAluno) {
         ApiRetorno<Boolean> retorno = new ApiRetorno<Boolean>();
 
         try {
