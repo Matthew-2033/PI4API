@@ -57,8 +57,9 @@ public class UsuarioController {
     }
 
     @ApiOperation(value = "Atualiza senha")
-    @PostMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<ApiRetorno<Boolean>> atualizarAluno(@RequestHeader String novaSenha, @RequestHeader String usuario) {
+    @GetMapping(path = "/Change")
+    //@PostMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<ApiRetorno<Boolean>> atualizarAluno(String novaSenha, String usuario) {
         UsuarioManager usuarioManager = new UsuarioManager();
         ApiRetorno<Boolean> response = new ApiRetorno<Boolean>();
 
