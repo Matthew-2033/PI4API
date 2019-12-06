@@ -34,7 +34,7 @@ public class UsuarioRepository extends Repository<Usuario> {
         
         try{
             
-            String query = "UPDATE User SET Password = ? WHERE Username = ?"; 
+            String query = "UPDATE acesso.usuario SET password = ? WHERE id_usuario = ?::uuid"; 
             
             stmt = connection.prepareStatement(query);
             stmt.setString(1, novaSenha);
