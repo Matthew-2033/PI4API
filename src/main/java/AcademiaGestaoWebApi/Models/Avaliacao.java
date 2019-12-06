@@ -17,7 +17,7 @@ public class Avaliacao {
 
     private UUID idAluno;
     
-    private LocalDate dataAvaliacao;
+    private LocalDate dataavaliacao;
     
     private double massa;
     
@@ -78,11 +78,11 @@ public class Avaliacao {
     }
 
     public LocalDate getDataAvaliacao() {
-        return dataAvaliacao;
+        return dataavaliacao;
     }
 
     public void setDataAvaliacao(LocalDate dataAvaliacao) {
-        this.dataAvaliacao = dataAvaliacao;
+        this.dataavaliacao = dataAvaliacao;
     }
 
     public double getMassa() {
